@@ -35,6 +35,20 @@ THEME_BOOT = (
 )
 
 
+def lang_boot(lang: str, english_href: str) -> str:
+    """One link for everyone: the Portuguese pages send visitors whose browser is not in
+    Portuguese to the English twin, unless they already chose a language with the switch.
+    Crawlers are never redirected, so both versions stay indexed."""
+    if lang != "pt":
+        return ""
+    return (
+        "<script>try{var c=localStorage.getItem('lang');"
+        "if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))"
+        "&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))"
+        f"location.replace('{english_href}'+location.hash)}}catch(e){{}}</script>"
+    )
+
+
 def e(text: str) -> str:
     return escape(text, quote=True)
 
@@ -84,6 +98,7 @@ def page(lang: str, title: str, description: str, path: str, body: str, depth: i
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="{up}{"../" if lang == "en" else ""}assets/style.css">
 {THEME_BOOT}
+{lang_boot(lang, up + "en/" + alternate)}
 {extra_head}
 </head>
 <body>
@@ -94,7 +109,7 @@ def page(lang: str, title: str, description: str, path: str, body: str, depth: i
     <a href="{up}index.html#projects">{u["nav_projects"]}</a>
     <a href="{up}index.html#skills">{u["nav_skills"]}</a>
     <a href="{up}index.html#contact">{u["nav_contact"]}</a>
-    <a class="lang" href="{other_href}" hreflang="{"en" if other == "en" else "pt-BR"}" lang="{"en" if other == "en" else "pt-BR"}" aria-label="{u["other_lang_label"]}">{u["other_lang"]}</a>
+    <a class="lang" data-lang="{other}" href="{other_href}" hreflang="{"en" if other == "en" else "pt-BR"}" lang="{"en" if other == "en" else "pt-BR"}" aria-label="{u["other_lang_label"]}">{u["other_lang"]}</a>
     <button class="theme" type="button" aria-label="{u["theme"]}" title="{u["theme"]}">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
     </button>
@@ -312,6 +327,7 @@ def not_found(lang: str) -> str:
 </article>"""
     # 404 is served at any depth, so it uses absolute asset URLs.
     html = page(lang, f"{u['notfound_title']}: {PERSON['name']}", u["description"], "404.html", body, 0, "")
+    html = html.replace("location.replace('en/", f"location.replace('{SITE}/en/")
     for attr in ('href="assets/', 'src="assets/', 'href="index.html', 'href="en/'):
         html = html.replace(attr, attr.replace('"', f'"{SITE}/', 1))
     return html

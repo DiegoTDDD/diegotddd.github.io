@@ -14,6 +14,12 @@
     });
   }
 
+  // Remember the language a visitor picks, so the Portuguese pages stop redirecting them.
+  var langLink = document.querySelector("a.lang[data-lang]");
+  if (langLink) {
+    langLink.addEventListener("click", function () { store("lang", langLink.getAttribute("data-lang")); });
+  }
+
   var chips = document.querySelectorAll(".chip");
   var rows = document.querySelectorAll(".row[data-tags]");
   var groups = document.querySelectorAll(".group");
