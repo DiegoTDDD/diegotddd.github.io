@@ -24,6 +24,11 @@ jobs:
           python-version: "3.11"
       - name: Build
         run: python build.py
+      - name: Render résumé PDFs and social preview
+        run: |
+          pip install playwright==1.63.0
+          python -m playwright install --with-deps chromium
+          python scripts/render_assets.py
       - name: Check links
         run: python scripts/check_links.py
       - uses: actions/upload-pages-artifact@v3

@@ -152,3 +152,79 @@ figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; line-h
   .edu { grid-template-columns: 1fr; gap: 0 0; }
   .edu dd { margin-bottom: 0.6rem; }
 }
+
+/* Header controls: language and theme */
+.top nav { align-items: center; flex-wrap: wrap; }
+.top nav .lang { font-weight: 600; color: var(--link); }
+.theme {
+  display: inline-grid; place-items: center; width: 2rem; height: 2rem; padding: 0;
+  border: 1px solid var(--rule); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer;
+}
+.theme svg { width: 1rem; height: 1rem; fill: currentColor; }
+.theme:hover { border-color: var(--ink); }
+
+/* Hero additions: who, call to action, numbers */
+.who { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; }
+.avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 3px solid var(--measure); }
+.who p { margin: 0; font-family: var(--display); font-size: 0.95rem; line-height: 1.45; color: var(--muted); }
+.who strong { color: var(--ink); font-size: 1.05rem; }
+.lead { max-width: 34rem; color: var(--muted); margin: 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0 0; }
+.button {
+  font-family: var(--display); font-weight: 600; font-size: 0.95rem; text-decoration: none;
+  padding: 0.6rem 1rem; border-radius: 4px; background: var(--ink); color: var(--paper); border: 2px solid var(--ink);
+}
+.button:hover { background: var(--link); border-color: var(--link); text-decoration: none; }
+.button-quiet { background: transparent; color: var(--ink); }
+.button-quiet:hover { color: var(--paper); }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin: 2rem 0 0; max-width: 36rem; }
+.stats div { border-top: 2px solid var(--ink); padding-top: 0.5rem; }
+.stats dt { font-family: var(--display); font-weight: 800; font-size: 1.7rem; line-height: 1; color: var(--measure); font-variant-numeric: tabular-nums; }
+.stats dd { margin: 0.3rem 0 0; font-family: var(--display); font-size: 0.8rem; line-height: 1.35; color: var(--muted); }
+
+/* Projects: one heading, filter chips, two groups */
+.projects { padding-block: 1rem 2rem; }
+.projects > h2, .block > h2 {
+  font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 1rem;
+  padding-bottom: 0.75rem; border-bottom: 2px solid var(--ink);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1rem; }
+.chip {
+  font-family: var(--display); font-size: 0.875rem; font-weight: 500; cursor: pointer;
+  padding: 0.35rem 0.8rem; border-radius: 999px; border: 1px solid var(--rule); background: transparent; color: var(--ink);
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.empty { color: var(--muted); font-style: italic; }
+.group { padding-block: 0.5rem 1.5rem; }
+.group-h { font-size: 1.05rem; font-weight: 600; color: var(--muted); margin: 1.5rem 0 0; }
+.row[hidden], .group[hidden] { display: none; }
+
+/* Experience, education, skills, about, contact */
+.block { padding-block: 1rem 2.5rem; }
+.split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3rem; }
+.xp { list-style: none; margin: 0; padding: 0; }
+.xp li { padding: 0.9rem 0; border-bottom: 1px solid var(--rule); }
+.xp p { margin: 0; }
+.xp-role { font-family: var(--display); font-weight: 700; }
+.xp-org { color: var(--ink); }
+.xp-when { font-family: var(--display); font-size: 0.875rem; color: var(--muted); }
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem 2rem; }
+.skill h3 { font-size: 1rem; font-weight: 700; margin: 0 0 0.35rem; }
+.skill p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+.prose-sm p, p.prose-sm { margin: 0 0 1rem; max-width: var(--narrow); }
+
+/* Case pages: live CI badge */
+.ci { display: inline-block; margin-top: 0.75rem; }
+.ci img { display: block; height: 20px; }
+
+@media (max-width: 860px) {
+  .split, .skills { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .top nav { gap: 0.9rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chip, .button, .theme { transition: background-color 0.15s, color 0.15s, border-color 0.15s; }
+}

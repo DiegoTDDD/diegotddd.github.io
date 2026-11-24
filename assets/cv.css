@@ -1,0 +1,14 @@
+@page { size: A4; margin: 14mm 15mm; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #13233a; font: 400 9.6pt/1.45 "Source Serif 4", Georgia, serif; }
+h1, h2, .role, .contact, strong { font-family: "Schibsted Grotesk", Arial, sans-serif; }
+header { border-bottom: 2px solid #13233a; padding-bottom: 6pt; margin-bottom: 4pt; }
+h1 { font-size: 20pt; margin: 0; letter-spacing: -0.02em; }
+.role { margin: 2pt 0 0; font-size: 11pt; font-weight: 600; color: #0b625b; }
+.contact { margin: 3pt 0 0; font-size: 8.6pt; color: #566476; }
+h2 { font-size: 10.5pt; margin: 9pt 0 3pt; color: #9a5200; }
+p { margin: 0 0 3pt; }
+ul { margin: 0; padding-left: 12pt; }
+li { margin: 0 0 3pt; break-inside: avoid; }
+em { font-style: normal; color: #566476; }
+.url { color: #0b625b; font-family: "Schibsted Grotesk", Arial, sans-serif; font-size: 8pt; }
