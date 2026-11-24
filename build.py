@@ -374,7 +374,7 @@ def og_page() -> str:
 <p class="name">{PERSON["name"]}</p>
 <p class="role">{e(PERSON["role"]["pt"])} | {e(PERSON["role"]["en"])}</p>
 <p class="head">{e(PERSON["headline"]["pt"])}</p>
-<p class="nums"><span>{len(PROJECTS)}</span> projetos, todos com CI <span>0,82</span> F1 do modelo ajustado <span>23/23</span> ataques bloqueados</p>
+<p class="nums"><span>{len(PROJECTS)}</span> projetos com CI <span>0,82</span> de F1 <span>23/23</span> ataques bloqueados</p>
 <p class="url">diegotddd.github.io</p></div></div></body></html>
 """
 
