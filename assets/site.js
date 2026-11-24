@@ -34,10 +34,15 @@
   });
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduce) {
+  // Browsers defer autoplay in background tabs, so start again whenever the page becomes visible.
+  function playAll() {
+    if (reduce || document.visibilityState !== "visible") return;
     document.querySelectorAll("video[data-autoplay]").forEach(function (v) {
+      if (!v.paused) return;
       var p = v.play();
       if (p && p.catch) p.catch(function () {});
     });
   }
+  playAll();
+  document.addEventListener("visibilitychange", playAll);
 })();
