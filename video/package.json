@@ -1,0 +1,9 @@
+{
+  "name": "agents-demo-video",
+  "private": true,
+  "description": "Renders the fraud-investigation-agents demo video from the recorded case c18",
+  "dependencies": {
+    "@fontsource/schibsted-grotesk": "5.2.8",
+    "@fontsource/source-serif-4": "5.2.9"
+  }
+}

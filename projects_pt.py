@@ -27,8 +27,8 @@ PT = {
         ],
         "limits": "Os dados são sintéticos. O Crítico confere veredito, tipo de fraude e evidências citadas, mas não o "
         "resumo em texto livre, que ainda pode descrever mal as evidências.",
-        "video_caption": "Duas investigações gravadas na avaliação: o Crítico rejeita o primeiro relatório citando a regra "
-        "quebrada e a segunda rodada chega ao veredito certo.",
+        "video_caption": "Uma investigação real gravada na avaliação: o Crítico rejeita o primeiro relatório citando a "
+        "regra quebrada, a segunda rodada acerta, e o resultado nos 30 alertas.",
     },
     "sec-mcp-agent": {
         "name": "Agente MCP sobre a SEC",

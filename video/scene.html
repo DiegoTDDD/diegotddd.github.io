@@ -1,0 +1,251 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: G; font-weight: 400; src: url(node_modules/@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-400-normal.woff2); }
+@font-face { font-family: G; font-weight: 500; src: url(node_modules/@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-500-normal.woff2); }
+@font-face { font-family: G; font-weight: 600; src: url(node_modules/@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-600-normal.woff2); }
+@font-face { font-family: G; font-weight: 700; src: url(node_modules/@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-700-normal.woff2); }
+@font-face { font-family: G; font-weight: 800; src: url(node_modules/@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-800-normal.woff2); }
+:root { --bg:#0f1a28; --panel:#16263a; --line:#2b3f57; --ink:#e4e9ef; --muted:#93a3b6; --teal:#5fd0c4; --amber:#f0a64b; --red:#ff6b6b; --green:#4ade80; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1280px; height: 720px; overflow: hidden; background: var(--bg); color: var(--ink); font-family: G, Arial, sans-serif; }
+body { background-image: radial-gradient(rgba(147,163,182,.10) 1px, transparent 1px); background-size: 28px 28px; }
+.abs { position: absolute; }
+#title { left: 60px; top: 34px; font-size: 15px; font-weight: 600; color: var(--muted); }
+#case { right: 60px; top: 34px; font-size: 15px; color: var(--muted); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+#alert { left: 60px; top: 78px; width: 340px; }
+#alert .k { font-size: 13px; font-weight: 700; color: var(--amber); }
+#alert .v { font-size: 30px; font-weight: 800; margin-top: 4px; letter-spacing: -0.02em; }
+#alert .d { font-size: 16px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.node { width: 168px; height: 62px; border-radius: 10px; border: 2px solid var(--line); background: var(--panel);
+        display: flex; flex-direction: column; justify-content: center; padding: 0 14px; }
+.node b { font-size: 18px; font-weight: 700; }
+.node span { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.server { width: 178px; height: 54px; border-radius: 8px; border: 1.5px dashed var(--line); padding: 8px 12px; font-size: 13.5px; color: var(--muted); }
+.server b { display: block; color: var(--ink); font-size: 14px; font-weight: 600; }
+.chip { font-size: 14px; font-weight: 600; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--teal); color: var(--teal); }
+.ev { left: 880px; width: 340px; padding: 11px 14px; }
+.ev .id { font-size: 12.5px; font-weight: 800; color: var(--teal); }
+.ev .t { font-size: 15px; line-height: 1.38; margin-top: 3px; }
+.report { left: 560px; top: 470px; width: 300px; }
+.report .k { font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.report .v { font-size: 20px; font-weight: 800; margin-top: 3px; }
+.report .c { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+.stamp { font-size: 24px; font-weight: 800; letter-spacing: 0.02em; padding: 4px 12px; border: 3px solid; border-radius: 8px; }
+#rule { left: 560px; top: 588px; width: 640px; font-size: 16px; line-height: 1.4; color: #ffc9c9; }
+#final { left: 60px; top: 652px; width: 1160px; font-size: 17px; color: var(--ink); }
+#final b { color: var(--green); }
+svg { position: absolute; left: 0; top: 0; }
+/* chart scene */
+#chart { left: 0; top: 0; width: 1280px; height: 720px; padding: 70px 90px; }
+#chart h2 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+#chart .sub { font-size: 18px; color: var(--muted); margin-top: 8px; }
+.bar { position: absolute; left: 90px; height: 64px; }
+.bar .lab { position: absolute; left: 0; top: 0; width: 330px; height: 64px; display: flex; align-items: center; font-size: 20px; font-weight: 600; }
+.bar .track { position: absolute; left: 340px; top: 12px; width: 700px; height: 40px; background: #1b2c41; border-radius: 6px; }
+.bar .fill { position: absolute; left: 0; top: 0; height: 40px; border-radius: 6px; background: #3a5270; }
+.bar .num { position: absolute; top: 0; height: 40px; display: flex; align-items: center; font-size: 22px; font-weight: 800; padding-left: 12px; }
+.bar.hl .fill { background: var(--amber); }
+.bar.hl .lab { color: var(--amber); }
+#takeaway { left: 90px; top: 560px; width: 1100px; font-size: 21px; line-height: 1.45; }
+#foot { left: 90px; top: 652px; font-size: 15px; color: var(--muted); }
+</style></head>
+<body>
+<div id="s1">
+  <svg width="1280" height="720"><g id="wires" stroke-width="2" fill="none"></g><g id="dots"></g></svg>
+  <p id="title" class="abs"></p><p id="case" class="abs"></p>
+  <div id="alert" class="abs card"><p class="k"></p><p class="v"></p><p class="d"></p></div>
+  <div id="n0" class="abs node"><b></b><span></span></div>
+  <div id="n1" class="abs node"><b></b><span></span></div>
+  <div id="n2" class="abs node"><b></b><span></span></div>
+  <div id="n3" class="abs node"><b></b><span></span></div>
+  <div id="srv0" class="abs server"><b></b></div>
+  <div id="srv1" class="abs server"><b></b></div>
+  <p id="h0" class="abs chip"></p><p id="h1" class="abs chip"></p>
+  <div id="e0" class="abs card ev"><p class="id"></p><p class="t"></p></div>
+  <div id="e1" class="abs card ev"><p class="id"></p><p class="t"></p></div>
+  <div id="e2" class="abs card ev"><p class="id"></p><p class="t"></p></div>
+  <div id="e3" class="abs card ev"><p class="id"></p><p class="t"></p></div>
+  <div id="r1" class="abs card report"><p class="k"></p><p class="v"></p><p class="c"></p></div>
+  <div id="r2" class="abs card report"><p class="k"></p><p class="v"></p><p class="c"></p></div>
+  <p id="st1" class="abs stamp"></p><p id="st2" class="abs stamp"></p>
+  <p id="rule" class="abs"></p>
+  <p id="final" class="abs"></p>
+</div>
+<div id="chart" class="abs">
+  <h2></h2><p class="sub"></p>
+  <div id="b0" class="bar"><div class="lab"></div><div class="track"><div class="fill"></div><div class="num"></div></div></div>
+  <div id="b1" class="bar"><div class="lab"></div><div class="track"><div class="fill"></div><div class="num"></div></div></div>
+  <div id="b2" class="bar"><div class="lab"></div><div class="track"><div class="fill"></div><div class="num"></div></div></div>
+  <div id="b3" class="bar hl"><div class="lab"></div><div class="track"><div class="fill"></div><div class="num"></div></div></div>
+  <p id="takeaway" class="abs"></p><p id="foot" class="abs"></p>
+</div>
+<script>
+const TEXT = {
+  pt: {
+    title: "Investigação de um alerta real, gravada na avaliação", case: "caso c18 de 30",
+    alertK: "ALERTA DE FRAUDE", alertV: "R$ 701,16", alertD: "Moda, em Fortaleza, às 04:06<br>cartão card_0141",
+    nodes: [["Planejador", "escolhe o que checar"], ["Pesquisador", "consulta via MCP"], ["Relator", "escreve o veredito"], ["Crítico", "confere com regras"]],
+    servers: [["Atividade do cartão", "servidor MCP"], ["Modelo de fraude", "servidor MCP"]],
+    hyp: ["valor alto?", "viagem impossível?"],
+    ev: [["E2  PERFIL DO CARTÃO", "Mora em Belo Horizonte (80% das compras). Mediana de R$ 137,19: esta compra é 0,36× o p95 do cartão."],
+         ["E3  ÚLTIMOS 5 MINUTOS", "5 compras em Belo Horizonte, nenhuma micro-cobrança."],
+         ["E4  COMPRA ANTERIOR", "Em Belo Horizonte, 2 minutos antes, a 1.894 km daqui: 56.672 km/h."],
+         ["E5  MODELO DE FRAUDE", "Probabilidade 0,615, acima do limiar de 0,563."]],
+    r1: ["RELATÓRIO, 1ª RODADA", "Fraude: valor alto", "cita E2, E3, E4"],
+    r2: ["RELATÓRIO, 2ª RODADA", "Fraude: viagem impossível", "cita E2, E4"],
+    rej: "REJEITADO", ok: "APROVADO",
+    rule: "Regra: valor alto exige ao menos 3× o p95 do cartão e R$ 2.000. A evidência E2 mostra 0,36×.",
+    final: "<b>Veredito final: fraude por viagem impossível.</b> 2 rodadas, 3 chamadas a um modelo local de 3B numa CPU.",
+    chartH: "Padrão de fraude identificado em 30 alertas com resposta conhecida",
+    chartS: "Mesmos alertas, mesmo modelo de fraude, avaliação reproduzível no CI",
+    bars: [["Só o modelo de fraude", 23], ["Uma chamada ao LLM", 47], ["Regras fixas", 80], ["Equipe de agentes", 77]],
+    take: "Os agentes saem de 47% para 77%, perto das regras fixas, e cada veredito chega com as evidências que o sustentam e uma checagem que o rejeita quando elas não bastam.",
+    foot: "Dados sintéticos. Código e avaliação: github.com/DiegoTDDD/fraud-investigation-agents",
+  },
+  en: {
+    title: "Investigation of a real alert, recorded in the evaluation", case: "case c18 of 30",
+    alertK: "FRAUD ALERT", alertV: "R$ 701.16", alertD: "Fashion, in Fortaleza, at 04:06<br>card card_0141",
+    nodes: [["Planner", "chooses what to check"], ["Researcher", "queries via MCP"], ["Reporter", "writes the verdict"], ["Critic", "checks it against rules"]],
+    servers: [["Card activity", "MCP server"], ["Fraud model", "MCP server"]],
+    hyp: ["high amount?", "impossible travel?"],
+    ev: [["E2  CARD PROFILE", "Home is Belo Horizonte (80% of purchases). Median R$ 137.19: this purchase is 0.36× the card's p95."],
+         ["E3  LAST 5 MINUTES", "5 purchases in Belo Horizonte, no micro-charges."],
+         ["E4  PREVIOUS PURCHASE", "In Belo Horizonte, 2 minutes earlier, 1,894 km away: 56,672 km/h."],
+         ["E5  FRAUD MODEL", "Probability 0.615, above the 0.563 threshold."]],
+    r1: ["REPORT, ROUND 1", "Fraud: high amount", "cites E2, E3, E4"],
+    r2: ["REPORT, ROUND 2", "Fraud: impossible travel", "cites E2, E4"],
+    rej: "REJECTED", ok: "APPROVED",
+    rule: "Rule: high amount needs at least 3× the card's p95 and R$ 2,000. Evidence E2 shows 0.36×.",
+    final: "<b>Final verdict: fraud by impossible travel.</b> 2 rounds, 3 calls to a local 3B model on a CPU.",
+    chartH: "Fraud pattern identified on 30 alerts with known answers",
+    chartS: "Same alerts, same fraud model, evaluation reproducible in CI",
+    bars: [["Fraud model alone", 23], ["One LLM call", 47], ["Fixed rules", 80], ["Agent team", 77]],
+    take: "The agents go from 47% to 77%, close to fixed rules, and every verdict comes with the evidence behind it and a check that rejects it when the evidence falls short.",
+    foot: "Synthetic data. Code and evaluation: github.com/DiegoTDDD/fraud-investigation-agents",
+  },
+};
+const L = TEXT[new URLSearchParams(location.search).get("lang") || "pt"];
+const $ = (id) => document.getElementById(id);
+const q = (el, s) => el.querySelector(s);
+
+// layout
+const NODE_Y = 300, NODE_X = [60, 258, 456, 654];
+NODE_X.forEach((x, i) => { const n = $("n" + i); n.style.left = x + "px"; n.style.top = NODE_Y + "px"; q(n, "b").textContent = L.nodes[i][0]; q(n, "span").textContent = L.nodes[i][1]; });
+[[150, 440], [345, 440]].forEach(([x, y], i) => { const s = $("srv" + i); s.style.left = x + "px"; s.style.top = y + "px"; s.innerHTML = `<b>${L.servers[i][0]}</b>${L.servers[i][1]}`; });
+$("h0").style.left = "60px"; $("h0").style.top = "378px"; $("h1").style.left = "60px"; $("h1").style.top = "414px";
+L.hyp.forEach((h, i) => $("h" + i).textContent = h);
+const EV_Y = [78, 214, 330, 446];
+L.ev.forEach((ev, i) => { const e = $("e" + i); e.style.top = EV_Y[i] + "px"; q(e, ".id").textContent = ev[0]; q(e, ".t").textContent = ev[1]; });
+[["r1", L.r1], ["r2", L.r2]].forEach(([id, r]) => { const el = $(id); q(el, ".k").textContent = r[0]; q(el, ".v").textContent = r[1]; q(el, ".c").textContent = r[2]; });
+$("title").textContent = L.title; $("case").textContent = L.case;
+q($("alert"), ".k").textContent = L.alertK; q($("alert"), ".v").textContent = L.alertV; q($("alert"), ".d").innerHTML = L.alertD;
+$("st1").textContent = L.rej; $("st2").textContent = L.ok;
+for (const id of ["st1", "st2"]) { $(id).style.left = "668px"; $(id).style.top = "382px"; }
+$("rule").textContent = L.rule; $("final").innerHTML = L.final;
+q($("chart"), "h2").textContent = L.chartH; q($("chart"), ".sub").textContent = L.chartS;
+L.bars.forEach(([lab], i) => { const b = $("b" + i); b.style.top = (200 + i * 84) + "px"; q(b, ".lab").textContent = lab; });
+$("takeaway").textContent = L.take; $("foot").textContent = L.foot;
+
+// wires: planner->researcher->reporter->critic, researcher->servers, critic->reporter loop
+const mid = (i) => [NODE_X[i] + 84, NODE_Y + 31];
+const W = {
+  a01: [[NODE_X[0] + 168, NODE_Y + 31], [NODE_X[1], NODE_Y + 31]],
+  a12: [[NODE_X[1] + 168, NODE_Y + 31], [NODE_X[2], NODE_Y + 31]],
+  a23: [[NODE_X[2] + 168, NODE_Y + 31], [NODE_X[3], NODE_Y + 31]],
+  s0: [[NODE_X[1] + 60, NODE_Y + 62], [239, 440]],
+  s1: [[NODE_X[1] + 110, NODE_Y + 62], [434, 440]],
+};
+const LOOP = { from: [NODE_X[3] + 84, NODE_Y], c1: [NODE_X[3] + 84, NODE_Y - 70], c2: [NODE_X[2] + 84, NODE_Y - 70], to: [NODE_X[2] + 84, NODE_Y] };
+const wires = $("wires"), dots = $("dots");
+const mk = (tag, attrs, parent) => { const el = document.createElementNS("http://www.w3.org/2000/svg", tag); for (const k in attrs) el.setAttribute(k, attrs[k]); parent.appendChild(el); return el; };
+const wireEls = {};
+for (const k in W) wireEls[k] = mk("line", { x1: W[k][0][0], y1: W[k][0][1], x2: W[k][1][0], y2: W[k][1][1], stroke: "#2b3f57" }, wires);
+const loopPath = `M${LOOP.from} C${LOOP.c1} ${LOOP.c2} ${LOOP.to}`;
+wireEls.loop = mk("path", { d: loopPath, stroke: "#2b3f57", "stroke-dasharray": "6 6" }, wires);
+const dot = mk("circle", { r: 7, fill: "#5fd0c4" }, dots);
+const dot2 = mk("circle", { r: 6, fill: "#5fd0c4" }, dots);
+
+// timing helpers
+const clamp = (x) => Math.max(0, Math.min(1, x));
+const ease = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const prog = (t, a, b) => ease((t - a) / (b - a));
+function show(el, t, a, dur = 0.5, dy = 14, until = 1e9, out = 0.4) {
+  const p = prog(t, a, a + dur) * (1 - prog(t, until, until + out));
+  el.style.opacity = p; el.style.transform = `translateY(${(1 - prog(t, a, a + dur)) * dy}px)`;
+}
+function glow(el, color, on) {
+  el.style.borderColor = on > 0 ? color : "#2b3f57";
+  el.style.boxShadow = on > 0 ? `0 0 ${24 * on}px ${color}66` : "none";
+}
+function travel(d, seg, t, a, b) {
+  if (t < a || t > b) { d.style.opacity = 0; return; }
+  const p = ease((t - a) / (b - a)); d.style.opacity = 1;
+  d.setAttribute("cx", seg[0][0] + (seg[1][0] - seg[0][0]) * p); d.setAttribute("cy", seg[0][1] + (seg[1][1] - seg[0][1]) * p);
+}
+function travelPath(d, path, t, a, b) {
+  if (t < a || t > b) { d.style.opacity = 0; return; }
+  const len = path.getTotalLength(); const pt = path.getPointAtLength(len * ease((t - a) / (b - a)));
+  d.style.opacity = 1; d.setAttribute("cx", pt.x); d.setAttribute("cy", pt.y);
+}
+const active = (t, a, b) => prog(t, a, a + 0.3) * (1 - prog(t, b, b + 0.3));
+
+window.render = function (t) {
+  const s1out = 1 - prog(t, 19.6, 20.4);
+  $("s1").style.opacity = s1out;
+  $("chart").style.opacity = prog(t, 20.2, 21.0);
+  show($("title"), t, 0.0); show($("case"), t, 0.2);
+  show($("alert"), t, 0.6, 0.6, 24);
+  [0, 1, 2, 3].forEach((i) => show($("n" + i), t, 1.6 + i * 0.18, 0.45));
+  for (const k of ["a01", "a12", "a23"]) wireEls[k].style.opacity = prog(t, 2.0, 2.6);
+  // planner
+  glow($("n0"), "#5fd0c4", active(t, 2.6, 4.4));
+  show($("h0"), t, 3.0, 0.4, 8); show($("h1"), t, 3.35, 0.4, 8);
+  // researcher + servers
+  travel(dot, W.a01, t, 4.4, 4.9);
+  glow($("n1"), "#5fd0c4", active(t, 4.9, 8.6));
+  show($("srv0"), t, 4.9, 0.4); show($("srv1"), t, 5.05, 0.4);
+  wireEls.s0.style.opacity = prog(t, 4.9, 5.3); wireEls.s1.style.opacity = prog(t, 5.05, 5.45);
+  const hops = [[5.2, 5.6, "s0"], [6.0, 6.4, "s0"], [6.8, 7.2, "s0"], [7.6, 8.0, "s1"]];
+  let hopShown = false;
+  for (const [a, b, k] of hops) if (t >= a && t <= b) { travel(dot2, W[k], t, a, b); hopShown = true; }
+  if (!hopShown) dot2.style.opacity = 0;
+  [0, 1, 2, 3].forEach((i) => show($("e" + i), t, 5.6 + i * 0.8, 0.45, 18));
+  // reporter round 1
+  if (t >= 8.8 && t <= 9.3) travel(dot, W.a12, t, 8.8, 9.3);
+  else if (t >= 10.6 && t <= 11.1) travel(dot, W.a23, t, 10.6, 11.1);
+  else if (t >= 13.6 && t <= 14.3) travelPath(dot, wireEls.loop, t, 13.6, 14.3);
+  else if (t >= 15.9 && t <= 16.4) travel(dot, W.a23, t, 15.9, 16.4);
+  else if (!(t >= 4.4 && t <= 4.9)) dot.style.opacity = 0;
+  glow($("n2"), "#5fd0c4", Math.max(active(t, 9.3, 10.6), active(t, 14.3, 15.9)));
+  show($("r1"), t, 9.6, 0.45, 16, 14.4);
+  show($("r2"), t, 14.8, 0.45, 16);
+  // critic
+  const rejecting = active(t, 11.1, 13.6), approving = active(t, 16.4, 30);
+  if (approving > 0) glow($("n3"), "#4ade80", approving); else if (t >= 11.4) glow($("n3"), "#ff6b6b", rejecting); else glow($("n3"), "#5fd0c4", active(t, 11.1, 11.4));
+  const st1 = $("st1"); st1.style.color = "#ff6b6b"; st1.style.borderColor = "#ff6b6b";
+  const pop1 = prog(t, 11.4, 11.7) * (1 - prog(t, 14.2, 14.5));
+  st1.style.opacity = pop1; st1.style.transform = `rotate(-6deg) scale(${1.25 - 0.25 * prog(t, 11.4, 11.7)})`;
+  show($("rule"), t, 11.7, 0.45, 10, 14.2);
+  $("r1").style.borderColor = t > 11.4 ? "#ff6b6b" : "#2b3f57";
+  const st2 = $("st2"); st2.style.color = "#4ade80"; st2.style.borderColor = "#4ade80";
+  st2.style.opacity = prog(t, 16.7, 17.0); st2.style.transform = `rotate(-6deg) scale(${1.25 - 0.25 * prog(t, 16.7, 17.0)})`;
+  $("r2").style.borderColor = t > 16.7 ? "#4ade80" : "#2b3f57";
+  wireEls.loop.style.opacity = prog(t, 13.4, 13.7);
+  // evidence highlights: E2 contradicts round 1, E4 carries round 2
+  glow($("e0"), "#ff6b6b", active(t, 11.6, 14.2));
+  glow($("e2"), "#4ade80", active(t, 15.0, 30));
+  show($("final"), t, 17.4, 0.5, 10);
+  // chart
+  L.bars.forEach(([, v], i) => {
+    const b = $("b" + i); const p = prog(t, 21.2 + i * 0.25, 22.4 + i * 0.25);
+    q(b, ".fill").style.width = (700 * v / 100 * p) + "px";
+    const num = q(b, ".num"); num.style.left = (700 * v / 100 * p) + "px"; num.textContent = Math.round(v * p) + "%";
+    b.style.opacity = prog(t, 20.9 + i * 0.15, 21.3 + i * 0.15);
+  });
+  show($("takeaway"), t, 23.4, 0.6, 12); show($("foot"), t, 24.2, 0.5, 8);
+};
+window.render(0);
+</script>
+</body></html>

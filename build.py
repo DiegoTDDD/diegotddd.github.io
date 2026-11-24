@@ -112,6 +112,11 @@ def page(lang: str, title: str, description: str, path: str, body: str, depth: i
 """
 
 
+def media_name(slug: str, lang: str) -> str:
+    """A video may have one version per language (<slug>-pt.mp4, <slug>-en.mp4)."""
+    return f"{slug}-{lang}" if (ROOT / "assets" / "media" / f"{slug}-{lang}.mp4").exists() else slug
+
+
 def video(slug: str, caption: str, up: str, hero: bool = False) -> str:
     cls = "media media-hero" if hero else "media"
     return f"""<figure class="{cls}">
@@ -211,7 +216,7 @@ def home(lang: str) -> str:
       <div><dt>5</dt><dd>{u["stat_books"]}</dd></div>
     </dl>
   </div>
-  {video(hero["video"], hero["video_caption"], up_root, hero=True)}
+  {video(media_name(hero["video"], lang), hero["video_caption"], up_root, hero=True)}
 </section>
 <section class="projects" id="projects" aria-labelledby="projects-h">
   <h2 id="projects-h">{u["projects"]}</h2>
@@ -253,7 +258,7 @@ def project_page(p: dict, i: int, lang: str) -> str:
     assets = up + ("../" if lang == "en" else "")
     media = ""
     if lp.get("video"):
-        media = video(lp["video"], lp["video_caption"], assets)
+        media = video(media_name(lp["video"], lang), lp["video_caption"], assets)
     elif lp.get("image"):
         media = (f'<figure class="media"><img src="{assets}assets/media/{lp["image"]}.webp" '
                  f'alt="{e(lp["image_alt"])}" loading="lazy"></figure>')  # fmt: skip
@@ -356,9 +361,11 @@ def check() -> list[str]:
                 problems.append(f"{s}: Portuguese image alt missing")
             if p.get("extra_links") and len(pt.get("extra_links", [])) != len(p["extra_links"]):
                 problems.append(f"{s}: Portuguese extra links missing")
-        for f in [f"{p['video']}.mp4", f"{p['video']}-poster.webp"] if p.get("video") else []:
-            if not (ROOT / "assets" / "media" / f).exists():
-                problems.append(f"{s}: missing assets/media/{f}")
+        for lang in LANGS if p.get("video") else []:
+            name = media_name(p["video"], lang)
+            for f in (f"{name}.mp4", f"{name}-poster.webp"):
+                if not (ROOT / "assets" / "media" / f).exists():
+                    problems.append(f"{s}: missing assets/media/{f}")
         if p.get("image") and not (ROOT / "assets" / "media" / f"{p['image']}.webp").exists():
             problems.append(f"{s}: missing image {p['image']}")
     for key in UI["pt"]:

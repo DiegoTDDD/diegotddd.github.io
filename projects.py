@@ -39,8 +39,8 @@ PROJECTS = [
         "the free-text summary, which can still misstate the evidence.",
         "stack": ["LangGraph", "MCP", "Ollama", "XGBoost", "pytest"],
         "video": "fraud-investigation-agents",
-        "video_caption": "Two investigations recorded in the evaluation: the Critic rejects the first report "
-        "with the rule it breaks and the second round reaches the right verdict.",
+        "video_caption": "A real investigation recorded in the evaluation: the Critic rejects the first report "
+        "with the rule it breaks, the second round gets it right, and the result across all 30 alerts.",
     },
     {
         "slug": "sec-mcp-agent",

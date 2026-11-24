@@ -10,6 +10,9 @@ Source of [diegotddd.github.io](https://diegotddd.github.io/), the portfolio of 
   has no measured results or a media file is missing;
 - `scripts/render_assets.py`: renders the social preview image with Playwright;
 - `scripts/check_links.py`: fails on any broken local link or anchor;
+- `video/`: the home-page demo, an animation of a real investigation recorded in the
+  fraud-investigation-agents evaluation (case c18) and of its measured results; `npm install`,
+  then `node render.js video pt out.mp4` (or `en`) with Playwright and ffmpeg;
 - `.github/workflows/pages.yml`: builds, checks and deploys to GitHub Pages on every push.
 
 ```bash
