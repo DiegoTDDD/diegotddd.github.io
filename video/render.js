@@ -1,5 +1,5 @@
 // node render.js frames pt 8.4 12.5 18 25   -> PNG checks
-// node render.js video pt out.mp4           -> 28 s at 30 fps, frames piped into ffmpeg
+// node render.js video pt out.mp4           -> 31.5 s at 30 fps, frames piped into ffmpeg
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const fs = require('fs');
@@ -15,7 +15,7 @@ const fs = require('fs');
     const out = rest[0], tmp = out.replace(/\.mp4$/, '.part.mp4');
     const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', '30', '-c:v', 'mjpeg', '-i', '-',
       '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', tmp]);
-    const fps = 30, dur = 28;
+    const fps = 30, dur = 31.5;
     for (let i = 0; i < fps * dur; i++) {
       await pg.evaluate(t => render(t), i / fps);
       const jpg = await pg.screenshot({ type: 'jpeg', quality: 92 });

@@ -21,13 +21,13 @@ PROJECTS = [
         "headline": ("77%", "fraud patterns named correctly, up from 47% for a single model call"),
         "problem": "Agents that investigate fraud alerts are easy to demo and hard to trust: they can name a "
         "pattern the data does not show, skip a check, or clear a fraudulent purchase in confident prose.",
-        "solution": "A LangGraph team. A Planner chooses which checks to run, a Researcher runs them through "
-        "two MCP servers (card activity and the fraud model), a Reporter writes a verdict that cites the "
-        "evidence, and a rule-based Critic rejects reports the evidence does not support and sends the work "
+        "solution": "A LangGraph team. A planner chooses which checks to run, a researcher runs them through "
+        "two MCP servers (card activity and the fraud model), a reporter writes a verdict that cites the "
+        "evidence, and a rule-based critic rejects reports the evidence does not support and sends the work "
         "back. It runs on a local 3B model on a free CPU runner.",
         "how": [
             "Code fetches every number; the language models only decide what to check and what it means.",
-            "The Critic is rules over the evidence, so its decisions are reproducible and explainable.",
+            "The critic is rules over the evidence, so its decisions are reproducible and explainable.",
             "Measured on 30 alerts with known answers against the fraud model alone, plain rules and a single LLM call.",
         ],
         "results": [
@@ -35,11 +35,11 @@ PROJECTS = [
             ("6 of 7", "legitimate purchases cleared, against 2 of 7 in the first evaluation run"),
             ("83%", "verdict right (fraud or legitimate) on all 30 alerts"),
         ],
-        "limits": "The data is synthetic. The Critic checks the verdict, fraud type and cited evidence, not "
+        "limits": "The data is synthetic. The critic checks the verdict, fraud type and cited evidence, not "
         "the free-text summary, which can still misstate the evidence.",
         "stack": ["LangGraph", "MCP", "Ollama", "XGBoost", "pytest"],
         "video": "fraud-investigation-agents",
-        "video_caption": "A real investigation recorded in the evaluation: the Critic rejects the first report "
+        "video_caption": "A real investigation recorded in the evaluation: the critic rejects the first report "
         "with the rule it breaks, the second round gets it right, and the result across all 30 alerts.",
     },
     {

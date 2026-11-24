@@ -170,6 +170,7 @@ figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; line-h
 .who strong { color: var(--ink); font-size: 1.05rem; }
 .lead { max-width: 34rem; color: var(--muted); margin: 0; }
 .cta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0 0; }
+.intro .cta { margin-top: 2rem; }
 .button {
   font-family: var(--display); font-weight: 600; font-size: 0.95rem; text-decoration: none;
   padding: 0.6rem 1rem; border-radius: 4px; background: var(--ink); color: var(--paper); border: 2px solid var(--ink);

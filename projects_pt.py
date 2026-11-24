@@ -11,13 +11,13 @@ PT = {
         "headline": ("77%", "dos padrões de fraude identificados corretamente, contra 47% com uma única chamada ao modelo"),
         "problem": "Agentes que investigam alertas de fraude são fáceis de demonstrar e difíceis de confiar: podem apontar "
         "um padrão que os dados não mostram, pular uma checagem ou liberar uma compra fraudulenta com um texto convincente.",
-        "solution": "Uma equipe em LangGraph. Um Planejador escolhe as checagens, um Pesquisador as executa por dois "
-        "servidores MCP (atividade do cartão e o modelo de fraude), um Relator escreve o veredito citando as evidências, "
-        "e um Crítico baseado em regras rejeita relatórios que as evidências não sustentam e devolve o trabalho. Roda com "
+        "solution": "Uma equipe em LangGraph. Um planejador escolhe as checagens, um pesquisador as executa por dois "
+        "servidores MCP (atividade do cartão e o modelo de fraude), um relator escreve o veredito citando as evidências, "
+        "e um crítico baseado em regras rejeita relatórios que as evidências não sustentam e devolve o trabalho. Roda com "
         "um modelo local de 3B num runner de CPU gratuito.",
         "how": [
             "O código busca todos os números; os modelos de linguagem só decidem o que checar e o que isso significa.",
-            "O Crítico são regras sobre as evidências, então as decisões dele são reproduzíveis e explicáveis.",
+            "O crítico são regras sobre as evidências, então as decisões dele são reproduzíveis e explicáveis.",
             "Medido em 30 alertas com resposta conhecida, contra o modelo de fraude sozinho, regras simples e uma única chamada ao LLM.",
         ],
         "results": [
@@ -25,9 +25,9 @@ PT = {
             ("6 de 7", "compras legítimas liberadas, contra 2 de 7 na primeira rodada de avaliação"),
             ("83%", "de acerto no veredito (fraude ou legítima) nos 30 alertas"),
         ],
-        "limits": "Os dados são sintéticos. O Crítico confere veredito, tipo de fraude e evidências citadas, mas não o "
+        "limits": "Os dados são sintéticos. O crítico confere veredito, tipo de fraude e evidências citadas, mas não o "
         "resumo em texto livre, que ainda pode descrever mal as evidências.",
-        "video_caption": "Uma investigação real gravada na avaliação: o Crítico rejeita o primeiro relatório citando a "
+        "video_caption": "Uma investigação real gravada na avaliação: o crítico rejeita o primeiro relatório citando a "
         "regra quebrada, a segunda rodada acerta, e o resultado nos 30 alertas.",
     },
     "sec-mcp-agent": {

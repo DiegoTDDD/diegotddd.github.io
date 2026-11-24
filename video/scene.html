@@ -11,8 +11,13 @@
 html, body { width: 1280px; height: 720px; overflow: hidden; background: var(--bg); color: var(--ink); font-family: G, Arial, sans-serif; }
 body { background-image: radial-gradient(rgba(147,163,182,.10) 1px, transparent 1px); background-size: 28px 28px; }
 .abs { position: absolute; }
-#title { left: 60px; top: 34px; font-size: 15px; font-weight: 600; color: var(--muted); }
-#case { right: 60px; top: 34px; font-size: 15px; color: var(--muted); }
+#title { left: 60px; top: 24px; width: 1000px; font-size: 20px; font-weight: 700; color: var(--ink); }
+#title i { font-style: normal; color: var(--amber); margin-right: 10px; }
+#intro { left: 0; top: 0; width: 1280px; height: 720px; padding: 0 120px; display: flex; flex-direction: column; justify-content: center; }
+#intro h1 { font-size: 52px; font-weight: 800; letter-spacing: -0.025em; }
+#intro p { font-size: 25px; line-height: 1.45; color: var(--ink); margin-top: 18px; max-width: 930px; }
+#intro small { display: block; font-size: 18px; color: var(--teal); margin-top: 26px; font-weight: 600; }
+#case { right: 60px; top: 28px; font-size: 15px; color: var(--muted); }
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
 #alert { left: 60px; top: 78px; width: 340px; }
 #alert .k { font-size: 13px; font-weight: 700; color: var(--amber); }
@@ -34,7 +39,7 @@ body { background-image: radial-gradient(rgba(147,163,182,.10) 1px, transparent 
 .report .c { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
 .stamp { font-size: 24px; font-weight: 800; letter-spacing: 0.02em; padding: 4px 12px; border: 3px solid; border-radius: 8px; }
 #rule { left: 560px; top: 588px; width: 640px; font-size: 16px; line-height: 1.4; color: #ffc9c9; }
-#final { left: 60px; top: 652px; width: 1160px; font-size: 17px; color: var(--ink); }
+#final { left: 60px; top: 600px; width: 1160px; font-size: 17px; color: var(--ink); }
 #final b { color: var(--green); }
 svg { position: absolute; left: 0; top: 0; }
 /* chart scene */
@@ -48,10 +53,11 @@ svg { position: absolute; left: 0; top: 0; }
 .bar .num { position: absolute; top: 0; height: 40px; display: flex; align-items: center; font-size: 22px; font-weight: 800; padding-left: 12px; }
 .bar.hl .fill { background: var(--amber); }
 .bar.hl .lab { color: var(--amber); }
-#takeaway { left: 90px; top: 560px; width: 1100px; font-size: 21px; line-height: 1.45; }
-#foot { left: 90px; top: 652px; font-size: 15px; color: var(--muted); }
+#takeaway { left: 90px; top: 528px; width: 1100px; font-size: 21px; line-height: 1.45; }
+#foot { left: 90px; top: 604px; font-size: 15px; color: var(--muted); }
 </style></head>
 <body>
+<div id="intro" class="abs"><h1></h1><p></p><small></small></div>
 <div id="s1">
   <svg width="1280" height="720"><g id="wires" stroke-width="2" fill="none"></g><g id="dots"></g></svg>
   <p id="title" class="abs"></p><p id="case" class="abs"></p>
@@ -84,7 +90,9 @@ svg { position: absolute; left: 0; top: 0; }
 <script>
 const TEXT = {
   pt: {
-    title: "Investigação de um alerta real, gravada na avaliação", case: "caso c18 de 30",
+    intro: ["Agentes de investigação de fraude", "Uma equipe de agentes de IA investiga alertas de fraude em cartão. Um crítico confere cada relatório contra as evidências e rejeita o que não se sustenta.", "A seguir, um caso real da avaliação, passo a passo."],
+    steps: ["Chega um alerta: uma compra de R$ 701,16 em Fortaleza.", "O planejador levanta hipóteses e escolhe o que checar.", "O pesquisador busca as evidências pelas ferramentas MCP.", "O relator acusa valor alto. O crítico rejeita: a evidência não sustenta.", "Segunda rodada: viagem impossível, sustentada pela evidência. Aprovado."],
+    case: "caso c18 de 30",
     alertK: "ALERTA DE FRAUDE", alertV: "R$ 701,16", alertD: "Moda, em Fortaleza, às 04:06<br>cartão card_0141",
     nodes: [["Planejador", "escolhe o que checar"], ["Pesquisador", "consulta via MCP"], ["Relator", "escreve o veredito"], ["Crítico", "confere com regras"]],
     servers: [["Atividade do cartão", "servidor MCP"], ["Modelo de fraude", "servidor MCP"]],
@@ -105,7 +113,9 @@ const TEXT = {
     foot: "Dados sintéticos. Código e avaliação: github.com/DiegoTDDD/fraud-investigation-agents",
   },
   en: {
-    title: "Investigation of a real alert, recorded in the evaluation", case: "case c18 of 30",
+    intro: ["Fraud investigation agents", "A team of AI agents investigates card-fraud alerts. A critic checks every report against the evidence and rejects what it does not support.", "Next, a real case from the evaluation, step by step."],
+    steps: ["An alert comes in: a R$ 701.16 purchase in Fortaleza.", "The planner raises hypotheses and chooses what to check.", "The researcher gathers evidence through the MCP tools.", "The reporter says high amount. The critic rejects it: the evidence does not support it.", "Round two: impossible travel, backed by the evidence. Approved."],
+    case: "case c18 of 30",
     alertK: "FRAUD ALERT", alertV: "R$ 701.16", alertD: "Fashion, in Fortaleza, at 04:06<br>card card_0141",
     nodes: [["Planner", "chooses what to check"], ["Researcher", "queries via MCP"], ["Reporter", "writes the verdict"], ["Critic", "checks it against rules"]],
     servers: [["Card activity", "MCP server"], ["Fraud model", "MCP server"]],
@@ -139,13 +149,15 @@ L.hyp.forEach((h, i) => $("h" + i).textContent = h);
 const EV_Y = [78, 214, 330, 446];
 L.ev.forEach((ev, i) => { const e = $("e" + i); e.style.top = EV_Y[i] + "px"; q(e, ".id").textContent = ev[0]; q(e, ".t").textContent = ev[1]; });
 [["r1", L.r1], ["r2", L.r2]].forEach(([id, r]) => { const el = $(id); q(el, ".k").textContent = r[0]; q(el, ".v").textContent = r[1]; q(el, ".c").textContent = r[2]; });
-$("title").textContent = L.title; $("case").textContent = L.case;
+$("case").textContent = L.case;
+q($("intro"), "h1").textContent = L.intro[0]; q($("intro"), "p").textContent = L.intro[1]; q($("intro"), "small").textContent = L.intro[2];
+const STEP_AT = [0, 2.4, 4.4, 8.8, 13.6];
 q($("alert"), ".k").textContent = L.alertK; q($("alert"), ".v").textContent = L.alertV; q($("alert"), ".d").innerHTML = L.alertD;
 $("st1").textContent = L.rej; $("st2").textContent = L.ok;
 for (const id of ["st1", "st2"]) { $(id).style.left = "668px"; $(id).style.top = "382px"; }
 $("rule").textContent = L.rule; $("final").innerHTML = L.final;
 q($("chart"), "h2").textContent = L.chartH; q($("chart"), ".sub").textContent = L.chartS;
-L.bars.forEach(([lab], i) => { const b = $("b" + i); b.style.top = (200 + i * 84) + "px"; q(b, ".lab").textContent = lab; });
+L.bars.forEach(([lab], i) => { const b = $("b" + i); b.style.top = (176 + i * 78) + "px"; q(b, ".lab").textContent = lab; });
 $("takeaway").textContent = L.take; $("foot").textContent = L.foot;
 
 // wires: planner->researcher->reporter->critic, researcher->servers, critic->reporter loop
@@ -191,11 +203,20 @@ function travelPath(d, path, t, a, b) {
 }
 const active = (t, a, b) => prog(t, a, a + 0.3) * (1 - prog(t, b, b + 0.3));
 
-window.render = function (t) {
+const INTRO = 3.5;
+window.render = function (tAll) {
+  const intro = $("intro");
+  intro.style.opacity = prog(tAll, 0.1, 0.7) * (1 - prog(tAll, 2.9, 3.4));
+  intro.style.transform = `translateY(${(1 - prog(tAll, 0.1, 0.7)) * 16}px)`;
+  const t = tAll - INTRO;
+  $("s1").style.visibility = t < -0.2 ? "hidden" : "visible";
+  let k = 0; STEP_AT.forEach((a, i) => { if (t >= a) k = i; });
+  $("title").innerHTML = `<i>${k + 1}</i>${L.steps[k]}`;
+  $("title").style.opacity = prog(t, STEP_AT[k], STEP_AT[k] + 0.35);
   const s1out = 1 - prog(t, 19.6, 20.4);
   $("s1").style.opacity = s1out;
   $("chart").style.opacity = prog(t, 20.2, 21.0);
-  show($("title"), t, 0.0); show($("case"), t, 0.2);
+  show($("case"), t, 0.2);
   show($("alert"), t, 0.6, 0.6, 24);
   [0, 1, 2, 3].forEach((i) => show($("n" + i), t, 1.6 + i * 0.18, 0.45));
   for (const k of ["a01", "a12", "a23"]) wireEls[k].style.opacity = prog(t, 2.0, 2.6);
