@@ -24,7 +24,7 @@ jobs:
           python-version: "3.11"
       - name: Build
         run: python build.py
-      - name: Render résumé PDFs and social preview
+      - name: Render the social preview image
         run: |
           pip install playwright==1.63.0
           python -m playwright install --with-deps chromium

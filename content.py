@@ -1,4 +1,4 @@
-"""Everything on the site that is not a project: profile, experience, skills, education and the
+"""Everything on the site that is not a project: profile, skills, education and the
 interface text, in Portuguese (default) and English. Also the filter categories and the CI
 workflow of each project, used for the live status badges."""
 
@@ -50,15 +50,6 @@ PERSON = {
         "learning systems and LLM agents. Each project here runs its tests and evaluations in CI, documents its "
         "design decisions, and reports what it measured, including what did not work.",
     },
-    "cv_summary": {
-        "pt": "Profissional de dados vindo da análise de dados, com foco em engenharia de dados, machine learning e "
-        "engenharia de IA. Construo plataformas de dados, modelos e agentes com LLMs que rodam testes e avaliações no "
-        "CI e reportam resultados medidos. Os {n} projetos, com código, estudos de caso e demos, estão em "
-        "diegotddd.github.io.",
-        "en": "Data professional who came from data analysis, focused on data engineering, machine learning and AI "
-        "engineering. I build data platforms, models and LLM agents that run tests and evaluations in CI and report "
-        "measured results. All {n} projects, with code, case studies and demos, are at diegotddd.github.io/en.",
-    },
     "about": {
         "pt": [
             "Cheguei à engenharia pela análise de dados: SQL, painéis e a pergunta de se um número merece confiança. "
@@ -78,21 +69,6 @@ PERSON = {
         ],
     },
 }
-
-EXPERIENCE = [
-    {
-        "role": {"pt": "Analista de Dados Júnior", "en": "Junior Data Analyst"},
-        "org": "GVC Soluções em Cobrança (Grupo Rodobens)",
-        "place": {"pt": "São José do Rio Preto, SP", "en": "São José do Rio Preto, SP, Brazil"},
-        "period": {"pt": "jun 2024 – jun 2026", "en": "Jun 2024 – Jun 2026"},
-    },
-    {
-        "role": {"pt": "Assistente de TI / Estagiário", "en": "IT Assistant / Intern"},
-        "org": "Lincetractor",
-        "place": {"pt": "Catanduva, SP", "en": "Catanduva, SP, Brazil"},
-        "period": {"pt": "abr 2023 – jun 2024", "en": "Apr 2023 – Jun 2024"},
-    },
-]
 
 EDUCATION = [
     {
@@ -140,20 +116,18 @@ LANGUAGES = {
 
 UI = {
     "pt": {
-        "lang": "pt-BR", "skip": "Pular para o conteúdo", "nav_projects": "Projetos", "nav_experience": "Experiência",
+        "lang": "pt-BR", "skip": "Pular para o conteúdo", "nav_projects": "Projetos",
         "nav_skills": "Habilidades", "nav_contact": "Contato", "theme": "Alternar tema claro e escuro",
         "other_lang": "English", "other_lang_label": "Read in English",
         "stat_projects": "projetos com resultados medidos", "stat_ai": "em engenharia de IA",
-        "stat_ci": "com testes e checagens no CI", "stat_books": "livros publicados",
-        "cv": "Baixar currículo (PDF)", "see_projects": "Ver projetos",
+        "stat_ci": "com testes e checagens no CI", "stat_books": "livros publicados", "see_projects": "Ver projetos",
         "projects": "Projetos", "filter_label": "Filtrar projetos por área", "all": "Todos",
         "case": "Estudo de caso", "code": "Código", "demo": "Demo ao vivo", "group_ai": "Engenharia de IA",
-        "group_data": "Engenharia de dados e machine learning", "none": "Nenhum projeto nessa área.",
-        "experience": "Experiência", "skills": "Habilidades", "education": "Formação", "languages": "Idiomas",
+        "group_data": "Engenharia de dados e machine learning", "none": "Nenhum projeto nessa área.", "skills": "Habilidades", "education": "Formação", "languages": "Idiomas",
         "about": "Sobre", "publications": "Publicações",
         "books": "Autor de cinco livros publicados: técnicos, de negócios e literários.",
         "contact": "Contato", "contact_text": "Estou aberto a oportunidades em engenharia de dados, machine learning e "
-        "engenharia de IA. O código de todos os projetos está no GitHub, e o currículo resume a trajetória.",
+        "engenharia de IA. O código de todos os projetos está no GitHub.",
         "github": "GitHub", "back": "Todos os projetos", "problem": "Problema", "solution": "Solução",
         "how": "Como funciona", "results": "Resultados", "results_caption": "Resultados medidos, do repositório",
         "limits": "Limites", "stack": "Stack", "prev": "Anterior", "next": "Próximo", "ci": "Status do CI",
@@ -165,20 +139,18 @@ UI = {
         "notfound_link": "Ir para a página inicial",
     },
     "en": {
-        "lang": "en", "skip": "Skip to content", "nav_projects": "Projects", "nav_experience": "Experience",
+        "lang": "en", "skip": "Skip to content", "nav_projects": "Projects",
         "nav_skills": "Skills", "nav_contact": "Contact", "theme": "Switch light and dark theme",
         "other_lang": "Português", "other_lang_label": "Ler em português",
         "stat_projects": "projects with measured results", "stat_ai": "in AI engineering",
-        "stat_ci": "with tests and checks in CI", "stat_books": "published books",
-        "cv": "Download résumé (PDF)", "see_projects": "See projects",
+        "stat_ci": "with tests and checks in CI", "stat_books": "published books", "see_projects": "See projects",
         "projects": "Projects", "filter_label": "Filter projects by area", "all": "All",
         "case": "Case study", "code": "Code", "demo": "Live demo", "group_ai": "AI engineering",
-        "group_data": "Data engineering and machine learning", "none": "No projects in this area.",
-        "experience": "Experience", "skills": "Skills", "education": "Education", "languages": "Languages",
+        "group_data": "Data engineering and machine learning", "none": "No projects in this area.", "skills": "Skills", "education": "Education", "languages": "Languages",
         "about": "About", "publications": "Publications",
         "books": "Author of five published books: technical, business and literary.",
         "contact": "Contact", "contact_text": "I'm open to roles in data engineering, machine learning and AI "
-        "engineering. The code of every project is on GitHub, and the résumé sums up my background.",
+        "engineering. The code of every project is on GitHub.",
         "github": "GitHub", "back": "All projects", "problem": "Problem", "solution": "Solution",
         "how": "How it works", "results": "Results", "results_caption": "Measured results, from the repository",
         "limits": "Limits", "stack": "Stack", "prev": "Previous", "next": "Next", "ci": "CI status",

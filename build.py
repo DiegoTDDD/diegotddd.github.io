@@ -2,9 +2,8 @@
 
     python build.py            # fails if a project lacks results, a translation or media files
 
-Portuguese is the default language (/), English lives under /en/. The résumé pages
-(cv/pt.html, cv/en.html) and the social preview page (og.html) are turned into PDF/PNG by
-scripts/render_assets.py in the Pages workflow. Standard library only.
+Portuguese is the default language (/), English lives under /en/. The social preview
+page (og.html) is turned into a PNG by scripts/render_assets.py in the Pages workflow. Standard library only.
 """
 
 from __future__ import annotations
@@ -16,7 +15,7 @@ from html import escape
 from pathlib import Path
 
 from content import (
-    AVATAR, CATEGORIES, EDUCATION, EXPERIENCE, GITHUB_PROFILE, LANGUAGES, META, PERSON, SKILLS, UI,
+    AVATAR, CATEGORIES, EDUCATION, GITHUB_PROFILE, LANGUAGES, META, PERSON, SKILLS, UI,
 )  # fmt: skip
 from projects import AI, DATA, GH, PROJECTS
 from projects_pt import PT
@@ -26,7 +25,6 @@ OUT = ROOT / "_site"
 SITE = "https://diegotddd.github.io"
 LANGS = ("pt", "en")
 PREFIX = {"pt": "", "en": "en/"}
-CV_FILE = {"pt": "curriculo-diego-alves.pdf", "en": "resume-diego-alves.pdf"}
 FONTS = (
     "https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800"
     "&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
@@ -94,7 +92,6 @@ def page(lang: str, title: str, description: str, path: str, body: str, depth: i
   <a class="wordmark" href="{up}index.html">{PERSON["name"]}</a>
   <nav aria-label="Site">
     <a href="{up}index.html#projects">{u["nav_projects"]}</a>
-    <a href="{up}index.html#experience">{u["nav_experience"]}</a>
     <a href="{up}index.html#skills">{u["nav_skills"]}</a>
     <a href="{up}index.html#contact">{u["nav_contact"]}</a>
     <a class="lang" href="{other_href}" hreflang="{"en" if other == "en" else "pt-BR"}" lang="{"en" if other == "en" else "pt-BR"}" aria-label="{u["other_lang_label"]}">{u["other_lang"]}</a>
@@ -185,11 +182,6 @@ def home(lang: str) -> str:
         rows = "\n".join(row(p, lang) for p in PROJECTS if p["group"] == group)
         groups.append(f'<section class="group" id="{anchor}" aria-labelledby="{anchor}-h">\n'
                       f'<h3 class="group-h" id="{anchor}-h">{title}</h3>\n{rows}\n</section>')  # fmt: skip
-    experience = "\n".join(
-        f'<li><p class="xp-role">{e(x["role"][lang])}</p><p class="xp-org">{e(x["org"])}, {e(x["place"][lang])}</p>'
-        f'<p class="xp-when">{e(x["period"][lang])}</p></li>'
-        for x in EXPERIENCE
-    )
     education = "\n".join(
         f'<li><p class="xp-role">{e(x["course"][lang])}</p><p class="xp-org">{e(x["school"])}</p>'
         f'<p class="xp-when">{e(x["when"][lang])}</p></li>'
@@ -210,7 +202,6 @@ def home(lang: str) -> str:
     <p class="lead">{e(PERSON["intro"][lang])}</p>
     <p class="cta">
       <a class="button" href="#projects">{u["see_projects"]}</a>
-      <a class="button button-quiet" href="{up_root}cv/{CV_FILE[lang]}">{u["cv"]}</a>
       <a class="button button-quiet" href="{GITHUB_PROFILE}">{u["github"]}</a>
     </p>
     <dl class="stats">
@@ -228,16 +219,6 @@ def home(lang: str) -> str:
   <p class="empty" hidden>{u["none"]}</p>
   {"".join(groups)}
 </section>
-<section class="split" aria-label="{u["about"]}">
-  <section class="block" id="experience" aria-labelledby="experience-h">
-    <h2 id="experience-h">{u["experience"]}</h2>
-    <ul class="xp">{experience}</ul>
-  </section>
-  <section class="block" id="education" aria-labelledby="education-h">
-    <h2 id="education-h">{u["education"]}</h2>
-    <ul class="xp">{education}</ul>
-  </section>
-</section>
 <section class="block" id="skills" aria-labelledby="skills-h">
   <h2 id="skills-h">{u["skills"]}</h2>
   <div class="skills">{skills}
@@ -249,14 +230,17 @@ def home(lang: str) -> str:
     <h2 id="about-h">{u["about"]}</h2>
     <div class="prose-sm">{about}</div>
   </section>
-  <section class="block" id="contact" aria-labelledby="contact-h">
+  <section class="block" id="education" aria-labelledby="education-h">
+    <h2 id="education-h">{u["education"]}</h2>
+    <ul class="xp">{education}</ul>
+  </section>
+</section>
+<section class="block" id="contact" aria-labelledby="contact-h">
     <h2 id="contact-h">{u["contact"]}</h2>
     <p class="prose-sm">{u["contact_text"]}</p>
     <p class="cta">
-      <a class="button" href="{up_root}cv/{CV_FILE[lang]}">{u["cv"]}</a>
-      <a class="button button-quiet" href="{GITHUB_PROFILE}">{u["github"]}</a>
+      <a class="button" href="{GITHUB_PROFILE}">{u["github"]}</a>
     </p>
-  </section>
 </section>"""
     title = f"{PERSON['name']}: {u['title_suffix']}"
     return page(lang, title, u["description"], "", body, 0, "", json_ld(lang))
@@ -328,44 +312,6 @@ def not_found(lang: str) -> str:
     return html
 
 
-def cv_page(lang: str) -> str:
-    """A print-ready résumé built from the same data; render_assets.py turns it into a PDF."""
-    u = UI[lang]
-    top = [local(p, lang) for p in PROJECTS if p["slug"] in (
-        "fraud-investigation-agents", "sec-mcp-agent", "llm-guardrails-redteam", "finetune-and-serve",
-        "llm-evals-observability", "freight-intelligence", "realtime-fraud-detection-ml", "supply-chain-risk-intelligence",
-    )]  # fmt: skip
-    projects = "\n".join(
-        f'<li><strong>{e(p["name"])}</strong>: {e(p["line"])} <em>{e(p["headline"][0])} {e(p["headline"][1])}.</em> '
-        f'<span class="url">{code_url(p).replace("https://", "")}</span></li>'
-        for p in top
-    )
-    xp = "\n".join(f'<li><strong>{e(x["role"][lang])}</strong>, {e(x["org"])} ({e(x["place"][lang])}), '
-                   f'{e(x["period"][lang])}</li>' for x in EXPERIENCE)  # fmt: skip
-    ed = "\n".join(f'<li><strong>{e(x["course"][lang])}</strong>, {e(x["school"])}, {e(x["when"][lang])}</li>'
-                   for x in EDUCATION)  # fmt: skip
-    sk = "\n".join(f'<li><strong>{e(s["group"][lang])}:</strong> {e(", ".join(s["items"]))}</li>' for s in SKILLS)
-    heads = {
-        "pt": ("Resumo", "Projetos selecionados", "Experiência", "Formação", "Habilidades", "Idiomas", "Publicações"),
-        "en": ("Summary", "Selected projects", "Experience", "Education", "Skills", "Languages", "Publications"),
-    }[lang]
-    return f"""<!doctype html>
-<html lang="{u["lang"]}"><head><meta charset="utf-8"><title>{PERSON["name"]}</title>
-<link rel="stylesheet" href="{FONTS}"><link rel="stylesheet" href="../assets/cv.css"></head>
-<body><main>
-<header><h1>{PERSON["name"]}</h1><p class="role">{e(PERSON["role"][lang])}</p>
-<p class="contact">{e(PERSON["location"][lang])} | diegotddd.github.io{"" if lang == "pt" else "/en"} | github.com/DiegoTDDD</p></header>
-<h2>{heads[0]}</h2><p>{e(PERSON["cv_summary"][lang].format(n=len(PROJECTS)))}</p>
-<h2>{heads[1]}</h2><ul>{projects}</ul>
-<h2>{heads[2]}</h2><ul>{xp}</ul>
-<h2>{heads[3]}</h2><ul>{ed}</ul>
-<h2>{heads[4]}</h2><ul>{sk}</ul>
-<h2>{heads[5]}</h2><p>{e(", ".join(LANGUAGES[lang]))}</p>
-<h2>{heads[6]}</h2><p>{u["books"]}</p>
-</main></body></html>
-"""
-
-
 def og_page() -> str:
     """1200x630 social preview, rendered to assets/og.png."""
     return f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
@@ -435,9 +381,6 @@ def main() -> None:
         for i, p in enumerate(PROJECTS):
             (base / "projects" / f"{p['slug']}.html").write_text(project_page(p, i, lang), encoding="utf-8")
     (OUT / "404.html").write_text(not_found("pt"), encoding="utf-8")
-    (OUT / "cv").mkdir()
-    for lang in LANGS:
-        (OUT / "cv" / f"{lang}.html").write_text(cv_page(lang), encoding="utf-8")
     (OUT / "og.html").write_text(og_page(), encoding="utf-8")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
     urls = []
