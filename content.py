@@ -56,16 +56,16 @@ PERSON = {
             "Essa pergunta guia como eu construo. Pipelines conferem os dados antes de chegarem a alguém, modelos são "
             "medidos em dados que nunca viram, e agentes são avaliados, rastreados e atacados antes de serem dados "
             "como prontos.",
-            "Sou autor de cinco livros publicados, técnicos, de negócios e literários, e escrevo em português, inglês "
-            "e espanhol.",
+            "Escrevi cinco livros, ainda inéditos: uma trilogia em inglês sobre decisões com dados, um livro de negócios e "
+            "um guia de ciência de dados de mil páginas, os dois em português. Escrevo em português, inglês e espanhol.",
         ],
         "en": [
             "I came to engineering from data analysis: SQL, dashboards and the question of whether a number can be "
             "trusted. That question shapes how I build. Pipelines check their data before it reaches anyone, models "
             "are measured on data they never saw, and agents are evaluated, traced and attacked before they are "
             "called finished.",
-            "I'm the author of five published books, technical, business and literary, and I write in Portuguese, "
-            "English and Spanish.",
+            "I have written five books, not yet published: a trilogy in English on decisions with data, a business book and "
+            "a thousand-page data science guide, both in Portuguese. I write in Portuguese, English and Spanish.",
         ],
     },
 }
@@ -120,12 +120,11 @@ UI = {
         "nav_skills": "Habilidades", "nav_contact": "Contato", "theme": "Alternar tema claro e escuro",
         "other_lang": "English", "other_lang_label": "Read in English",
         "stat_projects": "projetos com resultados medidos", "stat_ai": "em engenharia de IA",
-        "stat_ci": "com testes e checagens no CI", "stat_books": "livros publicados", "see_projects": "Ver projetos",
+        "stat_ci": "com testes e checagens no CI", "stat_books": "livros escritos, ainda inéditos", "see_projects": "Ver projetos",
         "projects": "Projetos", "filter_label": "Filtrar projetos por área", "all": "Todos",
         "case": "Estudo de caso", "code": "Código", "demo": "Demo ao vivo", "group_ai": "Engenharia de IA",
         "group_data": "Engenharia de dados e machine learning", "none": "Nenhum projeto nessa área.", "skills": "Habilidades", "education": "Formação", "languages": "Idiomas",
-        "about": "Sobre", "publications": "Publicações",
-        "books": "Autor de cinco livros publicados: técnicos, de negócios e literários.",
+        "about": "Sobre",
         "contact": "Contato", "contact_text": "Estou aberto a oportunidades em engenharia de dados, machine learning e "
         "engenharia de IA. O código de todos os projetos está no GitHub.",
         "github": "GitHub", "back": "Todos os projetos", "problem": "Problema", "solution": "Solução",
@@ -143,12 +142,11 @@ UI = {
         "nav_skills": "Skills", "nav_contact": "Contact", "theme": "Switch light and dark theme",
         "other_lang": "Português", "other_lang_label": "Ler em português",
         "stat_projects": "projects with measured results", "stat_ai": "in AI engineering",
-        "stat_ci": "with tests and checks in CI", "stat_books": "published books", "see_projects": "See projects",
+        "stat_ci": "with tests and checks in CI", "stat_books": "books written, not yet published", "see_projects": "See projects",
         "projects": "Projects", "filter_label": "Filter projects by area", "all": "All",
         "case": "Case study", "code": "Code", "demo": "Live demo", "group_ai": "AI engineering",
         "group_data": "Data engineering and machine learning", "none": "No projects in this area.", "skills": "Skills", "education": "Education", "languages": "Languages",
-        "about": "About", "publications": "Publications",
-        "books": "Author of five published books: technical, business and literary.",
+        "about": "About",
         "contact": "Contact", "contact_text": "I'm open to roles in data engineering, machine learning and AI "
         "engineering. The code of every project is on GitHub.",
         "github": "GitHub", "back": "All projects", "problem": "Problem", "solution": "Solution",
