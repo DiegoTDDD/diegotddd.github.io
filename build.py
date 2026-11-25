@@ -383,7 +383,7 @@ def book_entry(b: dict, lang: str, assets: str, extra: str = "") -> str:
     return f"""<article class="book" id="{b["slug"]}">
   <div class="book-cover">{cover(b, lang, assets, f"#{b['slug']}", "cover-lg")}</div>
   <div class="book-body">
-    <p class="book-tags"><span class="lang-tag" lang="{b["lang"]}">{b["lang"].upper()}</span>{ub["written_in"][b["lang"]]}<span class="status">{ub["status"]}</span></p>
+    <p class="book-tags"><span class="lang-tag" lang="{b["lang"]}">{b["lang"].upper()}</span>{ub["written_in"][b["lang"]]}</p>
     <h2>{book_title(b, lang)}</h2>
     <p class="book-sub" lang="{b["lang"]}">{e(b["subtitle"])}</p>
     {series}

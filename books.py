@@ -1,4 +1,4 @@
-"""The five books Diego wrote. None of them is published yet, and the site says so.
+"""The five books Diego wrote.
 Three are in English (the Data-Driven Decisions trilogy) and two in Portuguese; the language
 of each book is shown wherever the book appears. Code snippets are copied from the books."""
 
@@ -213,33 +213,33 @@ METHOD = [
 UI_BOOKS = {
     "pt": {
         "nav": "Livros", "title": "Livros", "page_title": "Livros",
-        "lead": "Escrevi cinco livros, ainda não publicados: uma trilogia em inglês sobre decisões com dados e dois "
+        "lead": "Escrevi cinco livros: uma trilogia em inglês sobre decisões com dados e dois "
         "livros em português, um sobre negócios e outro que percorre a ciência de dados inteira.",
         "shelf_en": "Em inglês", "shelf_pt": "Em português", "trilogy": "Trilogia Data-Driven Decisions",
         "written_in": {"en": "Escrito em inglês", "pt": "Escrito em português"},
         "lang_short": {"en": "Inglês", "pt": "Português"},
-        "status": "Inédito", "pages": "páginas", "chapters": "Capítulos", "open": "Ver os cinco livros",
+        "pages": "páginas", "chapters": "Capítulos", "open": "Ver os cinco livros",
         "map_title": "O mapa do Cânone", "map_lead": "As sete partes do livro, no tamanho real que ocupam nas 1.042 "
         "páginas. Abra uma parte para ver os capítulos.", "page": "p.", "method_title": "O método, nos projetos",
         "method_lead": "A trilogia ensina cinco passos. Cada um aparece num projeto deste site.",
         "see_project": "Ver o projeto", "book_n": "Livro", "of_trilogy": "da trilogia", "tabs": "Ferramenta",
-        "description": "Os cinco livros de Diego Alves, ainda não publicados: a trilogia Data-Driven Decisions, em "
+        "description": "Os cinco livros de Diego Alves: a trilogia Data-Driven Decisions, em "
         "inglês, e dois livros em português.",
     },
     "en": {
         "nav": "Books", "title": "Books", "page_title": "Books",
-        "lead": "I have written five books, not yet published: a trilogy in English on making decisions with data, "
+        "lead": "I have written five books: a trilogy in English on making decisions with data, "
         "and two books in Portuguese, one on business and one that covers the whole of data science.",
         "shelf_en": "In English", "shelf_pt": "In Portuguese", "trilogy": "Data-Driven Decisions trilogy",
         "written_in": {"en": "Written in English", "pt": "Written in Portuguese"},
         "lang_short": {"en": "English", "pt": "Portuguese"},
-        "status": "Unpublished", "pages": "pages", "chapters": "Chapters", "open": "See all five books",
+        "pages": "pages", "chapters": "Chapters", "open": "See all five books",
         "map_title": "The Cânone, mapped", "map_lead": "The book's seven parts, at the real share of its 1,042 pages "
         "each one takes. Open a part to see its chapters (titles in Portuguese).", "page": "p.",
         "method_title": "The method, in the projects",
         "method_lead": "The trilogy teaches five steps. Each one shows up in a project on this site.",
         "see_project": "See the project", "book_n": "Book", "of_trilogy": "of the trilogy", "tabs": "Tool",
-        "description": "Diego Alves's five books, not yet published: the Data-Driven Decisions trilogy, in English, "
+        "description": "Diego Alves's five books: the Data-Driven Decisions trilogy, in English, "
         "and two books in Portuguese.",
     },
 }
