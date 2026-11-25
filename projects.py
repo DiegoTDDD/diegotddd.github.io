@@ -395,6 +395,34 @@ PROJECTS = [
         "image_alt": "Congestion pricing impact on the dashboard",
     },
     {
+        "slug": "olist-cloud-warehouse",
+        "group": DATA,
+        "name": "Olist cloud warehouse",
+        "line": "A data warehouse on Google BigQuery with Terraform, keyless CI, enforced contracts and measured query cost.",
+        "headline": ("92%", "fewer bytes read by a one-month query on the partitioned fact table, measured in BigQuery"),
+        "problem": "A warehouse is trusted only if its tables keep their shape, every change is tested before it "
+        "reaches analysts, nobody holds a long-lived cloud key, and someone knows what each query costs.",
+        "solution": "The Olist marketplace data in BigQuery (Sao Paulo region), with the infrastructure in Terraform, "
+        "dbt models whose column types are enforced contracts, and GitHub Actions that authenticate through "
+        "Workload Identity Federation as two least-privilege service accounts. Every deploy measures what the "
+        "build and typical queries read and writes a decision report from the marts.",
+        "how": [
+            "Terraform creates four datasets, two service accounts, the federation trust and a one-permission custom role.",
+            "Pull requests build and test the whole warehouse in throwaway datasets as an account that cannot touch production.",
+            "Raw files are checked against SHA-256 hashes and explicit schemas; only changed files are reloaded.",
+            "Fact tables are partitioned by month and clustered by state and status; every query is labelled for cost reporting.",
+        ],
+        "results": [
+            ("92%", "fewer bytes for a one-month question; 79% for one state over a quarter"),
+            ("US$ 0.004", "for a full build of 15 models and 43 tests at on-demand list price"),
+            ("0", "service account keys: CI uses one-hour tokens from GitHub's OIDC identity"),
+        ],
+        "limits": "Runs in the BigQuery sandbox: no incremental MERGE models, no Cloud Storage for Terraform state; "
+        "Terraform is applied by hand from Cloud Shell.",
+        "stack": ["BigQuery", "Terraform", "dbt", "Workload Identity Federation", "GitHub Actions"],
+        "extra_links": [("Cost report", "https://github.com/DiegoTDDD/olist-cloud-warehouse/blob/main/reports/cost.md")],
+    },
+    {
         "slug": "olist-analytics",
         "group": DATA,
         "name": "Olist e-commerce analytics",

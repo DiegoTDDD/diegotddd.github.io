@@ -326,6 +326,32 @@ PT = {
         "limits": "Os períodos de antes e depois caem em estações diferentes, então parte da mudança pode ser sazonal.",
         "image_alt": "Impacto da taxa de congestionamento no painel",
     },
+    "olist-cloud-warehouse": {
+        "name": "Data warehouse na nuvem (Olist)",
+        "line": "Um data warehouse no Google BigQuery com Terraform, CI sem chaves, contratos nas tabelas e custo de consulta medido.",
+        "headline": ("92%", "menos bytes lidos numa consulta de um mês na tabela fato particionada, medido no BigQuery"),
+        "problem": "Um data warehouse só merece confiança se as tabelas mantêm o formato, se toda mudança é testada "
+        "antes de chegar ao analista, se ninguém guarda uma chave de nuvem que não expira e se alguém sabe quanto "
+        "cada consulta custa.",
+        "solution": "Os dados do marketplace Olist no BigQuery (região de São Paulo), com a infraestrutura em "
+        "Terraform, modelos dbt com tipos de coluna travados por contrato e GitHub Actions que entram no Google "
+        "Cloud por Workload Identity Federation, como duas contas de serviço com o mínimo de permissão. Cada "
+        "deploy mede quanto o build e as consultas típicas leem e gera um relatório de decisão a partir dos marts.",
+        "how": [
+            "O Terraform cria quatro datasets, duas contas de serviço, a federação de identidade e um papel customizado com uma única permissão.",
+            "Pull requests constroem e testam o warehouse inteiro em datasets descartáveis, com uma conta que não alcança produção.",
+            "Os arquivos brutos são conferidos por hash SHA-256 e esquema explícito; só o que mudou é recarregado.",
+            "As tabelas fato são particionadas por mês e clusterizadas por estado e status; toda consulta leva rótulos para o relatório de custo.",
+        ],
+        "results": [
+            ("92%", "menos bytes numa pergunta de um mês; 79% para um estado num trimestre"),
+            ("US$ 0,004", "por um build completo de 15 modelos e 43 testes, no preço sob demanda de tabela"),
+            ("0", "chaves de conta de serviço: o CI usa tokens de uma hora vindos da identidade OIDC do GitHub"),
+        ],
+        "limits": "Roda no Sandbox do BigQuery: sem modelos incrementais com MERGE e sem Cloud Storage para o estado "
+        "do Terraform, que é aplicado à mão pelo Cloud Shell.",
+        "extra_links": [("Relatório de custo", "https://github.com/DiegoTDDD/olist-cloud-warehouse/blob/main/reports/cost.md")],
+    },
     "olist-analytics": {
         "name": "Analytics de e-commerce da Olist",
         "line": "Um modelo estrela testado em dbt sobre 100 mil pedidos que mede quanto os atrasos derrubam as avaliações.",

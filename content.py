@@ -31,6 +31,7 @@ META = {
     "supply-chain-risk-intelligence": (["analytics", "ml"], "tests.yml"),
     "nyc-tip-mlops": (["ml", "mlops"], "ci.yml"),
     "nyc-taxi-lakehouse": (["data"], "tests.yml"),
+    "olist-cloud-warehouse": (["data"], "deploy.yml"),
     "olist-analytics": (["data", "analytics"], "dbt-check.yml"),
     "economic-data-platform": (["data"], "ci_pipeline.yml"),
 }
@@ -100,7 +101,9 @@ SKILLS = [
     {"group": {"pt": "Linguagens e dados", "en": "Languages and data"},
      "items": ["Python", "SQL", "PySpark", "dbt", "DuckDB", "Polars", "PostgreSQL", "pandas"]},
     {"group": {"pt": "Engenharia de dados", "en": "Data engineering"},
-     "items": ["Spark Structured Streaming", "Kafka / Redpanda", "Delta Lake", "Dagster", "Docker", "GitHub Actions"]},
+     "items": ["Spark Structured Streaming", "Kafka / Redpanda", "Delta Lake", "Dagster"]},
+    {"group": {"pt": "Cloud e infraestrutura", "en": "Cloud and infrastructure"},
+     "items": ["Google Cloud", "BigQuery", "Terraform", "IAM e Workload Identity Federation", "Docker", "GitHub Actions"]},
     {"group": {"pt": "Machine learning e estatística", "en": "Machine learning and statistics"},
      "items": ["XGBoost", "scikit-learn", "SHAP", "statsmodels", "lifelines", "Prophet", "PuLP", "MLflow", "Evidently"]},
     {"group": {"pt": "LLMs e agentes", "en": "LLMs and agents"},
