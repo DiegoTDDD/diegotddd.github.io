@@ -70,6 +70,35 @@ PROJECTS = [
         "video_caption": "Two answers recorded in the final evaluation run: the tool calls, the answer and its verified citations.",
     },
     {
+        "slug": "olist-ai-analyst",
+        "group": AI,
+        "name": "Olist AI analyst",
+        "line": "A local-model analyst that turns a business question into a decision memo, with code checking the SQL and every number.",
+        "headline": ("68%", "of 25 business questions answered with the same result as hand-written reference SQL"),
+        "problem": "A model writing SQL fails in ways that look right: a query that runs but filters the wrong "
+        "rows, or a memo that quotes a number the query never produced. An analyst's answer is only worth "
+        "something if the decision maker can trust it.",
+        "solution": "An analyst over the real Olist marketplace data (99,441 orders) that follows the five steps "
+        "of the Data-Driven Decisions books: name the decision, trust the data, show the work, read the trend "
+        "and make it last. The model writes the SQL and the memo; code checks the SQL, runs it read-only, reads "
+        "the trend and requires every number in the memo to exist in the result.",
+        "how": [
+            "DuckDB's own parser allows one SELECT over three analysis tables, on a read-only connection with file and network access off.",
+            "Errors go back to the model, up to three tries; a memo with a number not in the result gets one rewrite, then is marked unverified.",
+            "The trend is read by code from a fitted line over full months, never described by the model.",
+            "An evaluation with reference SQL runs weekly with Ollama on a free CPU runner and commits its results.",
+        ],
+        "results": [
+            ("68%", "execution accuracy on 25 questions with qwen2.5-coder 7B, in the third of three measured runs"),
+            ("92%", "of memos with every number found in the query result; the others are marked unverified"),
+            ("100%", "valid SQL after retries with the error message (88% on the first try)"),
+        ],
+        "limits": "The number check proves a number exists in the result, not that the sentence attaches it to "
+        "the right row; the questions are few and were written by the same person as the pipeline.",
+        "stack": ["DuckDB", "Ollama", "Qwen2.5-Coder", "GitHub Actions"],
+        "extra_links": [("Evaluation results", "https://github.com/DiegoTDDD/olist-ai-analyst/blob/main/eval/results.md")],
+    },
+    {
         "slug": "llm-guardrails-redteam",
         "group": AI,
         "name": "LLM guardrails and red team",

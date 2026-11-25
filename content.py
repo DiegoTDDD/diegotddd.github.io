@@ -19,6 +19,7 @@ CATEGORIES = {
 META = {
     "fraud-investigation-agents": (["llm"], "tests.yml"),
     "sec-mcp-agent": (["llm"], "tests.yml"),
+    "olist-ai-analyst": (["llm", "analytics"], "tests.yml"),
     "llm-guardrails-redteam": (["llm"], "redteam.yml"),
     "llm-evals-observability": (["llm", "mlops"], "gate.yml"),
     "finetune-and-serve": (["llm", "mlops"], "ci.yml"),

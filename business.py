@@ -35,6 +35,22 @@ BUSINESS = {
             "risk": "17 of 22 questions right: a small model still misses some multi-step questions.",
         },
     },
+    "olist-ai-analyst": {
+        "pt": {
+            "decision": "Qualquer decisão que dependa de um número da operação: onde investir, o que cortar, o que priorizar.",
+            "users": "Gestores e áreas de negócio que hoje esperam o time de dados para cada pergunta.",
+            "error": "Um número errado num memo bem escrito leva a uma decisão errada com cara de certa.",
+            "value": "A pergunta vira memo em cerca de meio minuto, com o SQL e as linhas que sustentam a resposta. Quando o modelo escreve um número que não está no resultado, o memo sai marcado como não verificado em vez de parecer confiável.",
+            "risk": "Acerta 68% das perguntas da avaliação; serve como primeiro rascunho para um analista revisar, não como resposta final.",
+        },
+        "en": {
+            "decision": "Any decision that depends on a number from operations: where to invest, what to cut, what to prioritize.",
+            "users": "Managers and business teams who today wait for the data team for every question.",
+            "error": "A wrong number in a well-written memo leads to a wrong decision that looks right.",
+            "value": "A question becomes a memo in about half a minute, with the SQL and rows behind the answer. When the model writes a number that is not in the result, the memo is marked unverified instead of looking trustworthy.",
+            "risk": "It gets 68% of the evaluation questions right; it is a first draft for an analyst to review, not a final answer.",
+        },
+    },
     "llm-guardrails-redteam": {
         "pt": {
             "decision": "Colocar ou não um agente em contato com documentos e usuários externos.",

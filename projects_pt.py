@@ -53,6 +53,32 @@ PT = {
         "limits": "Um modelo de 3B ainda erra algumas perguntas de várias etapas; o conjunto de avaliação é pequeno.",
         "video_caption": "Duas respostas gravadas na rodada final de avaliação: as chamadas de ferramenta, a resposta e as citações verificadas.",
     },
+    "olist-ai-analyst": {
+        "name": "Analista de dados com IA (Olist)",
+        "line": "Um analista com modelo local que transforma uma pergunta de negócio num memo de decisão, com código conferindo o SQL e cada número.",
+        "headline": ("68%", "de 25 perguntas de negócio respondidas com o mesmo resultado do SQL de referência escrito à mão"),
+        "problem": "Um modelo escrevendo SQL erra de jeitos que parecem certos: uma consulta que roda mas filtra as "
+        "linhas erradas, ou um memo que cita um número que a consulta nunca produziu. A resposta de um analista só "
+        "vale se quem decide puder confiar nela.",
+        "solution": "Um analista sobre os dados reais do marketplace Olist (99.441 pedidos) que segue os cinco passos "
+        "dos livros Data-Driven Decisions: nomear a decisão, confiar no dado, mostrar o trabalho, ler a tendência e "
+        "fazer durar. O modelo escreve o SQL e o memo; o código confere o SQL, roda em modo só leitura, lê a "
+        "tendência e exige que cada número do memo exista no resultado.",
+        "how": [
+            "O próprio parser do DuckDB só aceita um SELECT sobre três tabelas de análise, numa conexão só leitura, sem acesso a arquivos ou rede.",
+            "Erros voltam para o modelo, até três tentativas; um memo com número fora do resultado ganha uma reescrita e depois é marcado como não verificado.",
+            "A tendência é lida pelo código, numa reta ajustada sobre meses completos, nunca descrita pelo modelo.",
+            "Uma avaliação com SQL de referência roda toda semana com Ollama num runner de CPU gratuito e publica os resultados.",
+        ],
+        "results": [
+            ("68%", "de acerto na execução em 25 perguntas com qwen2.5-coder 7B, na terceira de três rodadas medidas"),
+            ("92%", "dos memos com todos os números encontrados no resultado; os outros saem marcados como não verificados"),
+            ("100%", "de SQL válido depois das novas tentativas com a mensagem de erro (88% na primeira)"),
+        ],
+        "limits": "A checagem prova que o número existe no resultado, não que a frase o liga à linha certa; as "
+        "perguntas são poucas e foram escritas pela mesma pessoa que fez o pipeline.",
+        "extra_links": [("Resultados da avaliação", "https://github.com/DiegoTDDD/olist-ai-analyst/blob/main/eval/results.md")],
+    },
     "llm-guardrails-redteam": {
         "name": "Guardrails e red team para LLMs",
         "line": "Proteções em volta dos dois agentes e uma bateria de ataques que roda a cada pull request.",
