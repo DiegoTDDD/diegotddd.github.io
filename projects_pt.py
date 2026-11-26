@@ -365,7 +365,7 @@ PT = {
         "testes para cada regra de negócio, um relatório de três páginas em Power BI e um painel em Streamlit.",
         "how": [
             "15 modelos dbt e 43 testes rodam a cada mudança, a partir dos arquivos brutos.",
-            "O modelo do Power BI (TMDL) e as páginas (PBIR) são gerados por código: 22 medidas DAX, tabela de datas "
+            "O modelo do Power BI (TMDL) e as páginas (PBIR) são gerados por código: 23 medidas DAX, tabela de datas "
             "marcada e textos das páginas calculados a partir dos dados. O CI falha se divergirem do que está no repositório.",
             "O relatório foi aberto, atualizado e conferido no Power BI Desktop; o .pbix está no repositório.",
         ],

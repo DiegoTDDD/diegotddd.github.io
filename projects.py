@@ -438,7 +438,7 @@ PROJECTS = [
         "for every business rule, a three-page Power BI report on top of it and a Streamlit dashboard.",
         "how": [
             "15 dbt models and 43 tests run on every change, from the raw files.",
-            "The Power BI model (TMDL) and pages (PBIR) are generated as code: 22 DAX measures, a marked date "
+            "The Power BI model (TMDL) and pages (PBIR) are generated as code: 23 DAX measures, a marked date "
             "table, and page texts computed from the data. CI fails if they drift from the committed files.",
             "The report was opened, refreshed and checked in Power BI Desktop; the .pbix is in the repository.",
         ],
