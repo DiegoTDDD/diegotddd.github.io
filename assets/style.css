@@ -114,6 +114,7 @@ figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; line-h
 /* Case study pages */
 .case { max-width: 46rem; padding-block: 1rem 4rem; }
 .back { font-size: 0.9rem; margin: 0 0 1.5rem; }
+.back a { display: inline-block; padding: 0.3rem 0; }
 .case h1 { font-size: clamp(2rem, 4vw, 2.9rem); line-height: 1.08; letter-spacing: -0.025em; margin: 0 0 0.75rem; }
 .lede { font-size: 1.2rem; margin: 0 0 0.75rem; color: var(--muted); }
 .measure-lg { margin: 2rem 0; padding-left: 1.25rem; border-left: 4px solid var(--measure); }
@@ -165,7 +166,12 @@ figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; line-h
 
 /* Hero additions: who, call to action, numbers */
 .who { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; }
-.avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 3px solid var(--measure); }
+.avatar {
+  position: relative; display: grid; place-items: center; flex: none; width: 88px; height: 88px; border-radius: 50%;
+  overflow: hidden; border: 3px solid var(--measure); background: var(--panel);
+  font-family: var(--display); font-weight: 800; font-size: 1.6rem; color: var(--measure);
+}
+.avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .who p { margin: 0; font-family: var(--display); font-size: 0.95rem; line-height: 1.45; color: var(--muted); }
 .who strong { color: var(--ink); font-size: 1.05rem; }
 .lead { max-width: 34rem; color: var(--muted); margin: 0; }
@@ -216,7 +222,7 @@ figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; line-h
 .prose-sm p, p.prose-sm { margin: 0 0 1rem; max-width: var(--narrow); }
 
 /* Case pages: live CI badge */
-.ci { display: inline-block; margin-top: 0.75rem; }
+.ci { display: inline-block; margin-top: 0.75rem; padding: 2px 0; }
 .ci img { display: block; height: 20px; }
 
 @media (max-width: 860px) {
@@ -363,9 +369,9 @@ details[open] .track span { background: var(--measure); }
 .calc-out div { border-top: 2px solid var(--ink); padding-top: 0.5rem; }
 .calc-out dt { font-family: var(--display); font-size: 0.8rem; color: var(--muted); line-height: 1.35; }
 .calc-out dd { margin: 0.3rem 0 0; font-family: var(--display); font-weight: 800; font-size: 1.45rem; color: var(--measure); font-variant-numeric: tabular-nums; }
-.calc-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; font-family: var(--display); font-variant-numeric: tabular-nums; }
+.calc-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; font-family: var(--display); }
 .calc-table td { padding: 0.55rem 0; border-top: 1px solid var(--rule); }
-.calc-table td:last-child { text-align: right; font-weight: 700; }
+.calc-table td:last-child { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 1rem; }
 .calc-table tr.best td { color: var(--measure); font-weight: 800; }
 .calc-table .tag { font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem; }
 .calc-note { font-size: 0.85rem; color: var(--muted); margin: 1rem 0 0; }

@@ -218,7 +218,7 @@ def home(lang: str) -> str:
     body = f"""<section class="hero">
   <div class="intro">
     <div class="who">
-      <img class="avatar" src="{AVATAR}" alt="{PERSON["name"]}" width="88" height="88">
+      <span class="avatar" aria-hidden="true">DA<img src="{AVATAR}" alt="" width="88" height="88" onerror="this.remove()"></span>
       <p><strong>{PERSON["name"]}</strong><br>{e(PERSON["role"][lang])}<br>{e(PERSON["location"][lang])}</p>
     </div>
     <h1>{e(PERSON["headline"][lang])}</h1>
@@ -574,9 +574,11 @@ def not_found(lang: str) -> str:
     # 404 is served at any depth, so it uses absolute asset URLs.
     html = page(lang, f"{u['notfound_title']}: {PERSON['name']}", u["description"], "404.html", body, 0, "")
     html = html.replace("location.replace('en/", f"location.replace('{SITE}/en/")
-    for attr in ('href="assets/', 'src="assets/', 'href="index.html', 'href="en/'):
+    for attr in ('href="assets/', 'src="assets/', 'href="index.html', 'href="books.html', 'href="en/'):
         html = html.replace(attr, attr.replace('"', f'"{SITE}/', 1))
-    return html
+    # Not a page to index: no canonical or language alternates, and robots told so.
+    html = "\n".join(l for l in html.split("\n") if 'rel="canonical"' not in l and 'rel="alternate"' not in l)
+    return html.replace('<meta name="viewport"', '<meta name="robots" content="noindex">\n<meta name="viewport"', 1)
 
 
 def og_page() -> str:
