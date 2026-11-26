@@ -487,6 +487,9 @@ PROJECTS = [
         "name": "Hospcall: nurse-call system for an elder-care home",
         "line": "A call system piloted for six months at a geriatric care association, built by a team of seven UNIVESP students.",
         "headline": ("60", "caregivers registered in a six-month pilot at AGERIP"),
+        "my_part": "I worked on every stage with the team: the requirement meetings with the AGERIP staff, "
+        "the PostgreSQL data model and audit table, the API and real-time channel, the React screens for "
+        "tablets, TVs and admin, deployment and the six-month pilot follow-up.",
         "problem": "At AGERIP, a geriatric care association in São José do Rio Preto, a resident who needed help "
         "depended on a caregiver walking past the room, and the shift record depended on handwritten notes. "
         "Refused calls, hand-overs in the middle of a call and care by staff outside the roster left no trace. "
@@ -520,6 +523,9 @@ PROJECTS = [
         "name": "Sales and stock system for a charity shop",
         "line": "A point-of-sale and stock system that the volunteers of IEFA's shop use on every working day, built by a team of eight UNIVESP students.",
         "headline": ("100%", "of the planned features delivered; in use on every working day of the shop since about July 2026"),
+        "my_part": "I worked on every stage with the team: the stock count and product registration, the "
+        "Django models and MySQL database, the point of sale, the reports and labels, the installation on the "
+        "shop's computer and the follow-up with the volunteers, including the stock-exit fix.",
         "problem": "The shop of the Instituto Educacional Francisco de Assis, in São José do Rio Preto, recorded "
         "sales on paper and in notebooks and had no structured stock control. Not every item carried its "
         "price, which led to wrong prices at the counter.",

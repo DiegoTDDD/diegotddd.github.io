@@ -416,3 +416,5 @@ details[open] .track span { background: var(--measure); }
   .feat { grid-template-columns: 1fr; padding: 1rem; }
   .feat .value { grid-row: auto; font-size: 1.8rem; }
 }
+.my-part { max-width: 44rem; margin: -0.5rem 0 1.25rem; padding: 0.75rem 1rem; border-left: 3px solid var(--measure);
+  background: var(--panel); border-radius: 0 6px 6px 0; }

@@ -144,7 +144,7 @@ UI = {
         "about": "Sobre",
         "contact": "Contato", "contact_text": "Procuro vagas remotas em engenharia de dados, análise de dados e BI. "
         "Pode me chamar por e-mail ou WhatsApp.",
-        "no_code": "Código da equipe, não público",
+        "no_code": "Código da equipe, não público", "my_part": "Minha parte:",
         "github": "GitHub", "back": "Todos os projetos", "problem": "Problema", "solution": "Solução",
         "how": "Como funciona", "results": "Resultados", "results_caption": "Resultados medidos, do repositório",
         "results_caption_team": "Resultados do relatório final entregue à UNIVESP",
@@ -174,7 +174,7 @@ UI = {
         "about": "About",
         "contact": "Contact", "contact_text": "I'm looking for remote roles in data engineering, data analysis and BI. "
         "Reach me by email or WhatsApp.",
-        "no_code": "Team code, not public",
+        "no_code": "Team code, not public", "my_part": "My part:",
         "github": "GitHub", "back": "All projects", "problem": "Problem", "solution": "Solution",
         "how": "How it works", "results": "Results", "results_caption": "Measured results, from the repository",
         "results_caption_team": "Results from the final report delivered to UNIVESP",

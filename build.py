@@ -331,6 +331,7 @@ def project_page(p: dict, i: int, lang: str) -> str:
   <p class="back"><a href="{up}index.html#{anchor}">{u["back"]}</a></p>
   <h1>{e(lp["name"])}</h1>
   <p class="lede">{e(lp["line"])}</p>
+  {f'<p class="my-part"><strong>{u["my_part"]}</strong> {e(lp["my_part"])}</p>' if lp.get("my_part") else ""}
   {links(lp, u, None)}
   {badge}
   {view}

@@ -402,6 +402,9 @@ PT = {
         "name": "Hospcall: sistema de chamados para uma casa de idosos",
         "line": "Um sistema de chamados usado por seis meses em piloto numa associação geriátrica, feito por uma equipe de sete alunos da UNIVESP.",
         "headline": ("60", "cuidadores cadastrados em seis meses de piloto na AGERIP"),
+        "my_part": "Participei de todas as etapas com a equipe: as reuniões de requisitos com a equipe da AGERIP, "
+        "o modelo de dados em PostgreSQL e a tabela de auditoria, a API e o canal de tempo real, as telas em React "
+        "para tablets, TVs e administração, a implantação e o acompanhamento dos seis meses de piloto.",
         "problem": "Na AGERIP, associação geriátrica de São José do Rio Preto, um morador que precisava de ajuda dependia "
         "de um cuidador passar pelo corredor, e o registro do plantão dependia de anotações no papel. Recusa de atendimento, "
         "troca de plantão no meio de um chamado e atendimento por quem não estava na escala não deixavam registro. Sistemas "
@@ -430,6 +433,9 @@ PT = {
         "name": "Sistema de vendas e estoque de uma loja beneficente",
         "line": "Um sistema de ponto de venda e estoque que as voluntárias da loja do IEFA usam em todo dia de funcionamento, feito por uma equipe de oito alunos da UNIVESP.",
         "headline": ("100%", "das funcionalidades previstas entregues; em uso em todo dia de funcionamento da loja desde cerca de julho de 2026"),
+        "my_part": "Participei de todas as etapas com a equipe: a contagem do estoque e o cadastro dos produtos, os "
+        "modelos em Django e o banco MySQL, o ponto de venda, os relatórios e as etiquetas, a instalação no "
+        "computador da loja e o acompanhamento das voluntárias, incluindo a correção das saídas de estoque.",
         "problem": "A loja do Instituto Educacional Francisco de Assis, em São José do Rio Preto, registrava as vendas em papel "
         "e cadernos e não tinha controle de estoque estruturado. Nem todo produto tinha o preço identificado, o que gerava "
         "preço errado no caixa.",
