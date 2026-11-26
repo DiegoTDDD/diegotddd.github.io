@@ -350,7 +350,10 @@ PT = {
         ],
         "limits": "Roda no Sandbox do BigQuery: sem modelos incrementais com MERGE e sem Cloud Storage para o estado "
         "do Terraform, que é aplicado à mão pelo Cloud Shell.",
-        "extra_links": [("Relatório de custo", "https://github.com/DiegoTDDD/olist-cloud-warehouse/blob/main/reports/cost.md")],
+        "extra_links": [
+            ("Página do projeto", "https://diegotddd.github.io/olist-cloud-warehouse/"),
+            ("Documentação dbt", "https://diegotddd.github.io/olist-cloud-warehouse/dbt/"),
+        ],
     },
     "olist-analytics": {
         "name": "Analytics de e-commerce da Olist",

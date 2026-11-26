@@ -420,7 +420,10 @@ PROJECTS = [
         "limits": "Runs in the BigQuery sandbox: no incremental MERGE models, no Cloud Storage for Terraform state; "
         "Terraform is applied by hand from Cloud Shell.",
         "stack": ["BigQuery", "Terraform", "dbt", "Workload Identity Federation", "GitHub Actions"],
-        "extra_links": [("Cost report", "https://github.com/DiegoTDDD/olist-cloud-warehouse/blob/main/reports/cost.md")],
+        "extra_links": [
+            ("Project page", "https://diegotddd.github.io/olist-cloud-warehouse/"),
+            ("dbt docs", "https://diegotddd.github.io/olist-cloud-warehouse/dbt/"),
+        ],
     },
     {
         "slug": "olist-analytics",
