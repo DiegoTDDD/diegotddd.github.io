@@ -399,27 +399,29 @@ PROJECTS = [
         "slug": "olist-cloud-warehouse",
         "group": DATA,
         "name": "Olist cloud warehouse",
-        "line": "A data warehouse on Google BigQuery with Terraform, keyless CI, enforced contracts and measured query cost.",
-        "headline": ("92%", "fewer bytes read by a one-month query on the partitioned fact table, measured in BigQuery"),
+        "line": "A BigQuery warehouse fed by a daily change feed, with incremental dbt models, freshness alerts, Terraform and keyless CI.",
+        "headline": ("0", "rows of difference between the daily incremental build and a full rebuild, checked on every pull request"),
         "problem": "A warehouse is trusted only if its tables keep their shape, every change is tested before it "
         "reaches analysts, nobody holds a long-lived cloud key, and someone knows what each query costs.",
-        "solution": "The Olist marketplace data in BigQuery (Sao Paulo region), with the infrastructure in Terraform, "
-        "dbt models whose column types are enforced contracts, and GitHub Actions that authenticate through "
-        "Workload Identity Federation as two least-privilege service accounts. Every deploy measures what the "
-        "build and typical queries read and writes a decision report from the marts.",
+        "solution": "The Olist marketplace data in BigQuery (Sao Paulo region), arriving the way production data "
+        "does: a daily change feed in which orders are bought, shipped, delivered and reviewed on different days. "
+        "The fact tables update incrementally, freshness is monitored and failures open an alert. Infrastructure "
+        "in Terraform, dbt contracts on every table, and GitHub Actions that authenticate through Workload "
+        "Identity Federation as two least-privilege service accounts.",
         "how": [
-            "Terraform creates four datasets, two service accounts, the federation trust and a one-permission custom role.",
-            "Pull requests build and test the whole warehouse in throwaway datasets as an account that cannot touch production.",
-            "Raw files are checked against SHA-256 hashes and explicit schemas; only changed files are reloaded.",
-            "Fact tables are partitioned by month and clustered by state and status; every query is labelled for cost reporting.",
+            "The 2016-2018 history is replayed one day per real day; each batch replaces its own raw partition, so reruns and catch-ups after an outage are idempotent.",
+            "The fact tables rebuild only the purchase months with a changed order and swap them in with copy jobs, since the sandbox has no MERGE.",
+            "Every pull request replays 31 days in throwaway datasets, builds incrementally and from scratch, and fails unless both hold the same rows.",
+            "Freshness is checked after every deploy and every six hours; a failure opens a GitHub issue, and a runbook says what to do.",
+            "Terraform creates the datasets, two service accounts, the federation trust and a one-permission custom role.",
         ],
         "results": [
-            ("92%", "fewer bytes for a one-month question; 79% for one state over a quarter"),
-            ("US$ 0.004", "for a full build of 15 models and 43 tests at on-demand list price"),
+            ("1 day", "of new data per real day, loaded idempotently, with catch-up after an outage"),
+            ("80%+", "fewer bytes read by a one-month question on the partitioned fact table, measured every deploy"),
             ("0", "service account keys: CI uses one-hour tokens from GitHub's OIDC identity"),
         ],
-        "limits": "Runs in the BigQuery sandbox: no incremental MERGE models, no Cloud Storage for Terraform state; "
-        "Terraform is applied by hand from Cloud Shell.",
+        "limits": "The change feed replays real events rather than a live system, and the data is about 100,000 orders. "
+        "The BigQuery sandbox has no Cloud Storage, so Terraform state stays in Cloud Shell and is applied by hand.",
         "stack": ["BigQuery", "Terraform", "dbt", "Workload Identity Federation", "GitHub Actions"],
         "extra_links": [
             ("Project page", "https://diegotddd.github.io/olist-cloud-warehouse/"),

@@ -328,28 +328,32 @@ PT = {
     },
     "olist-cloud-warehouse": {
         "name": "Data warehouse na nuvem (Olist)",
-        "line": "Um data warehouse no Google BigQuery com Terraform, CI sem chaves, contratos nas tabelas e custo de consulta medido.",
-        "headline": ("92%", "menos bytes lidos numa consulta de um mês na tabela fato particionada, medido no BigQuery"),
+        "line": "Um data warehouse no BigQuery alimentado por dados que chegam todo dia, com modelos dbt incrementais, alertas de atraso, Terraform e CI sem chaves.",
+        "headline": ("0", "linhas de diferença entre o build incremental diário e um build do zero, conferido em todo pull request"),
         "problem": "Um data warehouse só merece confiança se as tabelas mantêm o formato, se toda mudança é testada "
         "antes de chegar ao analista, se ninguém guarda uma chave de nuvem que não expira e se alguém sabe quanto "
         "cada consulta custa.",
-        "solution": "Os dados do marketplace Olist no BigQuery (região de São Paulo), com a infraestrutura em "
-        "Terraform, modelos dbt com tipos de coluna travados por contrato e GitHub Actions que entram no Google "
-        "Cloud por Workload Identity Federation, como duas contas de serviço com o mínimo de permissão. Cada "
-        "deploy mede quanto o build e as consultas típicas leem e gera um relatório de decisão a partir dos marts.",
+        "solution": "Os dados do marketplace Olist no BigQuery (região de São Paulo), chegando como chegam em "
+        "produção: um fluxo diário de mudanças, em que o pedido é comprado, enviado, entregue e avaliado em dias "
+        "diferentes. As tabelas fato se atualizam de forma incremental, a atualização dos dados é monitorada e "
+        "uma falha abre um alerta. Infraestrutura em Terraform, contratos dbt em todas as tabelas e GitHub "
+        "Actions que entram no Google Cloud por Workload Identity Federation, como duas contas de serviço com o "
+        "mínimo de permissão.",
         "how": [
-            "O Terraform cria quatro datasets, duas contas de serviço, a federação de identidade e um papel customizado com uma única permissão.",
-            "Pull requests constroem e testam o warehouse inteiro em datasets descartáveis, com uma conta que não alcança produção.",
-            "Os arquivos brutos são conferidos por hash SHA-256 e esquema explícito; só o que mudou é recarregado.",
-            "As tabelas fato são particionadas por mês e clusterizadas por estado e status; toda consulta leva rótulos para o relatório de custo.",
+            "O histórico de 2016 a 2018 é reproduzido um dia por dia real; cada lote substitui a própria partição no raw, então rodar de novo ou recuperar dias perdidos dá o mesmo resultado.",
+            "As tabelas fato reconstroem só os meses de compra com algum pedido alterado e trocam essas partições com jobs de cópia, porque o sandbox não tem MERGE.",
+            "Todo pull request reproduz 31 dias em datasets descartáveis, faz o build incremental e o completo, e falha se os dois não tiverem as mesmas linhas.",
+            "A atualização dos dados é conferida depois de cada deploy e a cada seis horas; uma falha abre uma issue no GitHub, e um runbook diz o que fazer.",
+            "O Terraform cria os datasets, duas contas de serviço, a federação de identidade e um papel customizado com uma única permissão.",
         ],
         "results": [
-            ("92%", "menos bytes numa pergunta de um mês; 79% para um estado num trimestre"),
-            ("US$ 0,004", "por um build completo de 15 modelos e 43 testes, no preço sob demanda de tabela"),
+            ("1 dia", "de dados novos por dia real, carregado sem duplicar e recuperando dias perdidos"),
+            ("80%+", "menos bytes lidos numa pergunta de um mês na tabela fato particionada, medido a cada deploy"),
             ("0", "chaves de conta de serviço: o CI usa tokens de uma hora vindos da identidade OIDC do GitHub"),
         ],
-        "limits": "Roda no Sandbox do BigQuery: sem modelos incrementais com MERGE e sem Cloud Storage para o estado "
-        "do Terraform, que é aplicado à mão pelo Cloud Shell.",
+        "limits": "O fluxo diário reproduz eventos reais, não um sistema ao vivo, e os dados têm cerca de 100 mil "
+        "pedidos. O sandbox do BigQuery não tem Cloud Storage, então o estado do Terraform fica no Cloud Shell e "
+        "ele é aplicado à mão.",
         "extra_links": [
             ("Página do projeto", "https://diegotddd.github.io/olist-cloud-warehouse/"),
             ("Documentação dbt", "https://diegotddd.github.io/olist-cloud-warehouse/dbt/"),
