@@ -24,7 +24,7 @@ from projects_pt import PT
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "_site"
-SITE = "https://diegotddd.github.io"
+SITE = "https://diegoalves.vercel.app"
 LANGS = ("pt", "en")
 PREFIX = {"pt": "", "en": "en/"}
 FONTS = (
@@ -590,7 +590,7 @@ def og_page() -> str:
 <p class="role">{e(PERSON["role"]["pt"])} | {e(PERSON["role"]["en"])}</p>
 <p class="head">{e(PERSON["headline"]["pt"])}</p>
 <p class="nums"><span>{len(PROJECTS)}</span> projetos com CI <span>0,82</span> de F1 <span>23/23</span> ataques bloqueados</p>
-<p class="url">diegotddd.github.io</p></div></div></body></html>
+<p class="url">diegoalves.vercel.app</p></div></div></body></html>
 """
 
 

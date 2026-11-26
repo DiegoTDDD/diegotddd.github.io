@@ -1,6 +1,6 @@
 # diegotddd.github.io
 
-Source of [diegotddd.github.io](https://diegotddd.github.io/), the portfolio of Diego Alves.
+Source of [diegoalves.vercel.app](https://diegoalves.vercel.app/), the portfolio of Diego Alves. The same build is also served at [diegotddd.github.io](https://diegotddd.github.io/).
 
 - `projects.py` / `projects_pt.py`: the projects in English and Portuguese, with the measured
   results stated in each project's README;
