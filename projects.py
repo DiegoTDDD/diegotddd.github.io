@@ -6,10 +6,11 @@ project has no result or no link to its code.
 
 GH = "https://github.com/DiegoTDDD/"
 
-AI, DATA = "ai", "data"
+AI, DATA, TEAM = "ai", "data", "team"
 GROUPS = {
     AI: "AI engineering",
     DATA: "Data engineering and machine learning",
+    TEAM: "Team projects in real use",
 }
 
 PROJECTS = [
@@ -348,11 +349,11 @@ PROJECTS = [
         "problem": "A model is only useful in production if every step around it can be trusted: repeatable "
         "training, a rule for which version is live, features computed the same way in serving, and a "
         "signal when the data changes.",
-        "solution": "An MLOps system around a classifier that predicts at pickup whether a NYC taxi ride will "
-        "tip more than 20%: MLflow tracking and registry, a FastAPI service, Evidently drift reports, a "
+        "solution": "An MLOps system around a classifier that predicts, when a NYC taxi ride ends and before "
+        "payment, whether the tip will be more than 20%: MLflow tracking and registry, a FastAPI service, Evidently drift reports, a "
         "Streamlit operations dashboard, and CI that runs the whole loop including Docker.",
         "how": [
-            "No label leakage: only what is known at pickup is used, which caps the score honestly.",
+            "No label leakage: no payment field is used, only what is known when the ride ends, which caps the score honestly.",
             "A new version becomes the champion only if its validation AUC beats the current one.",
             "A test checks that the API computes features exactly as training does.",
         ],
@@ -478,5 +479,70 @@ PROJECTS = [
         "repo": "Economic-data-platform",
         "image": "economic-data-platform",
         "image_alt": "Macroeconomic indicators on the dashboard",
+    },
+    {
+        "slug": "hospcall",
+        "group": TEAM,
+        "repo": None,
+        "name": "Hospcall: nurse-call system for an elder-care home",
+        "line": "A call system piloted for six months at a geriatric care association, built by a team of seven UNIVESP students.",
+        "headline": ("60", "caregivers registered in a six-month pilot at AGERIP"),
+        "problem": "At AGERIP, a geriatric care association in São José do Rio Preto, a resident who needed help "
+        "depended on a caregiver walking past the room, and the shift record depended on handwritten notes. "
+        "Refused calls, hand-overs in the middle of a call and care by staff outside the roster left no trace. "
+        "Commercial nurse-call systems need dedicated wiring and maintenance contracts a charity cannot pay for.",
+        "solution": "A web system on ordinary hardware: a tablet in each room opens the call, TV panels in the "
+        "corridors show it in real time, caregivers check in with a PIN, and the nursing team manages calls, "
+        "devices and exports from an admin page. Every administrative intervention is written to an immutable "
+        "audit table instead of overwriting the call.",
+        "how": [
+            "Requirements came from meetings with the general manager, the head nurse and a nurse at AGERIP.",
+            "Their feedback changed the product: PIN always available, tablets that register themselves, a TV grid "
+            "configured remotely, and the open-time counter removed because it made the staff anxious.",
+            "The real-time channel reconnects on its own after a dropped connection, tested under induced failures.",
+        ],
+        "results": [
+            ("56", "calls in the pilot, October 2025 to March 2026, 41 completed"),
+            ("≤ 39 ms", "median reconnection of the real-time channel; 67 ms at worst"),
+            ("11", "new requirements from the final review meeting with the care team, in May 2026"),
+        ],
+        "limits": "Three rooms were instrumented and the response time to a call was not recorded, so the pilot "
+        "shows adoption and stability, not a faster response. Tests were manual. The code belongs to the team "
+        "and is not public.",
+        "stack": ["React", "Node.js / Bun", "Express", "PostgreSQL", "Redis", "WebSocket", "Prisma"],
+        "image": "hospcall",
+        "image_alt": "Corridor TV panel showing six rooms, one with an open call",
+    },
+    {
+        "slug": "iefa-sales-stock",
+        "group": TEAM,
+        "repo": None,
+        "name": "Sales and stock system for a charity shop",
+        "line": "A point-of-sale and stock system that the volunteers of IEFA's shop use on every working day, built by a team of eight UNIVESP students.",
+        "headline": ("100%", "of the planned features delivered; in use on every working day of the shop since about July 2026"),
+        "problem": "The shop of the Instituto Educacional Francisco de Assis, in São José do Rio Preto, recorded "
+        "sales on paper and in notebooks and had no structured stock control. Not every item carried its "
+        "price, which led to wrong prices at the counter.",
+        "solution": "A Django and MySQL system with a barcode point of sale, products, stock movements, payment "
+        "methods, users and sales reports, installed on the shop's Windows computer as a service. Every sale "
+        "writes its stock exit automatically, and new stock prints its barcode labels.",
+        "how": [
+            "The team counted the whole stock, registered every product and printed the labels before go-live.",
+            "Watching the volunteers use it added features nobody had asked for: remove an item, cancel a sale, "
+            "initial stock in the product form and search everywhere.",
+            "A defect in the stock exits of sales was fixed in the code and the missing movements were repaired "
+            "with a SQL script.",
+        ],
+        "results": [
+            ("0", "reports of wrong or missing prices since the barcode labels were adopted"),
+            ("9", "modules in production: sales, point of sale, stock, products, categories, payments, users, reports, labels"),
+            ("2", "reports the volunteers use in their routine: sales by payment method and label printing"),
+        ],
+        "limits": "Results are observed, not measured: there is no before-and-after count of errors. Tests are "
+        "manual, and the volunteers share one login, so actions are not traceable to a person. The code belongs "
+        "to the team and is not public.",
+        "stack": ["Python", "Django", "MySQL", "Waitress", "WhiteNoise", "NSSM"],
+        "image": "iefa-sales",
+        "image_alt": "Point of sale with two items read by barcode and the sale total",
     },
 ]

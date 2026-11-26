@@ -4,6 +4,12 @@ workflow of each project, used for the live status badges."""
 
 AVATAR = "https://avatars.githubusercontent.com/u/183739024?v=4&s=320"
 GITHUB_PROFILE = "https://github.com/DiegoTDDD"
+EMAIL = "diegoleonardo380@gmail.com"
+WHATSAPP = "https://wa.me/5517981857271"
+PHONE = {"pt": "(17) 98185-7271", "en": "+55 17 98185-7271"}
+
+# The three cases the home page opens with, each proving a different skill.
+FEATURED = ["olist-cloud-warehouse", "freight-intelligence", "fraud-investigation-agents"]
 
 # Filter categories for the project list.
 CATEGORIES = {
@@ -13,9 +19,10 @@ CATEGORIES = {
     "data": {"pt": "Engenharia de dados", "en": "Data engineering"},
     "streaming": {"pt": "Streaming", "en": "Streaming"},
     "analytics": {"pt": "Análise e estatística", "en": "Analytics and statistics"},
+    "team": {"pt": "Com usuários reais", "en": "With real users"},
 }
 
-# slug -> (categories, main CI workflow file)
+# slug -> (categories, main CI workflow file, or None for team projects without public CI)
 META = {
     "fraud-investigation-agents": (["llm"], "tests.yml"),
     "sec-mcp-agent": (["llm"], "tests.yml"),
@@ -34,23 +41,23 @@ META = {
     "olist-cloud-warehouse": (["data"], "deploy.yml"),
     "olist-analytics": (["data", "analytics"], "dbt-check.yml"),
     "economic-data-platform": (["data"], "ci_pipeline.yml"),
+    "hospcall": (["team"], None),
+    "iefa-sales-stock": (["team", "data"], None),
 }
 
 PERSON = {
     "name": "Diego Alves",
-    "role": {"pt": "Engenheiro de Dados e IA", "en": "Data and AI Engineer"},
+    "role": {"pt": "Engenheiro de Dados", "en": "Data Engineer"},
     "location": {"pt": "Novo Horizonte, SP, Brasil", "en": "Novo Horizonte, SP, Brazil"},
     "headline": {
-        "pt": "Sistemas de dados e IA, com as medições que mostram se funcionam.",
-        "en": "Data and AI systems, with the measurements that show whether they work.",
+        "pt": "Dados confiáveis para decisões, com o resultado medido.",
+        "en": "Trustworthy data for decisions, with the result measured.",
     },
     "intro": {
-        "pt": "Sou o Diego Alves, de Novo Horizonte, interior de São Paulo. Construo plataformas de dados, sistemas "
-        "de machine learning e agentes com LLMs. Cada projeto aqui roda testes e avaliações no CI, documenta as "
-        "decisões de projeto e mostra o que mediu, inclusive o que não funcionou.",
-        "en": "I'm Diego Alves, from Novo Horizonte in São Paulo state, Brazil. I build data platforms, machine "
-        "learning systems and LLM agents. Each project here runs its tests and evaluations in CI, documents its "
-        "design decisions, and reports what it measured, including what did not work.",
+        "pt": "Construo pipelines, warehouses e painéis que respondem a uma decisão de negócio, e mostro o que "
+        "medi, inclusive o que não funcionou.",
+        "en": "I build pipelines, warehouses and dashboards that answer a business decision, and I report what I "
+        "measured, including what did not work.",
     },
     "about": {
         "pt": [
@@ -123,19 +130,27 @@ UI = {
         "lang": "pt-BR", "skip": "Pular para o conteúdo", "nav_projects": "Projetos",
         "nav_skills": "Habilidades", "nav_contact": "Contato", "theme": "Alternar tema claro e escuro",
         "other_lang": "English", "other_lang_label": "Read in English",
-        "stat_projects": "projetos com resultados medidos", "stat_ai": "em engenharia de IA",
+        "stat_projects": "projetos com resultados medidos", "stat_team": "em uso por equipes reais",
         "stat_ci": "com testes e checagens no CI", "stat_books": "livros escritos", "see_projects": "Ver projetos",
         "projects": "Projetos", "filter_label": "Filtrar projetos por área", "all": "Todos",
         "case": "Estudo de caso", "code": "Código", "demo": "Demo ao vivo", "group_ai": "Engenharia de IA",
-        "group_data": "Engenharia de dados e machine learning", "none": "Nenhum projeto nessa área.", "skills": "Habilidades", "education": "Formação", "languages": "Idiomas",
+        "group_data": "Engenharia de dados e machine learning", "group_team": "Projetos em equipe, em uso real",
+        "featured": "Em destaque", "email": "E-mail", "whatsapp": "WhatsApp",
+        "featured_proof": {
+            "olist-cloud-warehouse": "Warehouse em BigQuery com Terraform, deploy sem chaves e contratos dbt.",
+            "freight-intelligence": "Pipeline de 97,6 milhões de linhas e uma falha de memória em produção resolvida.",
+            "fraud-investigation-agents": "Agentes medidos contra uma linha de base: o crítico leva o acerto de 47% a 77%.",
+        }, "none": "Nenhum projeto nessa área.", "skills": "Habilidades", "education": "Formação", "languages": "Idiomas",
         "about": "Sobre",
-        "contact": "Contato", "contact_text": "Estou aberto a oportunidades em engenharia de dados, machine learning e "
-        "engenharia de IA. O código de todos os projetos está no GitHub.",
+        "contact": "Contato", "contact_text": "Procuro vagas remotas em engenharia de dados, análise de dados e BI. "
+        "Pode me chamar por e-mail ou WhatsApp.",
+        "no_code": "Código da equipe, não público",
         "github": "GitHub", "back": "Todos os projetos", "problem": "Problema", "solution": "Solução",
         "how": "Como funciona", "results": "Resultados", "results_caption": "Resultados medidos, do repositório",
+        "results_caption_team": "Resultados do relatório final entregue à UNIVESP",
         "limits": "Limites", "stack": "Stack", "prev": "Anterior", "next": "Próximo", "ci": "Status do CI",
-        "footer": "Todos os números deste site vêm do repositório de cada projeto, onde o código que os produziu "
-        "roda no CI.", "source": "Código deste site", "title_suffix": "engenharia de dados e IA",
+        "footer": "Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no "
+        "CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP.", "source": "Código deste site", "title_suffix": "engenharia de dados e IA",
         "description": "Projetos de engenharia de dados, machine learning e engenharia de IA de Diego Alves, cada um "
         "com resultados medidos.",
         "notfound_title": "Página não encontrada", "notfound_text": "Este endereço não existe neste site.",
@@ -145,19 +160,27 @@ UI = {
         "lang": "en", "skip": "Skip to content", "nav_projects": "Projects",
         "nav_skills": "Skills", "nav_contact": "Contact", "theme": "Switch light and dark theme",
         "other_lang": "Português", "other_lang_label": "Ler em português",
-        "stat_projects": "projects with measured results", "stat_ai": "in AI engineering",
+        "stat_projects": "projects with measured results", "stat_team": "in use by real teams",
         "stat_ci": "with tests and checks in CI", "stat_books": "books written", "see_projects": "See projects",
         "projects": "Projects", "filter_label": "Filter projects by area", "all": "All",
         "case": "Case study", "code": "Code", "demo": "Live demo", "group_ai": "AI engineering",
-        "group_data": "Data engineering and machine learning", "none": "No projects in this area.", "skills": "Skills", "education": "Education", "languages": "Languages",
+        "group_data": "Data engineering and machine learning", "group_team": "Team projects in real use",
+        "featured": "Featured", "email": "Email", "whatsapp": "WhatsApp",
+        "featured_proof": {
+            "olist-cloud-warehouse": "A BigQuery warehouse with Terraform, keyless deploys and dbt contracts.",
+            "freight-intelligence": "A 97.6-million-row pipeline and a production memory failure, traced and fixed.",
+            "fraud-investigation-agents": "Agents measured against a baseline: the critic lifts accuracy from 47% to 77%.",
+        }, "none": "No projects in this area.", "skills": "Skills", "education": "Education", "languages": "Languages",
         "about": "About",
-        "contact": "Contact", "contact_text": "I'm open to roles in data engineering, machine learning and AI "
-        "engineering. The code of every project is on GitHub.",
+        "contact": "Contact", "contact_text": "I'm looking for remote roles in data engineering, data analysis and BI. "
+        "Reach me by email or WhatsApp.",
+        "no_code": "Team code, not public",
         "github": "GitHub", "back": "All projects", "problem": "Problem", "solution": "Solution",
         "how": "How it works", "results": "Results", "results_caption": "Measured results, from the repository",
+        "results_caption_team": "Results from the final report delivered to UNIVESP",
         "limits": "Limits", "stack": "Stack", "prev": "Previous", "next": "Next", "ci": "CI status",
-        "footer": "Every number on this site comes from the project's own repository, where the code that produced "
-        "it runs in CI.", "source": "Source of this site", "title_suffix": "data and AI engineering",
+        "footer": "The numbers on this site come from each project's repository, where the code that produced them "
+        "runs in CI, and, for the team projects, from the final report delivered to UNIVESP.", "source": "Source of this site", "title_suffix": "data and AI engineering",
         "description": "Data engineering, machine learning and AI engineering projects by Diego Alves, each with "
         "measured results.",
         "notfound_title": "Page not found", "notfound_text": "This address does not exist on this site.",

@@ -15,11 +15,12 @@ from html import escape
 from pathlib import Path
 
 from content import (
-    AVATAR, CATEGORIES, EDUCATION, GITHUB_PROFILE, LANGUAGES, META, PERSON, SKILLS, UI,
+    AVATAR, CATEGORIES, EDUCATION, EMAIL, FEATURED, GITHUB_PROFILE, LANGUAGES, META, PERSON, PHONE, SKILLS, UI,
+    WHATSAPP,
 )  # fmt: skip
 from books import BOOKS, CANONE, CANONE_END, DECISION, METHOD, TITLE_EN, TOOLS, UI_BOOKS
 from business import BUSINESS, LABELS
-from projects import AI, DATA, GH, PROJECTS
+from projects import AI, DATA, GH, PROJECTS, TEAM
 from projects_pt import PT
 
 ROOT = Path(__file__).resolve().parent
@@ -55,8 +56,22 @@ def e(text: str) -> str:
     return escape(text, quote=True)
 
 
-def code_url(p: dict) -> str:
-    return GH + p.get("repo", p["slug"])
+def code_url(p: dict) -> str | None:
+    """None for team projects whose code is not public."""
+    repo = p.get("repo", p["slug"])
+    return GH + repo if repo else None
+
+
+ANCHOR = {AI: "ai", DATA: "data", TEAM: "team"}
+WITH_CI = [p for p in PROJECTS if META[p["slug"]][1]]
+
+
+def contact_buttons(u: dict, primary: bool = False) -> str:
+    """Email and WhatsApp (filled in the contact section, quiet next to "See projects"), then GitHub."""
+    cls = "button" if primary else "button button-quiet"
+    return (f'<a class="{cls}" href="mailto:{EMAIL}">{u["email"]}</a>'
+            f'<a class="{cls}" href="{WHATSAPP}" rel="noopener">{u["whatsapp"]}</a>'
+            f'<a class="button button-quiet" href="{GITHUB_PROFILE}">{u["github"]}</a>')  # fmt: skip
 
 
 def local(p: dict, lang: str) -> dict:
@@ -150,7 +165,8 @@ def links(p: dict, u: dict, case_href: str | None) -> str:
     out = []
     if case_href:
         out.append(f'<a href="{case_href}">{u["case"]}</a>')
-    out.append(f'<a href="{code_url(p)}">{u["code"]}</a>')
+    url = code_url(p)
+    out.append(f'<a href="{url}">{u["code"]}</a>' if url else f'<span class="no-code">{u["no_code"]}</span>')
     if p.get("demo"):
         out.append(f'<a href="{e(p["demo"])}">{u["demo"]}</a>')
     for label, url in p.get("extra_links", []):
@@ -183,6 +199,7 @@ def json_ld(lang: str) -> str:
         "url": f"{SITE}/{PREFIX[lang]}",
         "image": AVATAR,
         "sameAs": [GITHUB_PROFILE],
+        "email": f"mailto:{EMAIL}",
         "address": {"@type": "PostalAddress", "addressLocality": "Novo Horizonte", "addressRegion": "SP",
                     "addressCountry": "BR"},
         "knowsLanguage": ["pt-BR", "en", "es"],
@@ -193,15 +210,23 @@ def json_ld(lang: str) -> str:
 
 def home(lang: str) -> str:
     u = UI[lang]
-    hero = local(next(p for p in PROJECTS if p["slug"] == "fraud-investigation-agents"), lang)
-    n_ai = sum(p["group"] == AI for p in PROJECTS)
+    n_team = sum(p["group"] == TEAM for p in PROJECTS)
+    by_slug = {p["slug"]: p for p in PROJECTS}
+    featured = []
+    for slug in FEATURED:
+        fp = local(by_slug[slug], lang)
+        value, _ = fp["headline"]
+        featured.append(f'<li><a class="feat" href="projects/{slug}.html"><span class="value">{e(value)}</span>'
+                        f'<span class="feat-name">{e(fp["name"])}</span>'
+                        f'<span class="feat-proof">{e(u["featured_proof"][slug])}</span></a></li>')  # fmt: skip
     chips = [f'<button type="button" class="chip" data-filter="all" aria-pressed="true">{u["all"]}</button>']
     used = {t for tags, _ in META.values() for t in tags}
     for key, names in CATEGORIES.items():
         if key in used:
             chips.append(f'<button type="button" class="chip" data-filter="{key}" aria-pressed="false">{names[lang]}</button>')
     groups = []
-    for group, anchor, title in ((AI, "ai", u["group_ai"]), (DATA, "data", u["group_data"])):
+    for group, anchor, title in ((DATA, "data", u["group_data"]), (TEAM, "team", u["group_team"]),
+                                 (AI, "ai", u["group_ai"])):  # fmt: skip
         rows = "\n".join(row(p, lang) for p in PROJECTS if p["group"] == group)
         groups.append(f'<section class="group" id="{anchor}" aria-labelledby="{anchor}-h">\n'
                       f'<h3 class="group-h" id="{anchor}-h">{title}</h3>\n{rows}\n</section>')  # fmt: skip
@@ -225,16 +250,19 @@ def home(lang: str) -> str:
     <p class="lead">{e(PERSON["intro"][lang])}</p>
     <p class="cta">
       <a class="button" href="#projects">{u["see_projects"]}</a>
-      <a class="button button-quiet" href="{GITHUB_PROFILE}">{u["github"]}</a>
+      {contact_buttons(u)}
     </p>
     <dl class="stats">
       <div><dt>{len(PROJECTS)}</dt><dd>{u["stat_projects"]}</dd></div>
-      <div><dt>{n_ai}</dt><dd>{u["stat_ai"]}</dd></div>
-      <div><dt>{len(PROJECTS)}</dt><dd>{u["stat_ci"]}</dd></div>
+      <div><dt>{n_team}</dt><dd>{u["stat_team"]}</dd></div>
+      <div><dt>{len(WITH_CI)}</dt><dd>{u["stat_ci"]}</dd></div>
       <div><dt>5</dt><dd>{u["stat_books"]}</dd></div>
     </dl>
   </div>
-  {video(media_name(hero["video"], lang), hero["video_caption"], up_root, hero=True)}
+  <section class="featured" aria-labelledby="featured-h">
+    <h2 id="featured-h">{u["featured"]}</h2>
+    <ol class="feats">{"".join(featured)}</ol>
+  </section>
 </section>
 <section class="projects" id="projects" aria-labelledby="projects-h">
   <h2 id="projects-h">{u["projects"]}</h2>
@@ -267,9 +295,8 @@ def home(lang: str) -> str:
 <section class="block" id="contact" aria-labelledby="contact-h">
     <h2 id="contact-h">{u["contact"]}</h2>
     <p class="prose-sm">{u["contact_text"]}</p>
-    <p class="cta">
-      <a class="button" href="{GITHUB_PROFILE}">{u["github"]}</a>
-    </p>
+    <p class="cta">{contact_buttons(u, primary=True)}</p>
+    <p class="contact-lines"><a href="mailto:{EMAIL}">{EMAIL}</a><a href="{WHATSAPP}" rel="noopener">{PHONE[lang]}</a></p>
 </section>"""
     title = f"{PERSON['name']}: {u['title_suffix']}"
     return page(lang, title, u["description"], "", body, 0, "", json_ld(lang))
@@ -294,8 +321,8 @@ def project_page(p: dict, i: int, lang: str) -> str:
     repo = p.get("repo", p["slug"])
     ci = META[p["slug"]][1]
     badge = (f'<a class="ci" href="{GH}{repo}/actions/workflows/{ci}">'
-             f'<img src="{GH}{repo}/actions/workflows/{ci}/badge.svg" alt="{u["ci"]}" height="20"></a>')  # fmt: skip
-    anchor = "ai" if p["group"] == AI else "data"
+             f'<img src="{GH}{repo}/actions/workflows/{ci}/badge.svg" alt="{u["ci"]}" height="20"></a>') if ci else ""  # fmt: skip
+    anchor = ANCHOR[p["group"]]
     lab = LABELS[lang]
     view = (f'<div class="view" role="group" aria-label="{lab["view"]}">'
             f'<button type="button" data-view="tech" aria-pressed="true">{lab["tech"]}</button>'
@@ -318,7 +345,7 @@ def project_page(p: dict, i: int, lang: str) -> str:
     <h2>{u["how"]}</h2>
     <ul>{how}</ul>
     <h2>{u["results"]}</h2>
-    <table class="results"><caption>{u["results_caption"]}</caption>
+    <table class="results"><caption>{u["results_caption_team" if p["group"] == TEAM else "results_caption"]}</caption>
     <tbody>{results}</tbody></table>
     {limits}
     <h2>{u["stack"]}</h2>
@@ -589,7 +616,7 @@ def og_page() -> str:
 <p class="name">{PERSON["name"]}</p>
 <p class="role">{e(PERSON["role"]["pt"])} | {e(PERSON["role"]["en"])}</p>
 <p class="head">{e(PERSON["headline"]["pt"])}</p>
-<p class="nums"><span>{len(PROJECTS)}</span> projetos com CI <span>0,82</span> de F1 <span>23/23</span> ataques bloqueados</p>
+<p class="nums"><span>97,6M</span> linhas no pipeline <span>92%</span> menos bytes lidos <span>{sum(p["group"] == TEAM for p in PROJECTS)}</span> sistemas em uso real</p>
 <p class="url">diegoalves.vercel.app</p></div></div></body></html>
 """
 
@@ -601,7 +628,7 @@ def check() -> list[str]:
         problems.append("duplicate slugs")
     for p in PROJECTS:
         s = p["slug"]
-        if p["group"] not in (AI, DATA):
+        if p["group"] not in ANCHOR:
             problems.append(f"{s}: unknown group")
         if not p.get("headline") or not p.get("results"):
             problems.append(f"{s}: no measured results")

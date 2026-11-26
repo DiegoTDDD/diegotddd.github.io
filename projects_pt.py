@@ -288,11 +288,11 @@ PT = {
         "headline": ("29", "testes cobrindo features, regra de promoção, registro e todos os endpoints da API"),
         "problem": "Um modelo só tem valor em produção se cada etapa em volta dele for confiável: treino repetível, uma "
         "regra para qual versão está no ar, features calculadas do mesmo jeito no serving e um sinal quando os dados mudam.",
-        "solution": "Um sistema de MLOps em volta de um classificador que prevê, no embarque, se uma corrida de táxi em "
+        "solution": "Um sistema de MLOps em volta de um classificador que prevê, no fim da corrida e antes do pagamento, se uma corrida de táxi em "
         "Nova York vai dar mais de 20% de gorjeta: rastreamento e registro com MLflow, um serviço FastAPI, relatórios de "
         "drift com Evidently, um painel de operação em Streamlit e um CI que roda o ciclo inteiro, inclusive o Docker.",
         "how": [
-            "Sem vazamento de rótulo: só o que se sabe no embarque é usado, o que limita a nota de forma honesta.",
+            "Sem vazamento de rótulo: nenhum dado do pagamento entra, só o que se sabe quando a corrida termina, o que limita a nota de forma honesta.",
             "Uma versão nova só vira a campeã se o AUC de validação superar o da atual.",
             "Um teste confere que a API calcula as features exatamente como o treino.",
         ],
@@ -397,5 +397,60 @@ PT = {
         ],
         "limits": "O painel público lê um retrato da Gold que o CI atualiza todo mês.",
         "image_alt": "Indicadores macroeconômicos no painel",
+    },
+    "hospcall": {
+        "name": "Hospcall: sistema de chamados para uma casa de idosos",
+        "line": "Um sistema de chamados usado por seis meses em piloto numa associação geriátrica, feito por uma equipe de sete alunos da UNIVESP.",
+        "headline": ("60", "cuidadores cadastrados em seis meses de piloto na AGERIP"),
+        "problem": "Na AGERIP, associação geriátrica de São José do Rio Preto, um morador que precisava de ajuda dependia "
+        "de um cuidador passar pelo corredor, e o registro do plantão dependia de anotações no papel. Recusa de atendimento, "
+        "troca de plantão no meio de um chamado e atendimento por quem não estava na escala não deixavam registro. Sistemas "
+        "comerciais de chamada exigem cabeamento próprio e contrato de manutenção fora do alcance de uma entidade filantrópica.",
+        "solution": "Um sistema web em hardware comum: um tablet em cada quarto abre o chamado, painéis de TV nos corredores "
+        "mostram tudo em tempo real, o cuidador faz check-in com PIN e a enfermagem gerencia chamados, dispositivos e "
+        "exportações numa página administrativa. Toda intervenção administrativa vai para uma tabela de auditoria imutável, "
+        "sem sobrescrever o chamado.",
+        "how": [
+            "Os requisitos vieram de reuniões com a gerente geral, a enfermeira-chefe e uma enfermeira da AGERIP.",
+            "O retorno delas mudou o produto: PIN sempre disponível, tablets que se cadastram sozinhos, grade da TV "
+            "configurada à distância e o contador de tempo em aberto removido porque deixava a equipe ansiosa.",
+            "O canal de tempo real se reconecta sozinho depois de uma queda, testado com falhas provocadas.",
+        ],
+        "results": [
+            ("56", "chamados no piloto, de outubro de 2025 a março de 2026, 41 concluídos"),
+            ("≤ 39 ms", "de reconexão mediana do canal de tempo real; 67 ms no pior caso"),
+            ("11", "novos requisitos da reunião final de validação com a equipe, em maio de 2026"),
+        ],
+        "limits": "Três quartos foram instrumentados e o tempo de resposta ao chamado não foi registrado, então o piloto "
+        "mostra adoção e estabilidade, não um atendimento mais rápido. Os testes foram manuais. O código é da equipe e "
+        "não é público.",
+        "image_alt": "Painel de TV do corredor com seis quartos, um deles com chamado aberto",
+    },
+    "iefa-sales-stock": {
+        "name": "Sistema de vendas e estoque de uma loja beneficente",
+        "line": "Um sistema de ponto de venda e estoque que as voluntárias da loja do IEFA usam em todo dia de funcionamento, feito por uma equipe de oito alunos da UNIVESP.",
+        "headline": ("100%", "das funcionalidades previstas entregues; em uso em todo dia de funcionamento da loja desde cerca de julho de 2026"),
+        "problem": "A loja do Instituto Educacional Francisco de Assis, em São José do Rio Preto, registrava as vendas em papel "
+        "e cadernos e não tinha controle de estoque estruturado. Nem todo produto tinha o preço identificado, o que gerava "
+        "preço errado no caixa.",
+        "solution": "Um sistema em Django e MySQL com ponto de venda por código de barras, produtos, movimentações de estoque, "
+        "formas de pagamento, usuários e relatórios de vendas, instalado como serviço no computador Windows da loja. Cada "
+        "venda gera a saída de estoque sozinha, e a entrada de mercadoria imprime as etiquetas.",
+        "how": [
+            "A equipe contou o estoque inteiro, cadastrou todos os produtos e imprimiu as etiquetas antes de entrar em produção.",
+            "Acompanhar as voluntárias usando trouxe funções que ninguém tinha pedido: remover item, cancelar venda, estoque "
+            "inicial no cadastro do produto e pesquisa em todas as listas.",
+            "Um defeito nas saídas de estoque das vendas foi corrigido no código e as movimentações que faltavam foram "
+            "regularizadas com um script SQL.",
+        ],
+        "results": [
+            ("0", "relatos de preço errado ou produto sem preço desde a adoção das etiquetas com código de barras"),
+            ("9", "módulos em produção: vendas, PDV, estoque, produtos, categorias, pagamentos, usuários, relatórios e etiquetas"),
+            ("2", "relatórios usados na rotina das voluntárias: vendas por forma de pagamento e impressão de etiquetas"),
+        ],
+        "limits": "Os resultados são observados, não medidos: não há contagem de erros antes e depois. Os testes são manuais, "
+        "e as voluntárias usam um login comum, então as ações não são rastreáveis por pessoa. O código é da equipe e não é "
+        "público.",
+        "image_alt": "Ponto de venda com dois itens lidos pelo código de barras e o total da venda",
     },
 }

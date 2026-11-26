@@ -278,6 +278,38 @@ BUSINESS = {
             "risk": "The public dashboard reads a snapshot the CI refreshes monthly.",
         },
     },
+    "hospcall": {
+        "pt": {
+            "decision": "Quem atende cada chamado, e o que a instituição consegue provar depois.",
+            "users": "Enfermagem e gerência de uma instituição de longa permanência para idosos.",
+            "error": "Um chamado sem resposta ou sem registro deixa o morador sem atendimento e a instituição sem defesa diante de uma reclamação.",
+            "value": "O chamado aparece na hora em todos os corredores, o check-in registra quem atendeu e toda intervenção administrativa fica auditada.",
+            "risk": "Piloto em três quartos, sem medição do tempo de resposta; a próxima fase depende dos 11 requisitos levantados com a equipe.",
+        },
+        "en": {
+            "decision": "Who answers each call, and what the home can prove afterwards.",
+            "users": "Nursing staff and managers of a long-term care home for older people.",
+            "error": "An unanswered or unrecorded call leaves a resident without care and the home without evidence when a family complains.",
+            "value": "A call appears at once in every corridor, the check-in records who answered, and every administrative change is audited.",
+            "risk": "A pilot in three rooms with no response-time measurement; the next phase depends on the 11 requirements raised with the staff.",
+        },
+    },
+    "iefa-sales-stock": {
+        "pt": {
+            "decision": "Quanto foi vendido, por qual forma de pagamento, e o que há no estoque.",
+            "users": "Voluntárias e coordenação de uma loja beneficente.",
+            "error": "Preço errado no caixa e estoque sem controle viram dinheiro perdido e prestação de contas difícil.",
+            "value": "A venda pelo código de barras baixa o estoque sozinha e o relatório por forma de pagamento fecha o dia; os relatos de preço errado pararam.",
+            "risk": "Login compartilhado e testes manuais; não há controle de caixa com abertura e fechamento.",
+        },
+        "en": {
+            "decision": "How much was sold, by which payment method, and what is in stock.",
+            "users": "Volunteers and coordinators of a charity shop.",
+            "error": "Wrong prices at the counter and untracked stock become lost money and hard-to-close accounts.",
+            "value": "A barcode sale updates stock by itself and the report by payment method closes the day; reports of wrong prices stopped.",
+            "risk": "A shared login and manual tests; there is no cash-register opening and closing.",
+        },
+    },
 }
 
 LABELS = {
