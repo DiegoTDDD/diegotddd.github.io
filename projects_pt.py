@@ -357,24 +357,26 @@ PT = {
     },
     "olist-analytics": {
         "name": "Analytics de e-commerce da Olist",
-        "line": "Um modelo estrela testado em dbt sobre 100 mil pedidos que mede quanto os atrasos derrubam as avaliações.",
-        "headline": ("4,29 → 2,99", "de nota média quando o pedido atrasa de 1 a 5 dias"),
+        "line": "Um modelo estrela testado em dbt sobre 100 mil pedidos e um relatório em Power BI que medem quanto os atrasos derrubam as avaliações.",
+        "headline": ("4,29 → 1,81", "de nota média no prazo contra 6 dias de atraso; depois disso quase não muda"),
         "problem": "Um marketplace sabe que atrasos derrubam as avaliações, mas não quanto, com que rapidez, nem se deve "
         "reduzir o tamanho dos atrasos ou evitá-los por completo.",
         "solution": "Um modelo estrela construído com dbt sobre DuckDB em cerca de 100 mil pedidos reais da Olist, com "
-        "testes para cada regra de negócio, e um painel que responde à pergunta.",
+        "testes para cada regra de negócio, um relatório de três páginas em Power BI e um painel em Streamlit.",
         "how": [
-            "14 modelos dbt e 35 testes rodam a cada mudança, a partir dos arquivos brutos.",
-            "Cinco testes singulares codificam as regras de negócio.",
-            "O painel tem capturas de tela no repositório para o caso de o app gratuito estar dormindo.",
+            "15 modelos dbt e 43 testes rodam a cada mudança, a partir dos arquivos brutos.",
+            "O modelo do Power BI (TMDL) e as páginas (PBIR) são gerados por código: 22 medidas DAX, tabela de datas "
+            "marcada e textos das páginas calculados a partir dos dados. O CI falha se divergirem do que está no repositório.",
+            "O relatório foi aberto, atualizado e conferido no Power BI Desktop; o .pbix está no repositório.",
         ],
         "results": [
-            ("4,29", "de nota média para pedidos no prazo"),
-            ("2,99", "para pedidos de 1 a 5 dias atrasados: a queda acontece logo no primeiro dia"),
-            ("35", "testes dbt em 14 modelos"),
+            ("6,8%", "dos pedidos entregues chegam atrasados"),
+            ("3,73 → 2,68", "de nota com 1 dia contra 3 dias de atraso: cada dia da primeira semana custa nota"),
+            ("43", "testes dbt em 15 modelos"),
         ],
         "limits": "Correlação a partir de dados observacionais; pedidos atrasados podem diferir em outros aspectos.",
-        "image_alt": "Visão geral do painel",
+        "image_alt": "Página do Power BI: nota média por dias de atraso, com a decisão que ela apoia",
+        "extra_links": [("Arquivo do Power BI (.pbix)", "https://github.com/DiegoTDDD/olist-analytics/raw/main/powerbi/OlistEntregas.pbix")],
     },
     "economic-data-platform": {
         "name": "Plataforma de dados econômicos",

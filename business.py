@@ -248,17 +248,17 @@ BUSINESS = {
     },
     "olist-analytics": {
         "pt": {
-            "decision": "Onde investir em logística: reduzir atrasos grandes ou evitar qualquer atraso.",
+            "decision": "Onde investir em logística: em quais atrasos cada dia a menos ainda recupera nota.",
             "users": "Operação de marketplace, logística e experiência do cliente.",
             "error": "Investir no problema errado gasta dinheiro sem recuperar as avaliações.",
-            "value": "A nota cai de 4,29 para 2,99 já no primeiro dia de atraso, então evitar o atraso vale mais que encurtá-lo. Os números vêm de modelos dbt conferidos por 35 testes.",
+            "value": "A nota cai a cada dia de atraso até o 6º (de 4,29 no prazo para 1,81) e depois quase não muda, então o dinheiro de logística rende na primeira semana de atraso. Os números vêm de modelos dbt conferidos por 43 testes e estão no relatório em Power BI.",
             "risk": "Correlação em dados observacionais: pedidos atrasados podem diferir em outros aspectos.",
         },
         "en": {
-            "decision": "Where to invest in logistics: shortening long delays or avoiding any delay.",
+            "decision": "Where to invest in logistics: which delays still recover rating with each day saved.",
             "users": "Marketplace operations, logistics and customer experience.",
             "error": "Investing in the wrong problem spends money without recovering ratings.",
-            "value": "The rating drops from 4.29 to 2.99 on the very first day late, so avoiding delays is worth more than shortening them. The numbers come from dbt models checked by 35 tests.",
+            "value": "The rating falls with every day late until about the sixth (from 4.29 on time to 1.81) and then barely moves, so logistics money pays off in the first week of a delay. The numbers come from dbt models checked by 43 tests and are in the Power BI report.",
             "risk": "Correlation in observational data: late orders may differ in other ways.",
         },
     },
