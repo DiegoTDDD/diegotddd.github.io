@@ -373,7 +373,10 @@ PT = {
         "solution": "Um modelo estrela construído com dbt sobre DuckDB em cerca de 100 mil pedidos reais da Olist, com "
         "testes para cada regra de negócio, um relatório de três páginas em Power BI e um painel em Streamlit.",
         "how": [
-            "15 modelos dbt e 43 testes rodam a cada mudança, a partir dos arquivos brutos.",
+            "15 modelos dbt e 48 testes rodam a cada mudança, a partir dos arquivos brutos.",
+            "As duas tabelas fato são incrementais. O CI reproduz o fluxo de pedidos dia a dia a partir dos horários dos eventos "
+            "nos dados e prova que elas são iguais a uma reconstrução completa em cada passo; a checagem de atualização falha "
+            "uma carga com mais de 50 horas.",
             "O modelo do Power BI (TMDL) e as páginas (PBIR) são gerados por código: 23 medidas DAX, tabela de datas "
             "marcada e textos das páginas calculados a partir dos dados. O CI falha se divergirem do que está no repositório.",
             "O relatório foi aberto, atualizado e conferido no Power BI Desktop; o .pbix está no repositório.",
@@ -381,7 +384,7 @@ PT = {
         "results": [
             ("6,8%", "dos pedidos entregues chegam atrasados"),
             ("3,73 → 2,68", "de nota com 1 dia contra 3 dias de atraso: cada dia da primeira semana custa nota"),
-            ("43", "testes dbt em 15 modelos"),
+            ("48", "testes dbt em 15 modelos"),
         ],
         "limits": "Correlação a partir de dados observacionais; pedidos atrasados podem diferir em outros aspectos.",
         "image_alt": "Página do Power BI: nota média por dias de atraso, com a decisão que ela apoia",

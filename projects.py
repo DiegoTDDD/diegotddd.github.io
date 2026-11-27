@@ -443,7 +443,9 @@ PROJECTS = [
         "solution": "A star schema built with dbt on DuckDB over about 100,000 real Olist orders, with tests "
         "for every business rule, a three-page Power BI report on top of it and a Streamlit dashboard.",
         "how": [
-            "15 dbt models and 43 tests run on every change, from the raw files.",
+            "15 dbt models and 48 tests run on every change, from the raw files.",
+            "The two fact tables are incremental. CI replays the order feed day by day from the event times in the data "
+            "and proves they equal a full rebuild at every step; source freshness fails a load over 50 hours old.",
             "The Power BI model (TMDL) and pages (PBIR) are generated as code: 23 DAX measures, a marked date "
             "table, and page texts computed from the data. CI fails if they drift from the committed files.",
             "The report was opened, refreshed and checked in Power BI Desktop; the .pbix is in the repository.",
@@ -451,7 +453,7 @@ PROJECTS = [
         "results": [
             ("6.8%", "of delivered orders arrive late"),
             ("3.73 → 2.68", "average review 1 day late vs. 3 days late: each day in the first week costs rating"),
-            ("43", "dbt tests on 15 models"),
+            ("48", "dbt tests on 15 models"),
         ],
         "limits": "Correlation from observational data; late orders may differ in other ways.",
         "stack": ["dbt", "DuckDB", "Power BI", "DAX", "Streamlit"],
