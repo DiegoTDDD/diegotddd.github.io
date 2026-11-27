@@ -82,7 +82,7 @@ PT = {
     "llm-guardrails-redteam": {
         "name": "Guardrails e red team para LLMs",
         "line": "Proteções em volta dos dois agentes e uma bateria de ataques que roda a cada pull request.",
-        "headline": ("23 de 23", "ataques bloqueados, cada um comprovado contra os agentes sem proteção"),
+        "headline": ("26 de 27", "ataques bloqueados, cada um comprovado contra os agentes sem proteção; um relatado como lacuna"),
         "problem": "Agentes leem documentos e chamam ferramentas, então quem consegue escrever num documento, no nome de "
         "uma loja ou numa pergunta pode tentar manipulá-los. As recusas do próprio modelo não são uma defesa, e os traces "
         "acumulam em silêncio os dados pessoais que os usuários digitam.",
@@ -92,16 +92,17 @@ PT = {
         "bloqueio nunca depende de o modelo recusar.",
         "how": [
             "Cada ataque precisa funcionar sem as proteções e falhar com elas.",
-            "Alguns ataques são escritos para escapar da detecção, então as camadas seguintes são testadas sozinhas.",
+            "Alguns ataques são escritos para escapar da detecção, então as camadas seguintes são testadas sozinhas; "
+            "injeções reescritas passam por um classificador treinado local, com limiar definido pela bateria de falsos positivos.",
             "Uma bateria de falsos positivos com dados reais gravados quebra o build se algo legítimo for afetado.",
         ],
         "results": [
-            ("23 de 23", "ataques bloqueados: injeção, exfiltração, uso indevido de ferramentas, burla do crítico e logs"),
+            ("26 de 27", "ataques bloqueados: injeção, exfiltração, uso indevido de ferramentas, burla do crítico e logs"),
             ("0 de 283", "textos reais marcados; 0 de 22 perguntas e 0 de 3 investigações alteradas"),
-            ("66", "testes; a bateria encontrou um bug nas próprias proteções"),
+            ("79", "testes; a bateria encontrou um bug nas próprias proteções"),
         ],
-        "limits": "A detecção de injeção é baseada em padrões; frases novas vão escapar, e por isso as camadas seguintes "
-        "são testadas separadamente.",
+        "limits": "Padrões e classificador ainda deixam passar algumas frases: uma instrução reescrita num documento passa "
+        "e fica na bateria como lacuna conhecida, e por isso as camadas seguintes são testadas separadamente.",
     },
     "llm-evals-observability": {
         "name": "Avaliação e observabilidade de LLMs",
@@ -162,11 +163,12 @@ PT = {
         "how": [
             "Cada componente tem os próprios testes, incluindo um BPE ingênuo como referência para o rápido.",
             "O treino roda no runner gratuito do GitHub Actions, então qualquer pessoa pode reproduzir.",
-            "A decodificação com KV cache é conferida para gerar os mesmos tokens que o recálculo completo.",
+            "A decodificação com KV cache é conferida para gerar os mesmos tokens que o recálculo completo, também além "
+            "do contexto com janela deslizante; a atenção otimizada do PyTorch é medida contra a escrita à mão.",
         ],
         "results": [
             ("32,0", "de perplexidade de validação (837 na linha de base unigrama)"),
-            ("5,8×", "mais rápido na geração com KV cache em 224 tokens novos"),
+            ("5,0×", "mais rápido na geração com KV cache em 224 tokens novos, conferido token a token"),
             ("13M", "de caracteres de texto de 10-K no conjunto de treino"),
         ],
         "limits": "Um modelo pequeno treinado numa CPU: aprende o estilo dos relatórios, não fatos.",

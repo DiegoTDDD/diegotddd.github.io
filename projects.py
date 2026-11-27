@@ -104,7 +104,7 @@ PROJECTS = [
         "group": AI,
         "name": "LLM guardrails and red team",
         "line": "Guardrails around both agents and a red-team suite that attacks them on every pull request.",
-        "headline": ("23 of 23", "attacks blocked, each proven to work without the guardrails"),
+        "headline": ("26 of 27", "attacks blocked, each proven to work without the guardrails; one reported as a gap"),
         "problem": "Agents read documents and call tools, so anyone who can write into a document, a merchant "
         "name or a question can try to steer them. A model's own refusals are not a defence, and traces "
         "quietly collect the personal data users type.",
@@ -114,16 +114,17 @@ PROJECTS = [
         "blocking never depends on a model refusing.",
         "how": [
             "Each attack must succeed without the guardrails and fail with them.",
-            "Some attacks are worded to evade detection, so the later layers are tested on their own.",
+            "Some attacks are worded to evade detection, so the later layers are tested on their own; reworded "
+            "injections go to a local trained classifier whose threshold the false-positive suite sets.",
             "A false-positive suite on real recorded data fails the build if anything legitimate is touched.",
         ],
         "results": [
-            ("23 of 23", "attacks blocked across injection, exfiltration, tool misuse, critic bypass and logs"),
+            ("26 of 27", "attacks blocked across injection, exfiltration, tool misuse, critic bypass and logs"),
             ("0 of 283", "real texts flagged; 0 of 22 questions and 0 of 3 investigations changed"),
-            ("66", "tests; the suite found a bug in the guardrails themselves"),
+            ("79", "tests; the suite found a bug in the guardrails themselves"),
         ],
-        "limits": "Injection detection is pattern-based; new phrasings will get past it, which is why the "
-        "later layers are tested separately.",
+        "limits": "Patterns and a classifier still miss some phrasings: one reworded document instruction gets "
+        "through and is kept in the suite as a known gap, which is why the later layers are tested separately.",
         "stack": ["MCP", "LangGraph", "OpenTelemetry", "pytest"],
     },
     {
@@ -193,11 +194,12 @@ PROJECTS = [
         "how": [
             "Each component has its own tests, including a naive BPE as a reference for the fast one.",
             "Training runs on the free GitHub Actions runner, so anyone can reproduce it.",
-            "KV-cache decoding is checked to produce the same tokens as full recomputation.",
+            "KV-cache decoding is checked to produce the same tokens as full recomputation, also past the "
+            "context with a sliding window; fused attention is measured against the written-out one.",
         ],
         "results": [
             ("32.0", "validation perplexity (837 for a unigram baseline)"),
-            ("5.8×", "faster generation with the KV cache at 224 new tokens"),
+            ("5.0×", "faster generation with the KV cache at 224 new tokens, checked token for token"),
             ("13M", "characters of 10-K text in the training set"),
         ],
         "limits": "A small model trained on one CPU: it learns the style of filings, not facts.",
