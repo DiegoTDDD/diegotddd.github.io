@@ -48,7 +48,7 @@ PROJECTS = [
         "group": AI,
         "name": "SEC MCP agent",
         "line": "MCP servers over SEC filings and a fraud model, and an agent whose citations are checked against the source.",
-        "headline": ("17 of 22", "evaluation questions passed, up from 7 over six measured runs"),
+        "headline": ("18 of 22", "evaluation questions passed in the seventh measured run, up from 7 in the first"),
         "problem": "Answers about filings are only useful if every claim can be traced to the source, and small "
         "models invent sources that look real. Tools are also usually wired into one agent, so nothing else "
         "can use them.",
@@ -57,18 +57,18 @@ PROJECTS = [
         "claims to quote before the answer is returned. The same servers plug into Claude Desktop.",
         "how": [
             "A citation passes only if its quote is found in the retrieved passage.",
-            "Six evaluation runs on a CPU runner, each failure traced and fixed in the agent or the tools.",
+            "Seven evaluation runs on a CPU runner, each failure traced and fixed in the agent or the tools; the evaluation reruns every week.",
             "The fraud tool reuses the XGBoost model from the real-time fraud project at a pinned commit.",
         ],
         "results": [
-            ("17 of 22", "evaluation questions passed (7 in the first run)"),
-            ("62", "tests, including the servers through the MCP client"),
-            ("6", "measured evaluation runs, each failure traced to the agent or the tools and fixed"),
+            ("18 of 22", "evaluation questions passed in the seventh run (7 in the first)"),
+            ("64", "tests, including the servers through the MCP client"),
+            ("7", "measured evaluation runs, each failure traced to the agent or the tools and fixed"),
         ],
         "limits": "A 3B model still misses some multi-step questions; the evaluation set is small.",
         "stack": ["MCP Python SDK", "Pydantic", "Ollama", "XGBoost"],
         "video": "sec-mcp-agent",
-        "video_caption": "Two answers recorded in the final evaluation run: the tool calls, the answer and its verified citations.",
+        "video_caption": "Two answers recorded in the sixth evaluation run: the tool calls, the answer and its verified citations.",
     },
     {
         "slug": "olist-ai-analyst",

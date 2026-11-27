@@ -33,7 +33,7 @@ PT = {
     "sec-mcp-agent": {
         "name": "Agente MCP sobre a SEC",
         "line": "Servidores MCP sobre relatórios da SEC e um modelo de fraude, e um agente cujas citações são conferidas na fonte.",
-        "headline": ("17 de 22", "perguntas de avaliação aprovadas, partindo de 7 ao longo de seis rodadas medidas"),
+        "headline": ("18 de 22", "perguntas de avaliação aprovadas na sétima rodada medida, partindo de 7 na primeira"),
         "problem": "Respostas sobre relatórios financeiros só têm valor se cada afirmação puder ser rastreada até a fonte, "
         "e modelos pequenos inventam fontes que parecem reais. Além disso, ferramentas costumam ficar presas a um único "
         "agente, e nada mais consegue usá-las.",
@@ -42,16 +42,16 @@ PT = {
         "ser devolvida. Os mesmos servidores funcionam no Claude Desktop.",
         "how": [
             "Uma citação só passa se o trecho citado estiver no documento recuperado.",
-            "Seis rodadas de avaliação num runner de CPU, com cada falha rastreada e corrigida no agente ou nas ferramentas.",
+            "Sete rodadas de avaliação num runner de CPU, com cada falha rastreada e corrigida no agente ou nas ferramentas; a avaliação roda de novo toda semana.",
             "A ferramenta de fraude reaproveita o modelo XGBoost do projeto de fraude em tempo real, num commit fixado.",
         ],
         "results": [
-            ("17 de 22", "perguntas de avaliação aprovadas (7 na primeira rodada)"),
-            ("62", "testes, incluindo os servidores acessados pelo cliente MCP"),
-            ("6", "rodadas de avaliação medidas, com cada falha rastreada e corrigida"),
+            ("18 de 22", "perguntas de avaliação aprovadas na sétima rodada (7 na primeira)"),
+            ("64", "testes, incluindo os servidores acessados pelo cliente MCP"),
+            ("7", "rodadas de avaliação medidas, com cada falha rastreada e corrigida"),
         ],
         "limits": "Um modelo de 3B ainda erra algumas perguntas de várias etapas; o conjunto de avaliação é pequeno.",
-        "video_caption": "Duas respostas gravadas na rodada final de avaliação: as chamadas de ferramenta, a resposta e as citações verificadas.",
+        "video_caption": "Duas respostas gravadas na sexta rodada de avaliação: as chamadas de ferramenta, a resposta e as citações verificadas.",
     },
     "olist-ai-analyst": {
         "name": "Analista de dados com IA (Olist)",

@@ -25,14 +25,14 @@ BUSINESS = {
             "users": "Analistas financeiros e de risco que leem relatórios 10-K.",
             "error": "Uma citação inventada leva a uma decisão baseada num fato que não existe no documento.",
             "value": "Cada citação é conferida contra o trecho original antes de a resposta sair. As ferramentas ficam em servidores MCP reutilizáveis, que qualquer agente ou o Claude Desktop pode usar.",
-            "risk": "17 de 22 perguntas certas: um modelo pequeno ainda erra perguntas de várias etapas.",
+            "risk": "18 de 22 perguntas certas na sétima rodada: um modelo pequeno ainda erra perguntas de várias etapas.",
         },
         "en": {
             "decision": "Answering questions about financial filings with sources someone can check.",
             "users": "Financial and risk analysts who read 10-K filings.",
             "error": "An invented citation leads to a decision based on a fact that is not in the document.",
             "value": "Every citation is checked against the original passage before the answer goes out. The tools live in reusable MCP servers that any agent or Claude Desktop can use.",
-            "risk": "17 of 22 questions right: a small model still misses some multi-step questions.",
+            "risk": "18 of 22 questions right in the seventh run: a small model still misses some multi-step questions.",
         },
     },
     "olist-ai-analyst": {
