@@ -240,24 +240,26 @@ PT = {
     },
     "realtime-fraud-streaming": {
         "name": "Streaming de fraude em tempo real",
-        "line": "Um pipeline de streaming que conta cada padrão de fraude por minuto, com contrato de dados na entrada.",
-        "headline": ("~10/s", "transações de cartão passando pelo Redpanda e pelo Spark"),
+        "line": "Um pipeline de streaming em Delta Lake que aguenta uma queda sem perder nem repetir registro, com schema registry e checagem de saúde.",
+        "headline": ("0", "registros perdidos ou duplicados depois de derrubar o job no meio do fluxo e religar, conferido no CI"),
         "problem": "Fraude em cartão acontece em segundos, e o sinal está nos padrões ao longo do tempo. Um relatório "
         "em lote noturno enxerga isso com um dia de atraso.",
-        "solution": "As transações fluem do Redpanda pelo Spark Structured Streaming até camadas em Parquet e um painel "
-        "ao vivo, com janelas por tempo do evento e watermarks. Cada evento é conferido contra um contrato pelo produtor "
-        "e de novo pelo Spark; as falhas vão para quarentena com os motivos.",
+        "solution": "As transações fluem do Redpanda pelo Spark Structured Streaming até tabelas Delta Lake e um painel "
+        "ao vivo, com janelas por tempo do evento e watermarks. O schema dos eventos fica num schema registry que recusa "
+        "mudanças incompatíveis; o que quebra o contrato vai para quarentena com os motivos. Uma checagem de saúde aprova "
+        "ou reprova o fluxo e pode avisar por webhook.",
         "how": [
-            "Uma linha por minuto na Gold: contagens, valores e fraude por padrão.",
-            "Um minuto é gravado cerca de dois minutos depois de terminar, para esperar eventos atrasados.",
-            "O CI roda o pipeline completo no Linux com Redpanda e no Windows com Kafka.",
+            "Gravação em Delta com checkpoints: o CI derruba o job com SIGKILL, religa e encontra cada offset do Kafka na Bronze exatamente uma vez.",
+            "Compactação e limpeza rodam com o fluxo gravando (66 arquivos viraram 16, com as mesmas linhas, no CI).",
+            "O registry recusa um schema incompatível no CI; uma mensagem enviada sem ele cai na quarentena.",
+            "O progresso de cada consulta fica registrado; a checagem de saúde falha em até dois minutos depois que o job para.",
         ],
         "results": [
-            ("~10/s", "transações, particionadas por cartão em 3 partições"),
+            ("0", "offsets duplicados ou faltando depois de uma queda e religada"),
             ("~2 min", "do fim de um minuto até a linha dele na Gold"),
-            ("24", "testes, incluindo Spark numa sessão local"),
+            ("47", "testes, incluindo Spark com Delta numa sessão local"),
         ],
-        "limits": "O painel público mostra uma amostra gravada do fluxo.",
+        "limits": "Um broker e disco local; os alertas vão para um webhook, não para um serviço de plantão. O painel público mostra uma amostra gravada.",
         "image_alt": "Visão geral do painel de streaming",
     },
     "supply-chain-risk-intelligence": {
@@ -306,24 +308,26 @@ PT = {
     },
     "nyc-taxi-lakehouse": {
         "name": "Lakehouse de táxis de NY",
-        "line": "Um lakehouse medallion em Delta Lake sobre 22,3 milhões de corridas, medindo o efeito da taxa de congestionamento.",
-        "headline": ("−15,1%", "na duração média das corridas em Manhattan depois da taxa de congestionamento"),
-        "problem": "Saber se a taxa de congestionamento de 2025 em Nova York mudou o uso de táxis exige juntar meses de "
-        "arquivos cujo schema muda no meio do caminho, descartar cerca de um quinto dos registros como inválidos e "
-        "confiar nos agregados que saem disso.",
-        "solution": "Camadas Bronze, Silver e Gold em Delta Lake, transformadas com DuckDB e orquestradas pelo Dagster, "
-        "com dez checagens de qualidade que barram dados ruins antes de chegarem aos números.",
+        "line": "Um lakehouse em Delta Lake sobre 42 milhões de corridas, processado mês a mês, que separa o efeito da taxa de congestionamento do efeito do inverno.",
+        "headline": ("−0,4 pt", "nas corridas por dia em Manhattan por causa da taxa, tirando o inverno; a queda bruta era de 10,7%"),
+        "problem": "Saber se a taxa de congestionamento de 2025 em Nova York mudou o uso de táxis: a taxa começou em janeiro, "
+        "então um simples antes e depois mistura a taxa com o inverno, e os arquivos mudam de schema no meio e trazem "
+        "registros inválidos.",
+        "solution": "Camadas Bronze, Silver e Gold em Delta Lake sobre duas temporadas de outubro a março, transformadas "
+        "com DuckDB e orquestradas pelo Dagster em partições mensais. A estimativa desconta o que o inverno fez na "
+        "temporada anterior à taxa, e onze checagens de qualidade barram dados ruins antes de chegarem aos números.",
         "how": [
-            "A evolução de schema trata a coluna da taxa, que só existe a partir de 2025.",
-            "As checagens de qualidade param o pipeline em vez de passar linhas ruins adiante.",
-            "Os assets e a linhagem ficam visíveis no Dagster.",
+            "Cada mês é uma partição do Dagster gravada com overwrite por predicado: entra ou é refeito sozinho, e refazer não muda nada.",
+            "Os testes provam que montar mês a mês ou tudo de uma vez dá as mesmas tabelas Gold.",
+            "Os mesmos meses um ano antes, sem a taxa, servem de controle para a estação do ano.",
+            "Checagens de qualidade bloqueantes param a execução antes que linhas ruins cheguem à Gold.",
         ],
         "results": [
-            ("22,3M", "de corridas no lakehouse"),
-            ("−10,7%", "nos embarques em Manhattan depois da taxa"),
-            ("−15,1%", "na duração média das corridas"),
+            ("−0,4 pt", "nas corridas por dia: a queda bruta de 10,7% é quase toda inverno"),
+            ("−3,6 pt", "na duração das corridas atribuível à taxa, com a distância igual"),
+            ("42,1M", "de corridas em doze partições mensais"),
         ],
-        "limits": "Os períodos de antes e depois caem em estações diferentes, então parte da mudança pode ser sazonal.",
+        "limits": "Supõe que o inverno muda o uso de táxi do mesmo jeito todo ano; só táxis amarelos.",
         "image_alt": "Impacto da taxa de congestionamento no painel",
     },
     "olist-cloud-warehouse": {

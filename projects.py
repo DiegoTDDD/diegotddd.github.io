@@ -290,25 +290,27 @@ PROJECTS = [
         "slug": "realtime-fraud-streaming",
         "group": DATA,
         "name": "Real-time fraud streaming",
-        "line": "A streaming pipeline that counts every fraud pattern per minute, with a data contract on the way in.",
-        "headline": ("~10/s", "card transactions through Redpanda and Spark"),
+        "line": "A streaming pipeline on Delta Lake that survives a crash without losing or repeating a record, with a schema registry and health checks.",
+        "headline": ("0", "records lost or duplicated after the job is killed mid-stream and restarted, checked in CI"),
         "problem": "Card fraud happens in seconds, and its signal is in patterns over time. A nightly batch "
         "report sees it a day late.",
-        "solution": "Transactions flow from Redpanda through Spark Structured Streaming into Parquet layers "
-        "and a live dashboard, with event-time windows and watermarks. Every event is checked against one "
-        "contract by the producer and again by Spark; failures are quarantined with the reasons.",
+        "solution": "Transactions flow from Redpanda through Spark Structured Streaming into Delta Lake tables "
+        "and a live dashboard, with event-time windows and watermarks. The event schema lives in a schema "
+        "registry that refuses breaking changes; anything that breaks the contract is quarantined with the "
+        "reasons. A health check passes or fails the stream and can alert a webhook.",
         "how": [
-            "One row per minute in Gold: counts, amounts and fraud by pattern.",
-            "A minute is written about two minutes after it ends, to wait for late events.",
-            "CI runs the full pipeline on Linux with Redpanda and on Windows with Kafka.",
+            "Delta sinks with checkpoints: CI kills the job with SIGKILL, restarts it, and finds every Kafka offset in Bronze exactly once.",
+            "Compaction and vacuum run while the stream writes (66 files became 16 with the same rows in CI).",
+            "The registry rejects an incompatible schema in CI; a message sent without it lands in quarantine.",
+            "Progress of every query is logged; the health check fails within two minutes of the job stopping.",
         ],
         "results": [
-            ("~10/s", "transactions, keyed by card over 3 partitions"),
+            ("0", "duplicate or missing offsets after a crash and restart"),
             ("~2 min", "from the end of a minute to its row in Gold"),
-            ("24", "tests, including Spark on a local session"),
+            ("47", "tests, including Spark with Delta on a local session"),
         ],
-        "limits": "The public dashboard serves a recorded sample of the stream.",
-        "stack": ["Redpanda", "Spark Structured Streaming", "Parquet", "Streamlit"],
+        "limits": "One broker and local disk; alerts go to a webhook, not a paging service. The public dashboard serves a recorded sample.",
+        "stack": ["Redpanda", "Schema Registry", "Spark Structured Streaming", "Delta Lake", "Streamlit"],
         "demo": "https://realtime-fraud-streaming.streamlit.app",
         "image": "realtime-fraud-streaming",
         "image_alt": "Streaming dashboard overview",
@@ -372,24 +374,25 @@ PROJECTS = [
         "slug": "nyc-taxi-lakehouse",
         "group": DATA,
         "name": "NYC taxi lakehouse",
-        "line": "A Delta Lake medallion lakehouse over 22.3 million trips, measuring the effect of congestion pricing.",
-        "headline": ("−15.1%", "average Manhattan trip duration after the congestion fee"),
-        "problem": "Whether New York's 2025 congestion fee changed taxi use means combining months of trip "
-        "files whose schema changes mid-way, removing about a fifth of the records as invalid, and trusting "
-        "the aggregates that come out.",
-        "solution": "Bronze, Silver and Gold layers in Delta Lake, transformed with DuckDB and orchestrated by "
-        "Dagster, with ten data-quality checks that stop bad data before it reaches the numbers.",
+        "line": "A Delta Lake lakehouse over 42 million trips, processed month by month, that separates the congestion fee's effect from winter.",
+        "headline": ("−0.4 pts", "change in Manhattan trips per day due to the fee, once winter is taken out; the raw drop was 10.7%"),
+        "problem": "Whether New York's 2025 congestion fee changed taxi use: the fee started in January, so a "
+        "simple before/after mixes it with winter, and the trip files change schema mid-way and hold invalid records.",
+        "solution": "Bronze, Silver and Gold layers in Delta Lake over two Oct-Mar seasons, transformed with DuckDB "
+        "and orchestrated by Dagster as monthly partitions. The estimate subtracts what winter did in the season "
+        "before the fee, and eleven data-quality checks stop bad data before it reaches the numbers.",
         "how": [
-            "Schema evolution handles the fee column that only exists from 2025.",
-            "Quality checks block the pipeline instead of passing bad rows downstream.",
-            "Assets and their lineage are visible in Dagster.",
+            "Each month is a Dagster partition written with a predicate overwrite: added or redone alone, and redoing it changes nothing.",
+            "Tests prove month-by-month and all-at-once builds give identical Gold tables.",
+            "The same months a year earlier, without the fee, are the control for the season.",
+            "Blocking quality checks stop the run before bad rows reach Gold.",
         ],
         "results": [
-            ("22.3M", "trips in the lakehouse"),
-            ("−10.7%", "Manhattan pickups after the fee"),
-            ("−15.1%", "average trip duration"),
+            ("−0.4 pts", "trips per day: the 10.7% raw drop is almost all winter"),
+            ("−3.6 pts", "trip duration attributable to the fee, with distance unchanged"),
+            ("42.1M", "trips in twelve monthly partitions"),
         ],
-        "limits": "Before and after periods fall in different seasons, so part of the change may be seasonal.",
+        "limits": "Assumes winter changes taxi use the same way every year; yellow taxis only.",
         "stack": ["Delta Lake", "DuckDB", "Dagster", "Streamlit"],
         "demo": "https://nyc-taxi-lakehouse.streamlit.app",
         "image": "nyc-taxi-lakehouse",
