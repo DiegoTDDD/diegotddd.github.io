@@ -363,7 +363,7 @@ PROJECTS = [
         "results": [
             ("0.625 vs 0.615", "AUC of the new and old champion on 500,000 September 2026 trips"),
             ("4% → 13%", "drift in the share of unknown payment type, caught from 2024 to 2025"),
-            ("39", "tests, plus the monthly retrain on real data in CI"),
+            ("42", "tests, plus the monthly retrain on real data in CI"),
         ],
         "limits": "Tipping is hard to predict from trip data; the project's value is the engineering around the model.",
         "stack": ["MLflow", "FastAPI", "Evidently", "Docker", "Streamlit"],

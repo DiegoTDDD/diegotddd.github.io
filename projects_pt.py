@@ -302,7 +302,7 @@ PT = {
         "results": [
             ("0,625 vs 0,615", "de AUC do novo e do antigo campeão em 500.000 corridas de setembro de 2026"),
             ("4% → 13%", "de drift na fatia de tipo de pagamento desconhecido, detectado de 2024 para 2025"),
-            ("39", "testes, mais o retreino mensal com dados reais no CI"),
+            ("42", "testes, mais o retreino mensal com dados reais no CI"),
         ],
         "limits": "Gorjeta é difícil de prever a partir dos dados da corrida; o valor do projeto está na engenharia em volta do modelo.",
         "image_alt": "Painel de operação com o modelo no ar",
