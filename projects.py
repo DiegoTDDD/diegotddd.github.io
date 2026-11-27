@@ -263,25 +263,26 @@ PROJECTS = [
         "slug": "realtime-fraud-detection-ml",
         "group": DATA,
         "name": "Real-time fraud detection",
-        "line": "An XGBoost model scoring a live Kafka stream, with precision and recall for each fraud pattern.",
-        "headline": ("0.9925", "PR-AUC on the latest 20% of transactions, split by time"),
+        "line": "An XGBoost model scoring a live Kafka stream, with per-card state that survives restarts, exactly-once predictions and a model monitor.",
+        "headline": ("0", "missing or duplicate predictions after the scoring job is killed mid-stream and restarted, checked in CI"),
         "problem": "A monitor that only counts transactions tells a fraud team what already happened. Each "
         "transaction needs a score the moment it arrives, and the team must know which kinds of fraud it misses.",
         "solution": "An XGBoost classifier trained offline scores every transaction inside Spark Structured "
-        "Streaming. A dashboard shows live precision and recall for each fraud pattern, and a model card "
-        "documents the weak spots.",
+        "Streaming. Each card's recent history lives in Spark's state store, predictions go to Delta exactly "
+        "once, and a monitor checks live precision, recall and input drift against written thresholds.",
         "how": [
-            "The threshold maximizes mean recall across patterns while keeping precision at 95% or more.",
-            "Training and streaming compute features with the same code, checked by a test.",
+            "The threshold is chosen on a validation period; every reported number comes from a later test period no choice has seen.",
+            "A Spark test restarts the query and gets the same velocity features as training; CI kills the job with SIGKILL and finds one prediction per Kafka message.",
+            "The monitor alerts only when the 95% interval lies below a floor, and flags drift by PSI.",
             "The model is reused by the SEC MCP agent and the fraud investigation agents.",
         ],
         "results": [
-            ("0.9925", "PR-AUC"),
-            ("95.8% / 96.6%", "precision and recall at the chosen threshold"),
-            ("64.7%", "recall on impossible travel, the documented weak spot"),
+            ("96.6% / 96.6%", "precision and recall on the test period (PR-AUC 0.992)"),
+            ("4,597 / 4,597", "Kafka messages and predictions after a SIGKILL restart in CI"),
+            ("64.2%", "recall on impossible travel, the documented weak spot"),
         ],
         "limits": "Trained on synthetic transactions; impossible travel is partly indistinguishable from real travel.",
-        "stack": ["XGBoost", "Spark Structured Streaming", "Kafka", "Streamlit"],
+        "stack": ["XGBoost", "Spark Structured Streaming", "Delta Lake", "Kafka", "Streamlit"],
         "demo": "https://realtime-fraud-detection-ml.streamlit.app",
         "image": "realtime-fraud-detection-ml",
         "image_alt": "Live scoring dashboard",
@@ -320,23 +321,23 @@ PROJECTS = [
         "group": DATA,
         "name": "Supply chain risk intelligence",
         "line": "Delivery delay from cause to decision: causal inference, survival analysis, forecasting, risk and optimization.",
-        "headline": ("94.8%", "of the riskiest tenth of orders are actually late"),
+        "headline": ("94.4%", "of the riskiest tenth of orders are actually late, re-checked on the real data in CI"),
         "problem": "“We are often late” is not something operations can act on. They need the cause, the "
         "timing, the volume coming, the orders at risk and what to change.",
         "solution": "Five connected analyses of 180,519 real orders: propensity score matching, survival "
         "models, demand forecasting, a calibrated risk model explained with SHAP, and a linear program that "
         "turns the risk scores into a cheaper shipping allocation.",
         "how": [
-            "Causal effect estimated on 35,216 matched pairs with balanced covariates.",
-            "Forecasts compared with a naive baseline on a 30-day holdout.",
-            "The optimization is stress-tested with 10,000 Monte Carlo runs.",
+            "CI downloads the real dataset (checksum-pinned), validates it against a data contract, re-runs the notebooks and fails if any published number moves.",
+            "Causal effect estimated on 35,216 matched pairs, all 78 covariate levels balanced.",
+            "The optimization uses out-of-sample risk scores and is stress-tested with 10,000 Monte Carlo runs.",
         ],
         "results": [
             ("1.99 days", "later delivery for Second Class than Standard Class, against the promise"),
             ("33%", "lower forecast error than the naive baseline (MAPE 5.9% vs 8.9%)"),
-            ("94.8%", "of the top 10% riskiest orders are late (AUC 0.73)"),
+            ("94.4%", "of the top 10% riskiest orders are late (AUC 0.73)"),
         ],
-        "limits": "The optimization saves 1.01% of expected cost: real, but small, and reported as such.",
+        "limits": "The optimization saves 0.85% of expected cost on orders the model never saw: real, but small, and reported as such.",
         "stack": ["statsmodels", "lifelines", "Prophet", "XGBoost", "SHAP", "PuLP"],
         "demo": "https://diego-supply-chain-risk.streamlit.app",
         "image": "supply-chain-risk-intelligence",
@@ -346,8 +347,8 @@ PROJECTS = [
         "slug": "nyc-tip-mlops",
         "group": DATA,
         "name": "NYC tip MLOps",
-        "line": "Versioned training, a model registry with automatic promotion, an API and drift monitoring.",
-        "headline": ("29", "tests over features, promotion rule, registry and every API endpoint"),
+        "line": "A monthly retrain on new real data, promotion by a statistical test, a model registry, an API and drift monitoring.",
+        "headline": ("+0.010", "AUC for the model trained on August 2026 over the old champion on the same September trips; promoted because the 95% interval is above zero"),
         "problem": "A model is only useful in production if every step around it can be trusted: repeatable "
         "training, a rule for which version is live, features computed the same way in serving, and a "
         "signal when the data changes.",
@@ -356,13 +357,13 @@ PROJECTS = [
         "Streamlit operations dashboard, and CI that runs the whole loop including Docker.",
         "how": [
             "No label leakage: no payment field is used, only what is known when the ride ends, which caps the score honestly.",
-            "A new version becomes the champion only if its validation AUC beats the current one.",
+            "Every month CI finds the newest TLC month, trains a challenger and compares it with the champion on the same out-of-time month; it is promoted only if the paired-bootstrap interval of the gain is above zero.",
             "A test checks that the API computes features exactly as training does.",
         ],
         "results": [
-            ("0.624", "validation AUC without label leakage"),
+            ("0.625 vs 0.615", "AUC of the new and old champion on 500,000 September 2026 trips"),
             ("4% → 13%", "drift in the share of unknown payment type, caught from 2024 to 2025"),
-            ("29", "tests, plus a weekly retrain in CI"),
+            ("39", "tests, plus the monthly retrain on real data in CI"),
         ],
         "limits": "Tipping is hard to predict from trip data; the project's value is the engineering around the model.",
         "stack": ["MLflow", "FastAPI", "Evidently", "Docker", "Streamlit"],

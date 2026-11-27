@@ -218,22 +218,23 @@ PT = {
     },
     "realtime-fraud-detection-ml": {
         "name": "Detecção de fraude em tempo real",
-        "line": "Um modelo XGBoost pontuando um fluxo Kafka ao vivo, com precisão e recall para cada padrão de fraude.",
-        "headline": ("0,9925", "de PR-AUC nos 20% mais recentes das transações, com divisão temporal"),
+        "line": "Um modelo XGBoost pontuando um fluxo Kafka ao vivo, com estado por cartão que sobrevive a restarts, predições gravadas uma única vez e um monitor do modelo.",
+        "headline": ("0", "predições faltando ou duplicadas depois de derrubar o job de scoring no meio do fluxo e religar, conferido no CI"),
         "problem": "Um monitor que só conta transações diz ao time de fraude o que já aconteceu. Cada transação precisa "
         "de uma nota no momento em que chega, e o time precisa saber que tipos de fraude o modelo deixa passar.",
         "solution": "Um classificador XGBoost treinado offline pontua cada transação dentro do Spark Structured "
-        "Streaming. Um painel mostra precisão e recall ao vivo para cada padrão de fraude, e um model card documenta os "
-        "pontos fracos.",
+        "Streaming. O histórico recente de cada cartão fica no state store do Spark, as predições vão para o Delta uma "
+        "única vez, e um monitor confere precisão, recall e drift dos dados contra limites definidos.",
         "how": [
-            "O limiar maximiza o recall médio entre os padrões mantendo a precisão em 95% ou mais.",
-            "Treino e streaming calculam as features com o mesmo código, conferido por um teste.",
+            "O limiar é escolhido num período de validação; todo número publicado vem de um período de teste posterior, que nenhuma escolha viu.",
+            "Um teste com Spark religa a consulta e obtém as mesmas features de velocidade do treino; o CI derruba o job com SIGKILL e encontra uma predição por mensagem do Kafka.",
+            "O monitor só alerta quando o intervalo de 95% fica abaixo do piso, e aponta drift por PSI.",
             "O modelo é reaproveitado pelo agente MCP da SEC e pelos agentes de investigação de fraude.",
         ],
         "results": [
-            ("0,9925", "de PR-AUC"),
-            ("95,8% / 96,6%", "de precisão e recall no limiar escolhido"),
-            ("64,7%", "de recall em viagem impossível, o ponto fraco documentado"),
+            ("96,6% / 96,6%", "de precisão e recall no período de teste (PR-AUC de 0,992)"),
+            ("4.597 / 4.597", "mensagens no Kafka e predições depois de um restart com SIGKILL no CI"),
+            ("64,2%", "de recall em viagem impossível, o ponto fraco documentado"),
         ],
         "limits": "Treinado em transações sintéticas; viagem impossível é em parte indistinguível de uma viagem real.",
         "image_alt": "Painel de pontuação ao vivo",
@@ -265,29 +266,29 @@ PT = {
     "supply-chain-risk-intelligence": {
         "name": "Inteligência de risco na cadeia de suprimentos",
         "line": "Atraso na entrega da causa à decisão: inferência causal, análise de sobrevivência, previsão, risco e otimização.",
-        "headline": ("94,8%", "dos 10% de pedidos mais arriscados realmente atrasam"),
+        "headline": ("94,4%", "dos 10% de pedidos mais arriscados realmente atrasam, reconferido nos dados reais no CI"),
         "problem": "“Atrasamos com frequência” não é algo sobre o que a operação consiga agir. Ela precisa da causa, do "
         "momento, do volume que vem, dos pedidos em risco e do que mudar.",
         "solution": "Cinco análises conectadas de 180.519 pedidos reais: pareamento por escore de propensão, modelos de "
         "sobrevivência, previsão de demanda, um modelo de risco calibrado e explicado com SHAP, e uma programação linear "
         "que transforma as notas de risco numa alocação de frete mais barata.",
         "how": [
-            "Efeito causal estimado em 35.216 pares pareados com covariáveis balanceadas.",
-            "Previsões comparadas com uma linha de base ingênua num período de 30 dias reservado.",
-            "A otimização é testada sob estresse com 10.000 simulações de Monte Carlo.",
+            "O CI baixa o dataset real (com checksum fixo), valida contra um contrato de dados, roda os notebooks de novo e falha se algum número publicado mudar.",
+            "Efeito causal estimado em 35.216 pares pareados, com os 78 níveis de covariáveis balanceados.",
+            "A otimização usa notas de risco fora da amostra e é testada sob estresse com 10.000 simulações de Monte Carlo.",
         ],
         "results": [
             ("1,99 dia", "a mais de atraso na Segunda Classe que na Classe Padrão, frente ao prometido"),
             ("33%", "menos erro de previsão que a linha de base ingênua (MAPE de 5,9% contra 8,9%)"),
-            ("94,8%", "dos 10% de pedidos mais arriscados atrasam (AUC de 0,73)"),
+            ("94,4%", "dos 10% de pedidos mais arriscados atrasam (AUC de 0,73)"),
         ],
-        "limits": "A otimização economiza 1,01% do custo esperado: real, mas pequeno, e reportado assim.",
+        "limits": "A otimização economiza 0,85% do custo esperado em pedidos que o modelo nunca viu: real, mas pequeno, e reportado assim.",
         "image_alt": "Comparação da previsão com a linha de base ingênua",
     },
     "nyc-tip-mlops": {
         "name": "MLOps de gorjetas em NY",
-        "line": "Treino versionado, registro de modelos com promoção automática, uma API e monitoramento de drift.",
-        "headline": ("29", "testes cobrindo features, regra de promoção, registro e todos os endpoints da API"),
+        "line": "Retreino mensal com dados reais novos, promoção por teste estatístico, registro de modelos, uma API e monitoramento de drift.",
+        "headline": ("+0,010", "de AUC do modelo treinado em agosto de 2026 sobre o antigo campeão, nas mesmas corridas de setembro; promovido porque o intervalo de 95% fica acima de zero"),
         "problem": "Um modelo só tem valor em produção se cada etapa em volta dele for confiável: treino repetível, uma "
         "regra para qual versão está no ar, features calculadas do mesmo jeito no serving e um sinal quando os dados mudam.",
         "solution": "Um sistema de MLOps em volta de um classificador que prevê, no fim da corrida e antes do pagamento, se uma corrida de táxi em "
@@ -295,13 +296,13 @@ PT = {
         "drift com Evidently, um painel de operação em Streamlit e um CI que roda o ciclo inteiro, inclusive o Docker.",
         "how": [
             "Sem vazamento de rótulo: nenhum dado do pagamento entra, só o que se sabe quando a corrida termina, o que limita a nota de forma honesta.",
-            "Uma versão nova só vira a campeã se o AUC de validação superar o da atual.",
+            "Todo mês o CI acha o mês mais novo da TLC, treina um desafiante e compara com o campeão no mesmo mês fora do treino; ele só é promovido se o intervalo de bootstrap pareado do ganho ficar acima de zero.",
             "Um teste confere que a API calcula as features exatamente como o treino.",
         ],
         "results": [
-            ("0,624", "de AUC de validação sem vazamento de rótulo"),
+            ("0,625 vs 0,615", "de AUC do novo e do antigo campeão em 500.000 corridas de setembro de 2026"),
             ("4% → 13%", "de drift na fatia de tipo de pagamento desconhecido, detectado de 2024 para 2025"),
-            ("29", "testes, mais um retreino semanal no CI"),
+            ("39", "testes, mais o retreino mensal com dados reais no CI"),
         ],
         "limits": "Gorjeta é difícil de prever a partir dos dados da corrida; o valor do projeto está na engenharia em volta do modelo.",
         "image_alt": "Painel de operação com o modelo no ar",

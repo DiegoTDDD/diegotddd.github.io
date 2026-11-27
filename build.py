@@ -510,11 +510,11 @@ def business_panel(slug: str, lang: str) -> str:
 
 
 # Numbers behind the calculators, all from the projects' own result files.
-FRAUD_TEST = {"precision": 0.9575, "recall": 0.9655, "frauds": 2147, "rows": 30000}
+FRAUD_TEST = {"precision": 0.9660, "recall": 0.9660, "frauds": 2147, "rows": 30000}
 FT_COST = {"vm_month": 147.17, "capacity": 4217940, "apis": [
     ("Claude Haiku 5.5, few-shot", 91.11), ("Claude Haiku 5.5, zero-shot", 44.76),
     ("GPT-5.4 mini, few-shot", 705.98), ("GPT-5.4 mini, zero-shot", 343.88)]}
-SUPPLY = {"top": 0.948, "base": 0.548, "share": 0.10}
+SUPPLY = {"top": 0.944, "base": 0.548, "share": 0.10}
 
 CALC_TEXT = {
     "fraud": {
@@ -555,14 +555,14 @@ CALC_TEXT = {
             ("act_cost", "Custo de agir num pedido (R$)", 5, 1), ("fix", "Atrasos evitados quando a equipe age (%)", 30, 5)],
             "outputs": [("model", "Atrasos alcançados com o modelo"), ("random", "Atrasos alcançados escolhendo ao acaso"),
                         ("net", "Saldo com o modelo por mês (R$)"), ("net_random", "Saldo escolhendo ao acaso (R$)")],
-            "note": "94,8% dos pedidos no topo de risco atrasaram no teste, contra 54,8% de atraso na base inteira. "
+            "note": "94,4% dos pedidos no topo de risco atrasaram no teste, contra 54,8% de atraso na base inteira. "
             "Custos e eficácia da ação são premissas suas."},
         "en": {"title": "Acting on the riskiest 10% of orders", "inputs": [
             ("orders", "Orders per month", 10000, 500), ("late_cost", "Cost of one late order ($)", 10, 1),
             ("act_cost", "Cost to act on one order ($)", 1, 0.5), ("fix", "Delays prevented when the team acts (%)", 30, 5)],
             "outputs": [("model", "Late orders reached with the model"), ("random", "Late orders reached picking at random"),
                         ("net", "Net with the model per month ($)"), ("net_random", "Net picking at random ($)")],
-            "note": "94.8% of the orders at the top of the risk ranking were late in the test, against 54.8% late across "
+            "note": "94.4% of the orders at the top of the risk ranking were late in the test, against 54.8% late across "
             "the whole dataset. Costs and how well the action works are your assumptions."},
     },
 }
