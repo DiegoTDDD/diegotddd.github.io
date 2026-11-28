@@ -177,7 +177,7 @@ PT = {
     "sec-filings-rag": {
         "name": "RAG sobre relatórios da SEC",
         "line": "Perguntas e respostas sobre relatórios 10-K e 10-Q, com as fontes que cada resposta usou.",
-        "headline": ("0,80", "de hit@5 com busca híbrida e re-ranqueamento, contra 0,43 da busca densa"),
+        "headline": ("0,78", "de hit@5 com busca híbrida e re-ranqueamento, contra 0,40 da busca densa (intervalo de 95% de 0,68 a 0,88)"),
         "problem": "Analistas precisam de respostas de relatórios longos que possam conferir, não de um resumo sem "
         "rastro até o texto.",
         "solution": "Geração aumentada por recuperação sobre os relatórios de Apple, NVIDIA e JPMorgan: busca híbrida "
@@ -185,15 +185,15 @@ PT = {
         "Actions com RAGAS.",
         "how": [
             "66 perguntas, cada uma gerada de um trecho conhecido, então a recuperação é medida com exatidão.",
-            "Cinco estratégias de recuperação comparadas; as medições escolheram o pipeline híbrido.",
+            "Seis estratégias de recuperação comparadas pergunta a pergunta com intervalos de 95%; a rodada publica as próprias tabelas no README.",
             "Uma demo pública mostra respostas gravadas do pipeline real.",
         ],
         "results": [
-            ("0,80", "de hit@5 com busca híbrida e re-ranqueamento (a densa sozinha tem 0,43)"),
-            ("0,97", "de recall@20 do recuperador híbrido"),
+            ("+0,13", "de hit@5 sobre o pipeline denso que ele substituiu, intervalo pareado de 95% de +0,03 a +0,23"),
+            ("0,95", "de recall@20 do recuperador híbrido (0,73 na busca densa)"),
             ("66", "perguntas de avaliação, rodadas mensalmente no CI"),
         ],
-        "limits": "A demo pública reproduz respostas gravadas, porque um host gratuito não roda Qdrant e Ollama.",
+        "limits": "A busca por palavra-chave com re-ranqueamento pontua mais (0,88) nessas perguntas, que reaproveitam as palavras do trecho de origem; o híbrido fica pelas perguntas parafraseadas, que o conjunto ainda não mede. A demo pública reproduz respostas gravadas, porque um host gratuito não roda Qdrant e Ollama.",
         "image_alt": "O painel respondendo uma pergunta sobre a Apple com as fontes",
     },
     "freight-intelligence": {

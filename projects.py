@@ -212,7 +212,7 @@ PROJECTS = [
         "group": AI,
         "name": "SEC filings RAG",
         "line": "Question answering over 10-K and 10-Q filings, with the sources each answer used.",
-        "headline": ("0.80", "hit@5 for hybrid retrieval with re-ranking, against 0.43 for dense search"),
+        "headline": ("0.78", "hit@5 for hybrid retrieval with re-ranking, against 0.40 for dense search (95% interval 0.68 to 0.88)"),
         "problem": "Analysts need answers from long filings they can verify, not a summary with no trace "
         "back to the text.",
         "solution": "Retrieval-augmented generation over the filings of Apple, NVIDIA and JPMorgan: hybrid "
@@ -220,15 +220,15 @@ PROJECTS = [
         "on GitHub Actions with RAGAS.",
         "how": [
             "66 questions, each generated from one known chunk, so retrieval is measured exactly.",
-            "Five retrieval strategies compared; the measurements chose the hybrid pipeline.",
+            "Six retrieval strategies compared question by question with 95% intervals; the run publishes its own tables to the README.",
             "A public demo serves answers recorded from the real pipeline.",
         ],
         "results": [
-            ("0.80", "hit@5 with hybrid search and re-ranking (dense alone 0.43)"),
-            ("0.97", "recall@20 of the hybrid retriever"),
+            ("+0.13", "hit@5 over the dense pipeline it replaced, paired 95% interval +0.03 to +0.23"),
+            ("0.95", "recall@20 of the hybrid retriever (0.73 for dense search)"),
             ("66", "evaluation questions, run monthly on CI"),
         ],
-        "limits": "The public demo replays recorded answers, because a free host cannot run Qdrant and Ollama.",
+        "limits": "Keyword search with re-ranking scores higher (0.88) on these questions, which reuse their source's words; hybrid is kept for paraphrased questions, which the set cannot yet measure. The public demo replays recorded answers, because a free host cannot run Qdrant and Ollama.",
         "stack": ["Qdrant", "Ollama", "sentence-transformers", "FastAPI", "RAGAS"],
         "demo": "https://sec-filings-rag-demo.streamlit.app",
         "image": "sec-filings-rag",
