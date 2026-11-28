@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MLOps de gorjetas em NY: Diego Alves</title>
+<meta name="description" content="Retreino mensal com dados reais novos, promoção por teste estatístico, registro de modelos, uma API e monitoramento de drift.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="MLOps de gorjetas em NY: Diego Alves">
+<meta property="og:description" content="Retreino mensal com dados reais novos, promoção por teste estatístico, registro de modelos, uma API e monitoramento de drift.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/nyc-tip-mlops.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MLOps de gorjetas em NY: Diego Alves">
+<meta name="twitter:description" content="Retreino mensal com dados reais novos, promoção por teste estatístico, registro de modelos, uma API e monitoramento de drift.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/nyc-tip-mlops.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/nyc-tip-mlops.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/nyc-tip-mlops.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/nyc-tip-mlops.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/nyc-tip-mlops.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/nyc-tip-mlops.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">Todos os projetos</a></p>
+  <h1>MLOps de gorjetas em NY</h1>
+  <p class="lede">Retreino mensal com dados reais novos, promoção por teste estatístico, registro de modelos, uma API e monitoramento de drift.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/nyc-tip-mlops">Código</a><a href="https://nyc-tip-mlops.streamlit.app">Demo ao vivo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/nyc-tip-mlops/actions/workflows/ci.yml"><img src="https://github.com/DiegoTDDD/nyc-tip-mlops/actions/workflows/ci.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">+0,010</span><span class="label">de AUC do modelo treinado em agosto de 2026 sobre o antigo campeão, nas mesmas corridas de setembro; promovido porque o intervalo de 95% fica acima de zero</span></p>
+  <figure class="media"><img src="../assets/media/nyc-tip-mlops.webp" alt="Painel de operação com o modelo no ar" loading="lazy"></figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Confiar ou não no modelo que está no ar, e quando trocá-lo.</dd></div><div><dt>Quem usa</dt><dd>Times de dados que mantêm modelos em produção.</dd></div><div><dt>Quanto custa errar</dt><dd>Um modelo que perdeu a validade continua decidindo sem ninguém saber.</dd></div><div><dt>Como gera valor</dt><dd>Todo mês um desafiante treinado no mês mais novo só entra no ar se for comprovadamente melhor (intervalo de 95% acima de zero), a API calcula as features igual ao treino, e o drift de dados é detectado (de 4% para 13% de pagamentos desconhecidos).</dd></div><div><dt>Riscos e limites</dt><dd>O modelo em si é fraco (AUC 0,625); o valor está na engenharia em volta dele.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Um modelo só tem valor em produção se cada etapa em volta dele for confiável: treino repetível, uma regra para qual versão está no ar, features calculadas do mesmo jeito no serving e um sinal quando os dados mudam.</p>
+    <h2>Solução</h2>
+    <p>Um sistema de MLOps em volta de um classificador que prevê, no fim da corrida e antes do pagamento, se uma corrida de táxi em Nova York vai dar mais de 20% de gorjeta: rastreamento e registro com MLflow, um serviço FastAPI, relatórios de drift com Evidently, um painel de operação em Streamlit e um CI que roda o ciclo inteiro, inclusive o Docker.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Sem vazamento de rótulo: nenhum dado do pagamento entra, só o que se sabe quando a corrida termina, o que limita a nota de forma honesta.</li>
+<li>Todo mês o CI acha o mês mais novo da TLC, treina um desafiante e compara com o campeão no mesmo mês fora do treino; ele só é promovido se o intervalo de bootstrap pareado do ganho ficar acima de zero.</li>
+<li>Um teste confere que a API calcula as features exatamente como o treino.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">0,625 vs 0,615</td><td>de AUC do novo e do antigo campeão em 500.000 corridas de setembro de 2026</td></tr>
+<tr><td class="value">4% → 13%</td><td>de drift na fatia de tipo de pagamento desconhecido, detectado de 2024 para 2025</td></tr>
+<tr><td class="value">42</td><td>testes, mais o retreino mensal com dados reais no CI</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Gorjeta é difícil de prever a partir dos dados da corrida; o valor do projeto está na engenharia em volta do modelo.</p>
+    <h2>Stack</h2>
+    <p>MLflow, FastAPI, Evidently, Docker, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="supply-chain-risk-intelligence.html"><span>Anterior</span>Inteligência de risco na cadeia de suprimentos</a>
+    <a href="nyc-taxi-lakehouse.html"><span>Próximo</span>Lakehouse de táxis de NY</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

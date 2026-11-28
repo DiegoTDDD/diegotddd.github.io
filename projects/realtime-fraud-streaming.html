@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaming de fraude em tempo real: Diego Alves</title>
+<meta name="description" content="Um pipeline de streaming em Delta Lake que aguenta uma queda sem perder nem repetir registro, com schema registry e checagem de saúde.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Streaming de fraude em tempo real: Diego Alves">
+<meta property="og:description" content="Um pipeline de streaming em Delta Lake que aguenta uma queda sem perder nem repetir registro, com schema registry e checagem de saúde.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/realtime-fraud-streaming.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Streaming de fraude em tempo real: Diego Alves">
+<meta name="twitter:description" content="Um pipeline de streaming em Delta Lake que aguenta uma queda sem perder nem repetir registro, com schema registry e checagem de saúde.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/realtime-fraud-streaming.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/realtime-fraud-streaming.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/realtime-fraud-streaming.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/realtime-fraud-streaming.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/realtime-fraud-streaming.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/realtime-fraud-streaming.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">Todos os projetos</a></p>
+  <h1>Streaming de fraude em tempo real</h1>
+  <p class="lede">Um pipeline de streaming em Delta Lake que aguenta uma queda sem perder nem repetir registro, com schema registry e checagem de saúde.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/realtime-fraud-streaming">Código</a><a href="https://realtime-fraud-streaming.streamlit.app">Demo ao vivo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/realtime-fraud-streaming/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/realtime-fraud-streaming/actions/workflows/tests.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">0</span><span class="label">registros perdidos ou duplicados depois de derrubar o job no meio do fluxo e religar, conferido no CI</span></p>
+  <figure class="media"><img src="../assets/media/realtime-fraud-streaming.webp" alt="Visão geral do painel de streaming" loading="lazy"></figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Perceber um ataque de fraude em minutos, não no relatório do dia seguinte.</dd></div><div><dt>Quem usa</dt><dd>Monitoramento de fraude e operação de pagamentos.</dd></div><div><dt>Quanto custa errar</dt><dd>Descobrir um ataque um dia depois significa um dia inteiro de prejuízo.</dd></div><div><dt>Como gera valor</dt><dd>Cada minuto vira uma linha com contagens e fraude por padrão cerca de 2 minutos depois; uma queda do job não perde nem duplica transação, um schema incompatível é recusado e um fluxo parado dispara alerta.</dd></div><div><dt>Riscos e limites</dt><dd>Um broker e disco local; o painel público mostra uma amostra gravada do fluxo.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Fraude em cartão acontece em segundos, e o sinal está nos padrões ao longo do tempo. Um relatório em lote noturno enxerga isso com um dia de atraso.</p>
+    <h2>Solução</h2>
+    <p>As transações fluem do Redpanda pelo Spark Structured Streaming até tabelas Delta Lake e um painel ao vivo, com janelas por tempo do evento e watermarks. O schema dos eventos fica num schema registry que recusa mudanças incompatíveis; o que quebra o contrato vai para quarentena com os motivos. Uma checagem de saúde aprova ou reprova o fluxo e pode avisar por webhook.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Gravação em Delta com checkpoints: o CI derruba o job com SIGKILL, religa e encontra cada offset do Kafka na Bronze exatamente uma vez.</li>
+<li>Compactação e limpeza rodam com o fluxo gravando (66 arquivos viraram 16, com as mesmas linhas, no CI).</li>
+<li>O registry recusa um schema incompatível no CI; uma mensagem enviada sem ele cai na quarentena.</li>
+<li>O progresso de cada consulta fica registrado; a checagem de saúde falha em até dois minutos depois que o job para.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">0</td><td>offsets duplicados ou faltando depois de uma queda e religada</td></tr>
+<tr><td class="value">~2 min</td><td>do fim de um minuto até a linha dele na Gold</td></tr>
+<tr><td class="value">47</td><td>testes, incluindo Spark com Delta numa sessão local</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Um broker e disco local; os alertas vão para um webhook, não para um serviço de plantão. O painel público mostra uma amostra gravada.</p>
+    <h2>Stack</h2>
+    <p>Redpanda, Schema Registry, Spark Structured Streaming, Delta Lake, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="realtime-fraud-detection-ml.html"><span>Anterior</span>Detecção de fraude em tempo real</a>
+    <a href="supply-chain-risk-intelligence.html"><span>Próximo</span>Inteligência de risco na cadeia de suprimentos</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

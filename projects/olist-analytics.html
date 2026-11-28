@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analytics de e-commerce da Olist: Diego Alves</title>
+<meta name="description" content="Um modelo estrela testado em dbt sobre 100 mil pedidos e um relatório em Power BI que medem quanto os atrasos derrubam as avaliações.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Analytics de e-commerce da Olist: Diego Alves">
+<meta property="og:description" content="Um modelo estrela testado em dbt sobre 100 mil pedidos e um relatório em Power BI que medem quanto os atrasos derrubam as avaliações.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/olist-analytics.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Analytics de e-commerce da Olist: Diego Alves">
+<meta name="twitter:description" content="Um modelo estrela testado em dbt sobre 100 mil pedidos e um relatório em Power BI que medem quanto os atrasos derrubam as avaliações.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/olist-analytics.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/olist-analytics.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/olist-analytics.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/olist-analytics.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/olist-analytics.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/olist-analytics.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">Todos os projetos</a></p>
+  <h1>Analytics de e-commerce da Olist</h1>
+  <p class="lede">Um modelo estrela testado em dbt sobre 100 mil pedidos e um relatório em Power BI que medem quanto os atrasos derrubam as avaliações.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/olist-analytics">Código</a><a href="https://diegotddd-olist-analytics.streamlit.app">Demo ao vivo</a><a href="https://github.com/DiegoTDDD/olist-analytics/raw/main/powerbi/OlistEntregas.pbix">Arquivo do Power BI (.pbix)</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/olist-analytics/actions/workflows/dbt-check.yml"><img src="https://github.com/DiegoTDDD/olist-analytics/actions/workflows/dbt-check.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">4,29 → 1,81</span><span class="label">de nota média no prazo contra 6 dias de atraso; depois disso quase não muda</span></p>
+  <figure class="media"><img src="../assets/media/olist-analytics.webp" alt="Página do Power BI: nota média por dias de atraso, com a decisão que ela apoia" loading="lazy"></figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Onde investir em logística: em quais atrasos cada dia a menos ainda recupera nota.</dd></div><div><dt>Quem usa</dt><dd>Operação de marketplace, logística e experiência do cliente.</dd></div><div><dt>Quanto custa errar</dt><dd>Investir no problema errado gasta dinheiro sem recuperar as avaliações.</dd></div><div><dt>Como gera valor</dt><dd>A nota cai a cada dia de atraso até o 6º (de 4,29 no prazo para 1,81) e depois quase não muda, então o dinheiro de logística rende na primeira semana de atraso. Os números vêm de modelos dbt conferidos por 48 testes e estão no relatório em Power BI.</dd></div><div><dt>Riscos e limites</dt><dd>Correlação em dados observacionais: pedidos atrasados podem diferir em outros aspectos.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Um marketplace sabe que atrasos derrubam as avaliações, mas não quanto, com que rapidez, nem se deve reduzir o tamanho dos atrasos ou evitá-los por completo.</p>
+    <h2>Solução</h2>
+    <p>Um modelo estrela construído com dbt sobre DuckDB em cerca de 100 mil pedidos reais da Olist, com testes para cada regra de negócio, um relatório de três páginas em Power BI e um painel em Streamlit.</p>
+    <h2>Como funciona</h2>
+    <ul><li>15 modelos dbt e 48 testes rodam a cada mudança, a partir dos arquivos brutos.</li>
+<li>As duas tabelas fato são incrementais. O CI reproduz o fluxo de pedidos dia a dia a partir dos horários dos eventos nos dados e prova que elas são iguais a uma reconstrução completa em cada passo; a checagem de atualização falha uma carga com mais de 50 horas.</li>
+<li>O modelo do Power BI (TMDL) e as páginas (PBIR) são gerados por código: 23 medidas DAX, tabela de datas marcada e textos das páginas calculados a partir dos dados. O CI falha se divergirem do que está no repositório.</li>
+<li>O relatório foi aberto, atualizado e conferido no Power BI Desktop; o .pbix está no repositório.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">6,8%</td><td>dos pedidos entregues chegam atrasados</td></tr>
+<tr><td class="value">3,73 → 2,68</td><td>de nota com 1 dia contra 3 dias de atraso: cada dia da primeira semana custa nota</td></tr>
+<tr><td class="value">48</td><td>testes dbt em 15 modelos</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Correlação a partir de dados observacionais; pedidos atrasados podem diferir em outros aspectos.</p>
+    <h2>Stack</h2>
+    <p>dbt, DuckDB, Power BI, DAX, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="olist-cloud-warehouse.html"><span>Anterior</span>Data warehouse na nuvem (Olist)</a>
+    <a href="economic-data-platform.html"><span>Próximo</span>Plataforma de dados econômicos</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

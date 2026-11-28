@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fine-tuning e serving: Diego Alves</title>
+<meta name="description" content="Um modelo de 0,5B ajustado num runner de CPU gratuito para marcar fatos financeiros em frases de 10-K, servido com llama.cpp.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Fine-tuning e serving: Diego Alves">
+<meta property="og:description" content="Um modelo de 0,5B ajustado num runner de CPU gratuito para marcar fatos financeiros em frases de 10-K, servido com llama.cpp.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/finetune-and-serve.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fine-tuning e serving: Diego Alves">
+<meta name="twitter:description" content="Um modelo de 0,5B ajustado num runner de CPU gratuito para marcar fatos financeiros em frases de 10-K, servido com llama.cpp.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/finetune-and-serve.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/finetune-and-serve.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/finetune-and-serve.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/finetune-and-serve.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/finetune-and-serve.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/finetune-and-serve.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">Todos os projetos</a></p>
+  <h1>Fine-tuning e serving</h1>
+  <p class="lede">Um modelo de 0,5B ajustado num runner de CPU gratuito para marcar fatos financeiros em frases de 10-K, servido com llama.cpp.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/finetune-and-serve">Código</a><a href="https://github.com/DiegoTDDD/finetune-and-serve/releases/tag/model-44606410559">Modelo publicado</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/finetune-and-serve/actions/workflows/ci.yml"><img src="https://github.com/DiegoTDDD/finetune-and-serve/actions/workflows/ci.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">0,82</span><span class="label">de F1 em fatos rotulados por auditores, contra 0,65 de um modelo de 3B com exemplos no prompt</span></p>
+  
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Treinar um modelo próprio ou pagar uma API comercial para uma tarefa de extração.</dd></div><div><dt>Quem usa</dt><dd>Quem decide orçamento e arquitetura de IA: tech leads, produto e finanças.</dd></div><div><dt>Quanto custa errar</dt><dd>Escolher API com volume alto paga caro por requisição; escolher modelo próprio com volume baixo paga uma máquina parada.</dd></div><div><dt>Como gera valor</dt><dd>O modelo pequeno ajustado acerta mais (0,82 contra 0,65) e custa US$ 35 por milhão de requisições em carga total. A conta mostra a partir de qual volume mensal a máquina própria fica mais barata que cada API.</dd></div><div><dt>Riscos e limites</dt><dd>A precisão das APIs nessa tarefa não foi medida, só o preço; o custo da VM supõe uso total.</dd></div></dl><form class="calc" data-calc="{&quot;kind&quot;: &quot;finetune&quot;, &quot;lang&quot;: &quot;pt&quot;, &quot;data&quot;: {&quot;vm_month&quot;: 147.17, &quot;capacity&quot;: 4217940, &quot;apis&quot;: [[&quot;Claude Haiku 5.5, few-shot&quot;, 91.11], [&quot;Claude Haiku 5.5, zero-shot&quot;, 44.76], [&quot;GPT-5.4 mini, few-shot&quot;, 705.98], [&quot;GPT-5.4 mini, zero-shot&quot;, 343.88]]}, &quot;text&quot;: {&quot;own&quot;: &quot;Modelo ajustado, VM própria&quot;, &quot;vm&quot;: &quot;VM&quot;, &quot;vms&quot;: &quot;VMs&quot;, &quot;cheapest&quot;: &quot;mais barato&quot;, &quot;month&quot;: &quot;por mês&quot;}}" onsubmit="return false">
+  <h3>Calcule para o seu cenário: Máquina própria ou API, no seu volume</h3>
+  <div class="calc-in"><label><span>Requisições por mês</span><input type="number" name="req" value="3000000" min="0" step="100000" inputmode="decimal"></label></div>
+  <div aria-live="polite"><table class="calc-table"><tbody data-out="table"></tbody></table></div>
+  <p class="calc-note">Custo da VM (US$ 147,17/mês) e capacidade medida (4,2 milhões de requisições por mês por VM) vêm do benchmark do projeto; preços de API são os de tabela. A precisão das APIs nesta tarefa não foi medida.</p>
+</form></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Extração estruturada costuma ser feita com um modelo grande e um prompt, e cada requisição paga por um prompt longo, numa API ou num hardware grande o bastante para o modelo. Se um modelo pequeno treinado para essa única tarefa faz melhor e custa menos é uma questão de medição.</p>
+    <h2>Solução</h2>
+    <p>Fine-tuning com LoRA do Qwen2.5-0.5B em frases de notas de 10-K rotuladas por auditores com conceitos XBRL (FiNER-139), exportação para GGUF com quantização de 8 e 4 bits, e serving com llama.cpp. A comparação é com o mesmo modelo e um de 3B usados só com prompt, em qualidade, latência, vazão e custo.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Treino, quantização, avaliação e benchmark num único workflow do GitHub Actions numa CPU de 4 núcleos.</li>
+<li>Perda e logits só nos tokens da resposta, para um vocabulário de 152 mil tokens caber na memória.</li>
+<li>Todos os modelos servidos pelo mesmo llama-server, com o mesmo schema JSON imposto pela gramática.</li>
+<li>Custo de uma VM do tamanho do runner contra o preço de tabela das APIs, com o tamanho de prompt medido.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">0,82</td><td>de F1 em 4 bits (398 MB), contra 0,65 do Qwen2.5-3B com seis exemplos (ganho de +0,16, intervalo de 95% por bootstrap pareado de +0,10 a +0,23) e 0,19 antes do ajuste</td></tr>
+<tr><td class="value">3,7×</td><td>as requisições por segundo do modelo de 3B na mesma CPU (1,60 contra 0,43)</td></tr>
+<tr><td class="value">US$ 35</td><td>por milhão de requisições auto-hospedado em carga total; o Claude Haiku 5.5 a preço de tabela custaria de US$ 45 a US$ 91</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Um único treino, interrompido pelo limite de tempo em 79% de uma época; a precisão das APIs nessa tarefa não foi medida, só o preço.</p>
+    <h2>Stack</h2>
+    <p>PyTorch, PEFT, llama.cpp, GitHub Actions</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="llm-evals-observability.html"><span>Anterior</span>Avaliação e observabilidade de LLMs</a>
+    <a href="llm-from-scratch.html"><span>Próximo</span>LLM do zero</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

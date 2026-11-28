@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supply chain risk intelligence: Diego Alves</title>
+<meta name="description" content="Delivery delay from cause to decision: causal inference, survival analysis, forecasting, risk and optimization.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Supply chain risk intelligence: Diego Alves">
+<meta property="og:description" content="Delivery delay from cause to decision: causal inference, survival analysis, forecasting, risk and optimization.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/supply-chain-risk-intelligence.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Supply chain risk intelligence: Diego Alves">
+<meta name="twitter:description" content="Delivery delay from cause to decision: causal inference, survival analysis, forecasting, risk and optimization.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/supply-chain-risk-intelligence.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/supply-chain-risk-intelligence.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/supply-chain-risk-intelligence.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/supply-chain-risk-intelligence.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/supply-chain-risk-intelligence.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">All projects</a></p>
+  <h1>Supply chain risk intelligence</h1>
+  <p class="lede">Delivery delay from cause to decision: causal inference, survival analysis, forecasting, risk and optimization.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/supply-chain-risk-intelligence">Code</a><a href="https://diego-supply-chain-risk.streamlit.app">Live demo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/supply-chain-risk-intelligence/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/supply-chain-risk-intelligence/actions/workflows/tests.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">94.4%</span><span class="label">of the riskiest tenth of orders are actually late, re-checked on the real data in CI</span></p>
+  <figure class="media"><img src="../../assets/media/supply-chain-risk-intelligence.webp" alt="Forecast comparison against the naive baseline" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Which orders to prioritize to avoid delays, and which shipping class to use.</dd></div><div><dt>Who uses it</dt><dd>Logistics operations and customer service.</dd></div><div><dt>What an error costs</dt><dd>Delays bring complaints and refunds; acting on every order costs too much.</dd></div><div><dt>How it creates value</dt><dd>The model isolates the riskiest 10% of orders, 94.4% of which are actually late, so the team acts where it matters. The causal analysis shows Second Class runs 1.99 days later than Standard.</dd></div><div><dt>Risks and limits</dt><dd>The shipping optimization saves only 0.85% of expected cost, and it is reported as such.</dd></div></dl><form class="calc" data-calc="{&quot;kind&quot;: &quot;supply&quot;, &quot;lang&quot;: &quot;en&quot;, &quot;data&quot;: {&quot;top&quot;: 0.944, &quot;base&quot;: 0.548, &quot;share&quot;: 0.1}, &quot;text&quot;: {}}" onsubmit="return false">
+  <h3>Run your own numbers: Acting on the riskiest 10% of orders</h3>
+  <div class="calc-in"><label><span>Orders per month</span><input type="number" name="orders" value="10000" min="0" step="500" inputmode="decimal"></label><label><span>Cost of one late order ($)</span><input type="number" name="late_cost" value="10" min="0" step="1" inputmode="decimal"></label><label><span>Cost to act on one order ($)</span><input type="number" name="act_cost" value="1" min="0" step="0.5" inputmode="decimal"></label><label><span>Delays prevented when the team acts (%)</span><input type="number" name="fix" value="30" min="0" step="5" inputmode="decimal"></label></div>
+  <div aria-live="polite"><dl class="calc-out"><div><dt>Late orders reached with the model</dt><dd><output data-out="model">–</output></dd></div><div><dt>Late orders reached picking at random</dt><dd><output data-out="random">–</output></dd></div><div><dt>Net with the model per month ($)</dt><dd><output data-out="net">–</output></dd></div><div><dt>Net picking at random ($)</dt><dd><output data-out="net_random">–</output></dd></div></dl></div>
+  <p class="calc-note">94.4% of the orders at the top of the risk ranking were late in the test, against 54.8% late across the whole dataset. Costs and how well the action works are your assumptions.</p>
+</form></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>“We are often late” is not something operations can act on. They need the cause, the timing, the volume coming, the orders at risk and what to change.</p>
+    <h2>Solution</h2>
+    <p>Five connected analyses of 180,519 real orders: propensity score matching, survival models, demand forecasting, a calibrated risk model explained with SHAP, and a linear program that turns the risk scores into a cheaper shipping allocation.</p>
+    <h2>How it works</h2>
+    <ul><li>CI downloads the real dataset (checksum-pinned), validates it against a data contract, re-runs the notebooks and fails if any published number moves.</li>
+<li>Causal effect estimated on 35,216 matched pairs, all 78 covariate levels balanced.</li>
+<li>The optimization uses out-of-sample risk scores and is stress-tested with 10,000 Monte Carlo runs.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">1.99 days</td><td>later delivery for Second Class than Standard Class, against the promise</td></tr>
+<tr><td class="value">33%</td><td>lower forecast error than the naive baseline (MAPE 5.9% vs 8.9%)</td></tr>
+<tr><td class="value">94.4%</td><td>of the top 10% riskiest orders are late (AUC 0.73)</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>The optimization saves 0.85% of expected cost on orders the model never saw: real, but small, and reported as such.</p>
+    <h2>Stack</h2>
+    <p>statsmodels, lifelines, Prophet, XGBoost, SHAP, PuLP</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="realtime-fraud-streaming.html"><span>Previous</span>Real-time fraud streaming</a>
+    <a href="nyc-tip-mlops.html"><span>Next</span>NYC tip MLOps</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

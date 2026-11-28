@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NYC taxi lakehouse: Diego Alves</title>
+<meta name="description" content="A Delta Lake lakehouse over 42 million trips, processed month by month, that separates the congestion fee&#x27;s effect from winter.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="NYC taxi lakehouse: Diego Alves">
+<meta property="og:description" content="A Delta Lake lakehouse over 42 million trips, processed month by month, that separates the congestion fee&#x27;s effect from winter.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/nyc-taxi-lakehouse.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NYC taxi lakehouse: Diego Alves">
+<meta name="twitter:description" content="A Delta Lake lakehouse over 42 million trips, processed month by month, that separates the congestion fee&#x27;s effect from winter.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/nyc-taxi-lakehouse.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/nyc-taxi-lakehouse.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/nyc-taxi-lakehouse.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/nyc-taxi-lakehouse.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/nyc-taxi-lakehouse.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">All projects</a></p>
+  <h1>NYC taxi lakehouse</h1>
+  <p class="lede">A Delta Lake lakehouse over 42 million trips, processed month by month, that separates the congestion fee&#x27;s effect from winter.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/nyc-taxi-lakehouse">Code</a><a href="https://nyc-taxi-lakehouse.streamlit.app">Live demo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/nyc-taxi-lakehouse/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/nyc-taxi-lakehouse/actions/workflows/tests.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">−0.4 pts</span><span class="label">change in Manhattan trips per day due to the fee, once winter is taken out; the raw drop was 10.7%</span></p>
+  <figure class="media"><img src="../../assets/media/nyc-taxi-lakehouse.webp" alt="Congestion pricing impact on the dashboard" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Assessing whether a public policy (the congestion fee) changed behaviour.</dd></div><div><dt>Who uses it</dt><dd>Policy, mobility and urban planning analysts.</dd></div><div><dt>What an error costs</dt><dd>Concluding from dirty or incomplete data leads to a wrong policy assessment.</dd></div><div><dt>How it creates value</dt><dd>With the same months a year earlier as the control, the 10.7% drop in Manhattan trips turns out to be almost all winter (−0.4 points due to the fee); the fee&#x27;s effect is in trips that got shorter in time (−3.6 points) over the same distance.</dd></div><div><dt>Risks and limits</dt><dd>Assumes winter changes taxi use the same way every year; other changes between 2024 and 2025 are not separated.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>Whether New York&#x27;s 2025 congestion fee changed taxi use: the fee started in January, so a simple before/after mixes it with winter, and the trip files change schema mid-way and hold invalid records.</p>
+    <h2>Solution</h2>
+    <p>Bronze, Silver and Gold layers in Delta Lake over two Oct-Mar seasons, transformed with DuckDB and orchestrated by Dagster as monthly partitions. The estimate subtracts what winter did in the season before the fee, and eleven data-quality checks stop bad data before it reaches the numbers.</p>
+    <h2>How it works</h2>
+    <ul><li>Each month is a Dagster partition written with a predicate overwrite: added or redone alone, and redoing it changes nothing.</li>
+<li>Tests prove month-by-month and all-at-once builds give identical Gold tables.</li>
+<li>The same months a year earlier, without the fee, are the control for the season.</li>
+<li>Blocking quality checks stop the run before bad rows reach Gold.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">−0.4 pts</td><td>trips per day: the 10.7% raw drop is almost all winter</td></tr>
+<tr><td class="value">−3.6 pts</td><td>trip duration attributable to the fee, with distance unchanged</td></tr>
+<tr><td class="value">42.1M</td><td>trips in twelve monthly partitions</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>Assumes winter changes taxi use the same way every year; yellow taxis only.</p>
+    <h2>Stack</h2>
+    <p>Delta Lake, DuckDB, Dagster, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="nyc-tip-mlops.html"><span>Previous</span>NYC tip MLOps</a>
+    <a href="olist-cloud-warehouse.html"><span>Next</span>Olist cloud warehouse</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

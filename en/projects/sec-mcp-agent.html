@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEC MCP agent: Diego Alves</title>
+<meta name="description" content="MCP servers over SEC filings and a fraud model, and an agent whose citations are checked against the source.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="SEC MCP agent: Diego Alves">
+<meta property="og:description" content="MCP servers over SEC filings and a fraud model, and an agent whose citations are checked against the source.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/sec-mcp-agent.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SEC MCP agent: Diego Alves">
+<meta name="twitter:description" content="MCP servers over SEC filings and a fraud model, and an agent whose citations are checked against the source.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/sec-mcp-agent.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/sec-mcp-agent.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/sec-mcp-agent.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/sec-mcp-agent.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/sec-mcp-agent.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">All projects</a></p>
+  <h1>SEC MCP agent</h1>
+  <p class="lede">MCP servers over SEC filings and a fraud model, and an agent whose citations are checked against the source.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/sec-mcp-agent">Code</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/sec-mcp-agent/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/sec-mcp-agent/actions/workflows/tests.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">17 of 22</span><span class="label">evaluation questions passed in the eighth measured run (7 in the first); code checks each answer says only what the tools returned</span></p>
+  <figure class="media">
+  <video controls muted loop playsinline preload="metadata" data-autoplay
+         poster="../../assets/media/sec-mcp-agent-poster.webp" aria-label="Two answers recorded in the sixth evaluation run: the tool calls, the answer and its verified citations.">
+    <source src="../../assets/media/sec-mcp-agent.mp4" type="video/mp4">
+  </video>
+  <figcaption>Two answers recorded in the sixth evaluation run: the tool calls, the answer and its verified citations.</figcaption>
+</figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Answering questions about financial filings with sources someone can check.</dd></div><div><dt>Who uses it</dt><dd>Financial and risk analysts who read 10-K filings.</dd></div><div><dt>What an error costs</dt><dd>An invented citation leads to a decision based on a fact that is not in the document.</dd></div><div><dt>How it creates value</dt><dd>Every citation is checked against the original passage before the answer goes out. The tools live in reusable MCP servers that any agent or Claude Desktop can use.</dd></div><div><dt>Risks and limits</dt><dd>18 of 22 questions right in the seventh run: a small model still misses some multi-step questions.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>Answers about filings are only useful if every claim can be traced to the source, and small models invent sources that look real. Tools are also usually wired into one agent, so nothing else can use them.</p>
+    <h2>Solution</h2>
+    <p>Two MCP servers, one over 10-K filings with BM25 search and one over the fraud model, and a tool-calling agent that answers from them. Every citation is checked against the passage it claims to quote before the answer is returned. The same servers plug into Claude Desktop.</p>
+    <h2>How it works</h2>
+    <ul><li>A citation passes only if its quote is found in the retrieved passage, and every number in the answer must appear in a cited passage or the fraud score, with no verdict stated against the model&#x27;s.</li>
+<li>Eight evaluation runs on a CPU runner, each failure traced and fixed in the agent or the tools; the evaluation reruns every week.</li>
+<li>The fraud tool reuses the XGBoost model from the real-time fraud project at a pinned commit.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">17 of 22</td><td>evaluation questions passed in the eighth run (7 in the first; 18 in the seventh, the difference is run-to-run variance)</td></tr>
+<tr><td class="value">21 of 22</td><td>answers whose numbers and fraud verdict match what the tools returned; the one flagged cites the wrong passage for a true number</td></tr>
+<tr><td class="value">71</td><td>tests, including the servers through the MCP client</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>A 3B model still misses some multi-step questions; the evaluation set is small; the answer check is lexical, so a right number can still sit next to the wrong subject.</p>
+    <h2>Stack</h2>
+    <p>MCP Python SDK, Pydantic, Ollama, XGBoost</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="fraud-investigation-agents.html"><span>Previous</span>Fraud investigation agents</a>
+    <a href="olist-ai-analyst.html"><span>Next</span>Olist AI analyst</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

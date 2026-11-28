@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lakehouse de táxis de NY: Diego Alves</title>
+<meta name="description" content="Um lakehouse em Delta Lake sobre 42 milhões de corridas, processado mês a mês, que separa o efeito da taxa de congestionamento do efeito do inverno.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Lakehouse de táxis de NY: Diego Alves">
+<meta property="og:description" content="Um lakehouse em Delta Lake sobre 42 milhões de corridas, processado mês a mês, que separa o efeito da taxa de congestionamento do efeito do inverno.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/nyc-taxi-lakehouse.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lakehouse de táxis de NY: Diego Alves">
+<meta name="twitter:description" content="Um lakehouse em Delta Lake sobre 42 milhões de corridas, processado mês a mês, que separa o efeito da taxa de congestionamento do efeito do inverno.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/nyc-taxi-lakehouse.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/nyc-taxi-lakehouse.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/nyc-taxi-lakehouse.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/nyc-taxi-lakehouse.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/nyc-taxi-lakehouse.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/nyc-taxi-lakehouse.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">Todos os projetos</a></p>
+  <h1>Lakehouse de táxis de NY</h1>
+  <p class="lede">Um lakehouse em Delta Lake sobre 42 milhões de corridas, processado mês a mês, que separa o efeito da taxa de congestionamento do efeito do inverno.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/nyc-taxi-lakehouse">Código</a><a href="https://nyc-taxi-lakehouse.streamlit.app">Demo ao vivo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/nyc-taxi-lakehouse/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/nyc-taxi-lakehouse/actions/workflows/tests.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">−0,4 pt</span><span class="label">nas corridas por dia em Manhattan por causa da taxa, tirando o inverno; a queda bruta era de 10,7%</span></p>
+  <figure class="media"><img src="../assets/media/nyc-taxi-lakehouse.webp" alt="Impacto da taxa de congestionamento no painel" loading="lazy"></figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Avaliar se uma política pública (a taxa de congestionamento) mudou o comportamento.</dd></div><div><dt>Quem usa</dt><dd>Analistas de políticas públicas, mobilidade e planejamento urbano.</dd></div><div><dt>Quanto custa errar</dt><dd>Concluir em cima de dados sujos ou incompletos leva a uma avaliação de política errada.</dd></div><div><dt>Como gera valor</dt><dd>Com os mesmos meses do ano anterior como controle, a queda de 10,7% nas corridas em Manhattan se mostra quase toda efeito do inverno (−0,4 ponto atribuível à taxa); o efeito da taxa está nas corridas mais curtas em tempo (−3,6 pontos), com a mesma distância.</dd></div><div><dt>Riscos e limites</dt><dd>Supõe que o inverno muda o uso de táxi do mesmo jeito todo ano; outras mudanças entre 2024 e 2025 não são separadas.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Saber se a taxa de congestionamento de 2025 em Nova York mudou o uso de táxis: a taxa começou em janeiro, então um simples antes e depois mistura a taxa com o inverno, e os arquivos mudam de schema no meio e trazem registros inválidos.</p>
+    <h2>Solução</h2>
+    <p>Camadas Bronze, Silver e Gold em Delta Lake sobre duas temporadas de outubro a março, transformadas com DuckDB e orquestradas pelo Dagster em partições mensais. A estimativa desconta o que o inverno fez na temporada anterior à taxa, e onze checagens de qualidade barram dados ruins antes de chegarem aos números.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Cada mês é uma partição do Dagster gravada com overwrite por predicado: entra ou é refeito sozinho, e refazer não muda nada.</li>
+<li>Os testes provam que montar mês a mês ou tudo de uma vez dá as mesmas tabelas Gold.</li>
+<li>Os mesmos meses um ano antes, sem a taxa, servem de controle para a estação do ano.</li>
+<li>Checagens de qualidade bloqueantes param a execução antes que linhas ruins cheguem à Gold.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">−0,4 pt</td><td>nas corridas por dia: a queda bruta de 10,7% é quase toda inverno</td></tr>
+<tr><td class="value">−3,6 pt</td><td>na duração das corridas atribuível à taxa, com a distância igual</td></tr>
+<tr><td class="value">42,1M</td><td>de corridas em doze partições mensais</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Supõe que o inverno muda o uso de táxi do mesmo jeito todo ano; só táxis amarelos.</p>
+    <h2>Stack</h2>
+    <p>Delta Lake, DuckDB, Dagster, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="nyc-tip-mlops.html"><span>Anterior</span>MLOps de gorjetas em NY</a>
+    <a href="olist-cloud-warehouse.html"><span>Próximo</span>Data warehouse na nuvem (Olist)</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plataforma de dados econômicos: Diego Alves</title>
+<meta name="description" content="ELT de indicadores macroeconômicos brasileiros e de mercado que nunca mostra uma tabela vazia ou pela metade.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Plataforma de dados econômicos: Diego Alves">
+<meta property="og:description" content="ELT de indicadores macroeconômicos brasileiros e de mercado que nunca mostra uma tabela vazia ou pela metade.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/economic-data-platform.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Plataforma de dados econômicos: Diego Alves">
+<meta name="twitter:description" content="ELT de indicadores macroeconômicos brasileiros e de mercado que nunca mostra uma tabela vazia ou pela metade.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/economic-data-platform.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/economic-data-platform.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/economic-data-platform.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/economic-data-platform.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/economic-data-platform.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/economic-data-platform.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">Todos os projetos</a></p>
+  <h1>Plataforma de dados econômicos</h1>
+  <p class="lede">ELT de indicadores macroeconômicos brasileiros e de mercado que nunca mostra uma tabela vazia ou pela metade.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/Economic-data-platform">Código</a><a href="https://diegotddd-economic-data-platform.streamlit.app">Demo ao vivo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/Economic-data-platform/actions/workflows/ci_pipeline.yml"><img src="https://github.com/DiegoTDDD/Economic-data-platform/actions/workflows/ci_pipeline.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">5</span><span class="label">checagens de qualidade que cada lote precisa passar antes de substituir a camada Gold</span></p>
+  <figure class="media"><img src="../assets/media/economic-data-platform.webp" alt="Indicadores macroeconômicos no painel" loading="lazy"></figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Decidir com indicadores econômicos sem medo de o painel estar errado.</dd></div><div><dt>Quem usa</dt><dd>Áreas de finanças, tesouraria e planejamento que acompanham IPCA, câmbio e juros.</dd></div><div><dt>Quanto custa errar</dt><dd>Um painel vazio ou com número errado leva a decisão errada, e ninguém percebe.</dd></div><div><dt>Como gera valor</dt><dd>Cada lote passa por 5 checagens antes de entrar; se falhar, o painel mantém o último dado bom. A atualização é atômica: nunca fica pela metade.</dd></div><div><dt>Riscos e limites</dt><dd>O painel público lê um retrato atualizado todo mês pelo CI.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Fontes públicas de dados econômicos falham de jeitos comuns: limite de requisições, timeout, resposta vazia, formato alterado. Um painel alimentado direto por elas fica em branco ou mostra números errados sem ninguém notar.</p>
+    <h2>Solução</h2>
+    <p>Uma plataforma ELT que busca indicadores do Banco Central do Brasil e dados do Yahoo Finance com novas tentativas, confere cada lote antes de ele poder substituir a camada Gold no PostgreSQL, grava de forma atômica e serve tudo num painel.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Checagens de faixa, nulos, duplicatas, datas futuras e contagem de linhas em cada lote.</li>
+<li>Um lote com falha é rejeitado e a Gold mantém os dados anteriores.</li>
+<li>Um teste prova num PostgreSQL real que uma inserção com falha desfaz a exclusão.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">5</td><td>checagens de qualidade em cada lote antes de chegar à Gold</td></tr>
+<tr><td class="value">3</td><td>tentativas por etapa, com espera em limites de requisição e timeouts</td></tr>
+<tr><td class="value">1</td><td>transação por atualização: a Gold nunca fica vazia</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>O painel público lê um retrato da Gold que o CI atualiza todo mês.</p>
+    <h2>Stack</h2>
+    <p>PostgreSQL, Docker, GitHub Actions, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="olist-analytics.html"><span>Anterior</span>Analytics de e-commerce da Olist</a>
+    <a href="hospcall.html"><span>Próximo</span>Hospcall: sistema de chamados para uma casa de idosos</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

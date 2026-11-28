@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real-time fraud detection: Diego Alves</title>
+<meta name="description" content="An XGBoost model scoring a live Kafka stream, with per-card state that survives restarts, exactly-once predictions and a model monitor.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Real-time fraud detection: Diego Alves">
+<meta property="og:description" content="An XGBoost model scoring a live Kafka stream, with per-card state that survives restarts, exactly-once predictions and a model monitor.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/realtime-fraud-detection-ml.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Real-time fraud detection: Diego Alves">
+<meta name="twitter:description" content="An XGBoost model scoring a live Kafka stream, with per-card state that survives restarts, exactly-once predictions and a model monitor.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/realtime-fraud-detection-ml.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/realtime-fraud-detection-ml.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/realtime-fraud-detection-ml.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/realtime-fraud-detection-ml.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/realtime-fraud-detection-ml.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">All projects</a></p>
+  <h1>Real-time fraud detection</h1>
+  <p class="lede">An XGBoost model scoring a live Kafka stream, with per-card state that survives restarts, exactly-once predictions and a model monitor.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/realtime-fraud-detection-ml">Code</a><a href="https://realtime-fraud-detection-ml.streamlit.app">Live demo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/realtime-fraud-detection-ml/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/realtime-fraud-detection-ml/actions/workflows/tests.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">0</span><span class="label">missing or duplicate predictions after the scoring job is killed mid-stream and restarted, checked in CI</span></p>
+  <figure class="media"><img src="../../assets/media/realtime-fraud-detection-ml.webp" alt="Live scoring dashboard" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Approve or hold each card transaction the moment it arrives.</dd></div><div><dt>Who uses it</dt><dd>Fraud prevention and payments risk teams.</dd></div><div><dt>What an error costs</dt><dd>An approved fraud becomes a loss; a wrong block annoys a legitimate customer.</dd></div><div><dt>How it creates value</dt><dd>The threshold, chosen on a validation period, keeps false alarms to at most 1 in 20 alerts; on the test period it caught 96.6% of fraud at 96.6% precision. With less fraud in the data the share of false alarms rises; the calculator below shows by how much. The dashboard shows live which kinds of fraud get through, and a monitor raises an alert when quality drops or the data shifts.</dd></div><div><dt>Risks and limits</dt><dd>Synthetic data; impossible-travel fraud is caught in only 64.2% of cases, and that is documented.</dd></div></dl><form class="calc" data-calc="{&quot;kind&quot;: &quot;fraud&quot;, &quot;lang&quot;: &quot;en&quot;, &quot;data&quot;: {&quot;precision&quot;: 0.966, &quot;recall&quot;: 0.966, &quot;frauds&quot;: 2147, &quot;rows&quot;: 30000}, &quot;text&quot;: {}}" onsubmit="return false">
+  <h3>Run your own numbers: What the model catches at your volume</h3>
+  <div class="calc-in"><label><span>Transactions per month</span><input type="number" name="tx" value="1000000" min="0" step="1000" inputmode="decimal"></label><label><span>Fraud rate (%)</span><input type="number" name="rate" value="0.5" min="0" step="0.1" inputmode="decimal"></label><label><span>Average fraud amount ($)</span><input type="number" name="ticket" value="120" min="0" step="5" inputmode="decimal"></label><label><span>Cost to review one alert ($)</span><input type="number" name="review" value="2" min="0" step="0.5" inputmode="decimal"></label></div>
+  <div aria-live="polite"><dl class="calc-out"><div><dt>Frauds caught per month</dt><dd><output data-out="caught">–</output></dd></div><div><dt>Amount protected per month ($)</dt><dd><output data-out="saved">–</output></dd></div><div><dt>False alerts per month</dt><dd><output data-out="false">–</output></dd></div><div><dt>Precision in your scenario</dt><dd><output data-out="prec">–</output></dd></div><div><dt>Net: amount protected minus the cost of reviewing every alert ($)</dt><dd><output data-out="net">–</output></dd></div></dl></div>
+  <p class="calc-note">Detection rate (96.6%) and false-alarm rate measured on the test set, on synthetic data. The other numbers are your assumptions. Precision changes with the fraud rate, and the numbers show it.</p>
+</form></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>A monitor that only counts transactions tells a fraud team what already happened. Each transaction needs a score the moment it arrives, and the team must know which kinds of fraud it misses.</p>
+    <h2>Solution</h2>
+    <p>An XGBoost classifier trained offline scores every transaction inside Spark Structured Streaming. Each card&#x27;s recent history lives in Spark&#x27;s state store, predictions go to Delta exactly once, and a monitor checks live precision, recall and input drift against written thresholds.</p>
+    <h2>How it works</h2>
+    <ul><li>The threshold is chosen on a validation period; every reported number comes from a later test period no choice has seen.</li>
+<li>A Spark test restarts the query and gets the same velocity features as training; CI kills the job with SIGKILL and finds one prediction per Kafka message.</li>
+<li>The monitor alerts only when the 95% interval lies below a floor, and flags drift by PSI.</li>
+<li>The model is reused by the SEC MCP agent and the fraud investigation agents.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">96.6% / 96.6%</td><td>precision and recall on the test period (PR-AUC 0.992)</td></tr>
+<tr><td class="value">4,597 / 4,597</td><td>Kafka messages and predictions after a SIGKILL restart in CI</td></tr>
+<tr><td class="value">64.2%</td><td>recall on impossible travel, the documented weak spot</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>Trained on synthetic transactions; impossible travel is partly indistinguishable from real travel.</p>
+    <h2>Stack</h2>
+    <p>XGBoost, Spark Structured Streaming, Delta Lake, Kafka, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="freight-intelligence.html"><span>Previous</span>LogiNexus freight intelligence</a>
+    <a href="realtime-fraud-streaming.html"><span>Next</span>Real-time fraud streaming</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

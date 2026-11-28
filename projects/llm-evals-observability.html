@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avaliação e observabilidade de LLMs: Diego Alves</title>
+<meta name="description" content="Uma barreira contra regressões a cada pull request e avaliações semanais ao vivo rastreadas no Langfuse.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Avaliação e observabilidade de LLMs: Diego Alves">
+<meta property="og:description" content="Uma barreira contra regressões a cada pull request e avaliações semanais ao vivo rastreadas no Langfuse.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/llm-evals-observability.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Avaliação e observabilidade de LLMs: Diego Alves">
+<meta name="twitter:description" content="Uma barreira contra regressões a cada pull request e avaliações semanais ao vivo rastreadas no Langfuse.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/llm-evals-observability.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/llm-evals-observability.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/llm-evals-observability.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/llm-evals-observability.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/llm-evals-observability.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/llm-evals-observability.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">Todos os projetos</a></p>
+  <h1>Avaliação e observabilidade de LLMs</h1>
+  <p class="lede">Uma barreira contra regressões a cada pull request e avaliações semanais ao vivo rastreadas no Langfuse.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/llm-evals-observability">Código</a><a href="https://diegotddd.github.io/llm-evals-observability/">Painel</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/llm-evals-observability/actions/workflows/gate.yml"><img src="https://github.com/DiegoTDDD/llm-evals-observability/actions/workflows/gate.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">162</span><span class="label">chamadas reais de ferramenta reproduzidas a cada pull request</span></p>
+  
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Liberar ou não uma mudança num sistema com IA.</dd></div><div><dt>Quem usa</dt><dd>Times que mantêm agentes e LLMs em produção.</dd></div><div><dt>Quanto custa errar</dt><dd>Uma mudança que piora o agente chega ao usuário sem ninguém perceber.</dd></div><div><dt>Como gera valor</dt><dd>Cada pull request é testado contra 162 chamadas reais gravadas; uma regressão real já foi barrada antes de ir para o ar. O painel mostra a qualidade ao longo do tempo.</dd></div><div><dt>Riscos e limites</dt><dd>Resultados ao vivo variam entre execuções; a barreira usa tolerâncias medidas, não valores exatos.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Agentes com modelos locais pequenos falham de jeitos que testes unitários não enxergam: o modelo manda argumentos que as ferramentas rejeitam, uma resposta nunca termina, uma correção num ponto quebra outro.</p>
+    <h2>Solução</h2>
+    <p>Datasets versionados gravados de execuções reais, uma barreira offline que os reproduz a cada pull request, execuções semanais ao vivo dos dois agentes rastreadas com OpenTelemetry num Langfuse auto-hospedado, e um painel público.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Os datasets são imutáveis e versionados com manifesto sha256.</li>
+<li>As linhas de base têm tolerâncias medidas a partir da variação entre execuções.</li>
+<li>O Langfuse roda dentro do CI com Docker Compose, então o rastreamento é testado de ponta a ponta.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">162</td><td>chamadas de ferramenta gravadas na barreira offline</td></tr>
+<tr><td class="value">1</td><td>regressão bloqueada num pull request real</td></tr>
+<tr><td class="value">0,705</td><td>taxa de acerto ao vivo do agente de relatórios (± 0,15 entre execuções)</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Os resultados ao vivo variam entre execuções do mesmo código; a barreira usa tolerâncias em vez de valores exatos.</p>
+    <h2>Stack</h2>
+    <p>OpenTelemetry, Langfuse, GitHub Actions, GitHub Pages</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="llm-guardrails-redteam.html"><span>Anterior</span>Guardrails e red team para LLMs</a>
+    <a href="finetune-and-serve.html"><span>Próximo</span>Fine-tuning e serving</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

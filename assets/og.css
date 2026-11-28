@@ -1,0 +1,11 @@
+* { margin: 0; box-sizing: border-box; }
+body { width: 1200px; height: 630px; background: #13233a; }
+.og { display: flex; align-items: center; gap: 56px; height: 100%; padding: 0 80px; color: #e4e9ef; font-family: "Schibsted Grotesk", Arial, sans-serif; }
+.og img { width: 250px; height: 250px; border-radius: 50%; border: 6px solid #f0a64b; object-fit: cover; flex: none; }
+.name { font-size: 64px; font-weight: 800; letter-spacing: -0.02em; }
+.role { font-size: 26px; color: #5fd0c4; margin-top: 6px; }
+.head { font-size: 30px; line-height: 1.25; margin-top: 26px; max-width: 760px; }
+.nums { font-size: 22px; white-space: nowrap; color: #9aa8b8; margin-top: 26px; }
+.nums span { color: #f0a64b; font-weight: 800; margin-left: 14px; }
+.nums span:first-child { margin-left: 0; }
+.url { font-size: 22px; color: #5fd0c4; margin-top: 18px; }

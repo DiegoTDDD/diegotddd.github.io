@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM do zero: Diego Alves</title>
+<meta name="description" content="Um modelo no estilo GPT escrito do zero e treinado em relatórios 10-K num runner de CPU gratuito.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="LLM do zero: Diego Alves">
+<meta property="og:description" content="Um modelo no estilo GPT escrito do zero e treinado em relatórios 10-K num runner de CPU gratuito.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/llm-from-scratch.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LLM do zero: Diego Alves">
+<meta name="twitter:description" content="Um modelo no estilo GPT escrito do zero e treinado em relatórios 10-K num runner de CPU gratuito.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/llm-from-scratch.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/llm-from-scratch.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/llm-from-scratch.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/llm-from-scratch.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/llm-from-scratch.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/llm-from-scratch.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">Todos os projetos</a></p>
+  <h1>LLM do zero</h1>
+  <p class="lede">Um modelo no estilo GPT escrito do zero e treinado em relatórios 10-K num runner de CPU gratuito.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/llm-from-scratch">Código</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/llm-from-scratch/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/llm-from-scratch/actions/workflows/tests.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">32,0</span><span class="label">de perplexidade de validação, contra 837 de uma linha de base unigrama</span></p>
+  <figure class="media"><img src="../assets/media/llm-from-scratch.webp" alt="Curvas de perda de treino e validação" loading="lazy"></figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Entender e depurar um LLM em vez de tratá-lo como caixa-preta.</dd></div><div><dt>Quem usa</dt><dd>Times técnicos que ajustam, servem ou depuram modelos de linguagem.</dd></div><div><dt>Quanto custa errar</dt><dd>Sem entender as peças, um bug de tokenizador ou de cache vira semanas de investigação.</dd></div><div><dt>Como gera valor</dt><dd>Mostra domínio de cada parte de um modelo de linguagem, com testes, e geração 5,8× mais rápida com o cache.</dd></div><div><dt>Riscos e limites</dt><dd>É um projeto de aprendizado: o modelo aprende o estilo dos relatórios, não fatos.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>A maioria dos projetos com LLM chama uma API ou ajusta o modelo de outra pessoa. Quando algo quebra, como um tokenizador incompatível, um bug de cache ou uma configuração de amostragem, é preciso entender as peças.</p>
+    <h2>Solução</h2>
+    <p>Cada parte de um transformer só-decodificador construída e testada separadamente: BPE em nível de byte, atenção causal, laço de treino, amostragem e decodificação com KV cache, treinado nas seções Business, Risk Factors e MD&amp;A de relatórios 10-K.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Cada componente tem os próprios testes, incluindo um BPE ingênuo como referência para o rápido.</li>
+<li>O treino roda no runner gratuito do GitHub Actions, então qualquer pessoa pode reproduzir.</li>
+<li>A decodificação com KV cache é conferida para gerar os mesmos tokens que o recálculo completo, também além do contexto com janela deslizante; a atenção otimizada do PyTorch é medida contra a escrita à mão.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">32,0</td><td>de perplexidade de validação (837 na linha de base unigrama)</td></tr>
+<tr><td class="value">5–9×</td><td>mais rápido na geração com KV cache em 224 tokens novos (de 4,97× a 9,19× nas rodadas do benchmark, conforme a CPU do runner), conferido token a token</td></tr>
+<tr><td class="value">13M</td><td>de caracteres de texto de 10-K no conjunto de treino</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Um modelo pequeno treinado numa CPU: aprende o estilo dos relatórios, não fatos.</p>
+    <h2>Stack</h2>
+    <p>PyTorch, GitHub Actions</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="finetune-and-serve.html"><span>Anterior</span>Fine-tuning e serving</a>
+    <a href="sec-filings-rag.html"><span>Próximo</span>RAG sobre relatórios da SEC</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

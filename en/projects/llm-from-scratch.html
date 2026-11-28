@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM from scratch: Diego Alves</title>
+<meta name="description" content="A GPT-style model written from scratch and trained on 10-K filings on a free CPU runner.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="LLM from scratch: Diego Alves">
+<meta property="og:description" content="A GPT-style model written from scratch and trained on 10-K filings on a free CPU runner.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/llm-from-scratch.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LLM from scratch: Diego Alves">
+<meta name="twitter:description" content="A GPT-style model written from scratch and trained on 10-K filings on a free CPU runner.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/llm-from-scratch.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/llm-from-scratch.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/llm-from-scratch.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/llm-from-scratch.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/llm-from-scratch.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">All projects</a></p>
+  <h1>LLM from scratch</h1>
+  <p class="lede">A GPT-style model written from scratch and trained on 10-K filings on a free CPU runner.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/llm-from-scratch">Code</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/llm-from-scratch/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/llm-from-scratch/actions/workflows/tests.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">32.0</span><span class="label">validation perplexity, against 837 for a unigram baseline</span></p>
+  <figure class="media"><img src="../../assets/media/llm-from-scratch.webp" alt="Training and validation loss curves" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Understanding and debugging an LLM instead of treating it as a black box.</dd></div><div><dt>Who uses it</dt><dd>Technical teams that fine-tune, serve or debug language models.</dd></div><div><dt>What an error costs</dt><dd>Without understanding the parts, a tokenizer or cache bug turns into weeks of investigation.</dd></div><div><dt>How it creates value</dt><dd>Shows command of every part of a language model, with tests, and 5.8× faster generation with the cache.</dd></div><div><dt>Risks and limits</dt><dd>A learning project: the model learns the style of filings, not facts.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>Most LLM projects call an API or fine-tune someone else&#x27;s model. When something breaks, such as a tokenizer mismatch, a cache bug or a sampling setting, you need to understand the parts.</p>
+    <h2>Solution</h2>
+    <p>Every part of a decoder-only transformer built and tested on its own: byte-level BPE, causal self-attention, the training loop, sampling and KV-cache decoding, trained on Business, Risk Factors and MD&amp;A sections of 10-K filings.</p>
+    <h2>How it works</h2>
+    <ul><li>Each component has its own tests, including a naive BPE as a reference for the fast one.</li>
+<li>Training runs on the free GitHub Actions runner, so anyone can reproduce it.</li>
+<li>KV-cache decoding is checked to produce the same tokens as full recomputation, also past the context with a sliding window; fused attention is measured against the written-out one.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">32.0</td><td>validation perplexity (837 for a unigram baseline)</td></tr>
+<tr><td class="value">5–9×</td><td>faster generation with the KV cache at 224 new tokens (4.97× to 9.19× across benchmark runs, depending on the runner&#x27;s CPU), checked token for token</td></tr>
+<tr><td class="value">13M</td><td>characters of 10-K text in the training set</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>A small model trained on one CPU: it learns the style of filings, not facts.</p>
+    <h2>Stack</h2>
+    <p>PyTorch, GitHub Actions</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="finetune-and-serve.html"><span>Previous</span>Fine-tune and serve</a>
+    <a href="sec-filings-rag.html"><span>Next</span>SEC filings RAG</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Olist e-commerce analytics: Diego Alves</title>
+<meta name="description" content="A tested dbt star schema over 100,000 orders and a Power BI report that measure how much late deliveries hurt reviews.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Olist e-commerce analytics: Diego Alves">
+<meta property="og:description" content="A tested dbt star schema over 100,000 orders and a Power BI report that measure how much late deliveries hurt reviews.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/olist-analytics.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Olist e-commerce analytics: Diego Alves">
+<meta name="twitter:description" content="A tested dbt star schema over 100,000 orders and a Power BI report that measure how much late deliveries hurt reviews.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/olist-analytics.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/olist-analytics.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/olist-analytics.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/olist-analytics.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/olist-analytics.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">All projects</a></p>
+  <h1>Olist e-commerce analytics</h1>
+  <p class="lede">A tested dbt star schema over 100,000 orders and a Power BI report that measure how much late deliveries hurt reviews.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/olist-analytics">Code</a><a href="https://diegotddd-olist-analytics.streamlit.app">Live demo</a><a href="https://github.com/DiegoTDDD/olist-analytics/raw/main/powerbi/OlistEntregas.pbix">Power BI file (.pbix)</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/olist-analytics/actions/workflows/dbt-check.yml"><img src="https://github.com/DiegoTDDD/olist-analytics/actions/workflows/dbt-check.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">4.29 → 1.81</span><span class="label">average review on time vs. 6 days late; after that it barely moves</span></p>
+  <figure class="media"><img src="../../assets/media/olist-analytics.webp" alt="Power BI page: average review by days late, with the decision it supports" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Where to invest in logistics: which delays still recover rating with each day saved.</dd></div><div><dt>Who uses it</dt><dd>Marketplace operations, logistics and customer experience.</dd></div><div><dt>What an error costs</dt><dd>Investing in the wrong problem spends money without recovering ratings.</dd></div><div><dt>How it creates value</dt><dd>The rating falls with every day late until about the sixth (from 4.29 on time to 1.81) and then barely moves, so logistics money pays off in the first week of a delay. The numbers come from dbt models checked by 48 tests and are in the Power BI report.</dd></div><div><dt>Risks and limits</dt><dd>Correlation in observational data: late orders may differ in other ways.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>A marketplace knows late deliveries hurt reviews, but not how much, how quickly, or whether to reduce the size of delays or prevent them altogether.</p>
+    <h2>Solution</h2>
+    <p>A star schema built with dbt on DuckDB over about 100,000 real Olist orders, with tests for every business rule, a three-page Power BI report on top of it and a Streamlit dashboard.</p>
+    <h2>How it works</h2>
+    <ul><li>15 dbt models and 48 tests run on every change, from the raw files.</li>
+<li>The two fact tables are incremental. CI replays the order feed day by day from the event times in the data and proves they equal a full rebuild at every step; source freshness fails a load over 50 hours old.</li>
+<li>The Power BI model (TMDL) and pages (PBIR) are generated as code: 23 DAX measures, a marked date table, and page texts computed from the data. CI fails if they drift from the committed files.</li>
+<li>The report was opened, refreshed and checked in Power BI Desktop; the .pbix is in the repository.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">6.8%</td><td>of delivered orders arrive late</td></tr>
+<tr><td class="value">3.73 → 2.68</td><td>average review 1 day late vs. 3 days late: each day in the first week costs rating</td></tr>
+<tr><td class="value">48</td><td>dbt tests on 15 models</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>Correlation from observational data; late orders may differ in other ways.</p>
+    <h2>Stack</h2>
+    <p>dbt, DuckDB, Power BI, DAX, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="olist-cloud-warehouse.html"><span>Previous</span>Olist cloud warehouse</a>
+    <a href="economic-data-platform.html"><span>Next</span>Economic data platform</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

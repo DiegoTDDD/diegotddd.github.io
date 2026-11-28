@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hospcall: nurse-call system for an elder-care home: Diego Alves</title>
+<meta name="description" content="A call system piloted for six months at a geriatric care association, built by a team of seven UNIVESP students.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Hospcall: nurse-call system for an elder-care home: Diego Alves">
+<meta property="og:description" content="A call system piloted for six months at a geriatric care association, built by a team of seven UNIVESP students.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/hospcall.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hospcall: nurse-call system for an elder-care home: Diego Alves">
+<meta name="twitter:description" content="A call system piloted for six months at a geriatric care association, built by a team of seven UNIVESP students.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/hospcall.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/hospcall.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/hospcall.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/hospcall.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/hospcall.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#team">All projects</a></p>
+  <h1>Hospcall: nurse-call system for an elder-care home</h1>
+  <p class="lede">A call system piloted for six months at a geriatric care association, built by a team of seven UNIVESP students.</p>
+  <p class="my-part"><strong>My part:</strong> I worked on every stage with the team: the requirement meetings with the AGERIP staff, the PostgreSQL data model and audit table, the API and real-time channel, the React screens for tablets, TVs and admin, deployment and the six-month pilot follow-up.</p>
+  <p class="links"><span class="no-code">Team code, not public</span></p>
+  
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">60</span><span class="label">caregivers registered in a six-month pilot at AGERIP</span></p>
+  <figure class="media"><img src="../../assets/media/hospcall.webp" alt="Corridor TV panel showing six rooms, one with an open call" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Who answers each call, and what the home can prove afterwards.</dd></div><div><dt>Who uses it</dt><dd>Nursing staff and managers of a long-term care home for older people.</dd></div><div><dt>What an error costs</dt><dd>An unanswered or unrecorded call leaves a resident without care and the home without evidence when a family complains.</dd></div><div><dt>How it creates value</dt><dd>A call appears at once in every corridor, the check-in records who answered, and every administrative change is audited.</dd></div><div><dt>Risks and limits</dt><dd>A pilot in three rooms with no response-time measurement; the next phase depends on the 11 requirements raised with the staff.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>At AGERIP, a geriatric care association in São José do Rio Preto, a resident who needed help depended on a caregiver walking past the room, and the shift record depended on handwritten notes. Refused calls, hand-overs in the middle of a call and care by staff outside the roster left no trace. Commercial nurse-call systems need dedicated wiring and maintenance contracts a charity cannot pay for.</p>
+    <h2>Solution</h2>
+    <p>A web system on ordinary hardware: a tablet in each room opens the call, TV panels in the corridors show it in real time, caregivers check in with a PIN, and the nursing team manages calls, devices and exports from an admin page. Every administrative intervention is written to an immutable audit table instead of overwriting the call.</p>
+    <h2>How it works</h2>
+    <ul><li>Requirements came from meetings with the general manager, the head nurse and a nurse at AGERIP.</li>
+<li>Their feedback changed the product: PIN always available, tablets that register themselves, a TV grid configured remotely, and the open-time counter removed because it made the staff anxious.</li>
+<li>The real-time channel reconnects on its own after a dropped connection, tested under induced failures.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Results from the final report delivered to UNIVESP</caption>
+    <tbody><tr><td class="value">56</td><td>calls in the pilot, October 2025 to March 2026, 41 completed</td></tr>
+<tr><td class="value">≤ 39 ms</td><td>median reconnection of the real-time channel; 67 ms at worst</td></tr>
+<tr><td class="value">11</td><td>new requirements from the final review meeting with the care team, in May 2026</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>Three rooms were instrumented and the response time to a call was not recorded, so the pilot shows adoption and stability, not a faster response. Tests were manual. The code belongs to the team and is not public.</p>
+    <h2>Stack</h2>
+    <p>React, Node.js / Bun, Express, PostgreSQL, Redis, WebSocket, Prisma</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="economic-data-platform.html"><span>Previous</span>Economic data platform</a>
+    <a href="iefa-sales-stock.html"><span>Next</span>Sales and stock system for a charity shop</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data warehouse na nuvem (Olist): Diego Alves</title>
+<meta name="description" content="Um data warehouse no BigQuery alimentado por dados que chegam todo dia, com modelos dbt incrementais, alertas de atraso, Terraform e CI sem chaves.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Data warehouse na nuvem (Olist): Diego Alves">
+<meta property="og:description" content="Um data warehouse no BigQuery alimentado por dados que chegam todo dia, com modelos dbt incrementais, alertas de atraso, Terraform e CI sem chaves.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/olist-cloud-warehouse.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Data warehouse na nuvem (Olist): Diego Alves">
+<meta name="twitter:description" content="Um data warehouse no BigQuery alimentado por dados que chegam todo dia, com modelos dbt incrementais, alertas de atraso, Terraform e CI sem chaves.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/olist-cloud-warehouse.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/olist-cloud-warehouse.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/olist-cloud-warehouse.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/olist-cloud-warehouse.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/olist-cloud-warehouse.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/olist-cloud-warehouse.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">Todos os projetos</a></p>
+  <h1>Data warehouse na nuvem (Olist)</h1>
+  <p class="lede">Um data warehouse no BigQuery alimentado por dados que chegam todo dia, com modelos dbt incrementais, alertas de atraso, Terraform e CI sem chaves.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/olist-cloud-warehouse">Código</a><a href="https://diegotddd.github.io/olist-cloud-warehouse/">Página do projeto</a><a href="https://diegotddd.github.io/olist-cloud-warehouse/dbt/">Documentação dbt</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/olist-cloud-warehouse/actions/workflows/deploy.yml"><img src="https://github.com/DiegoTDDD/olist-cloud-warehouse/actions/workflows/deploy.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">0</span><span class="label">linhas de diferença entre o build incremental diário e um build do zero, conferido em todo pull request</span></p>
+  
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Onde investir em logística, com números de um warehouse em que o time pode confiar e cujo custo é conhecido.</dd></div><div><dt>Quem usa</dt><dd>Analistas e gestores que consultam os marts; o time de dados que mantém a plataforma.</dd></div><div><dt>Quanto custa errar</dt><dd>Uma tabela que muda de formato ou um número errado chega ao painel; uma chave de nuvem vazada dá acesso a tudo.</dd></div><div><dt>Como gera valor</dt><dd>Os dados chegam todo dia e só o que mudou é reprocessado; toda mudança é testada em BigQuery antes de ir ao ar, sem chave guardada em lugar nenhum. O relatório de decisão mostra que a nota cai a cada dia de atraso até uns seis dias (de 4,03 para 1,81) e depois estabiliza: vale investir em evitar atrasos curtos, não em encurtar os longos.</dd></div><div><dt>Riscos e limites</dt><dd>O fluxo diário é uma reprodução de eventos reais, não um sistema ao vivo; correlação em dados observacionais.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Um data warehouse só merece confiança se as tabelas mantêm o formato, se toda mudança é testada antes de chegar ao analista, se ninguém guarda uma chave de nuvem que não expira e se alguém sabe quanto cada consulta custa.</p>
+    <h2>Solução</h2>
+    <p>Os dados do marketplace Olist no BigQuery (região de São Paulo), chegando como chegam em produção: um fluxo diário de mudanças, em que o pedido é comprado, enviado, entregue e avaliado em dias diferentes. As tabelas fato se atualizam de forma incremental, a atualização dos dados é monitorada e uma falha abre um alerta. Infraestrutura em Terraform, contratos dbt em todas as tabelas e GitHub Actions que entram no Google Cloud por Workload Identity Federation, como duas contas de serviço com o mínimo de permissão.</p>
+    <h2>Como funciona</h2>
+    <ul><li>O histórico de 2016 a 2018 é reproduzido um dia por dia real; cada lote substitui a própria partição no raw, então rodar de novo ou recuperar dias perdidos dá o mesmo resultado.</li>
+<li>As tabelas fato reconstroem só os meses de compra com algum pedido alterado e trocam essas partições com jobs de cópia, porque o sandbox não tem MERGE.</li>
+<li>Todo pull request reproduz 31 dias em datasets descartáveis, faz o build incremental e o completo, e falha se os dois não tiverem as mesmas linhas.</li>
+<li>A atualização dos dados é conferida depois de cada deploy e a cada seis horas; uma falha abre uma issue no GitHub, e um runbook diz o que fazer.</li>
+<li>O Terraform cria os datasets, duas contas de serviço, a federação de identidade e um papel customizado com uma única permissão.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">1 dia</td><td>de dados novos por dia real, carregado sem duplicar e recuperando dias perdidos</td></tr>
+<tr><td class="value">80%+</td><td>menos bytes lidos numa pergunta de um mês na tabela fato particionada, medido a cada deploy</td></tr>
+<tr><td class="value">0</td><td>chaves de conta de serviço: o CI usa tokens de uma hora vindos da identidade OIDC do GitHub</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>O fluxo diário reproduz eventos reais, não um sistema ao vivo, e os dados têm cerca de 100 mil pedidos. O sandbox do BigQuery não tem Cloud Storage, então o estado do Terraform fica no Cloud Shell e ele é aplicado à mão.</p>
+    <h2>Stack</h2>
+    <p>BigQuery, Terraform, dbt, Workload Identity Federation, GitHub Actions</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="nyc-taxi-lakehouse.html"><span>Anterior</span>Lakehouse de táxis de NY</a>
+    <a href="olist-analytics.html"><span>Próximo</span>Analytics de e-commerce da Olist</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

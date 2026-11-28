@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real-time fraud streaming: Diego Alves</title>
+<meta name="description" content="A streaming pipeline on Delta Lake that survives a crash without losing or repeating a record, with a schema registry and health checks.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Real-time fraud streaming: Diego Alves">
+<meta property="og:description" content="A streaming pipeline on Delta Lake that survives a crash without losing or repeating a record, with a schema registry and health checks.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/realtime-fraud-streaming.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Real-time fraud streaming: Diego Alves">
+<meta name="twitter:description" content="A streaming pipeline on Delta Lake that survives a crash without losing or repeating a record, with a schema registry and health checks.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/realtime-fraud-streaming.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/realtime-fraud-streaming.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/realtime-fraud-streaming.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/realtime-fraud-streaming.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/realtime-fraud-streaming.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">All projects</a></p>
+  <h1>Real-time fraud streaming</h1>
+  <p class="lede">A streaming pipeline on Delta Lake that survives a crash without losing or repeating a record, with a schema registry and health checks.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/realtime-fraud-streaming">Code</a><a href="https://realtime-fraud-streaming.streamlit.app">Live demo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/realtime-fraud-streaming/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/realtime-fraud-streaming/actions/workflows/tests.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">0</span><span class="label">records lost or duplicated after the job is killed mid-stream and restarted, checked in CI</span></p>
+  <figure class="media"><img src="../../assets/media/realtime-fraud-streaming.webp" alt="Streaming dashboard overview" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Spotting a fraud attack within minutes, not in the next day&#x27;s report.</dd></div><div><dt>Who uses it</dt><dd>Fraud monitoring and payments operations.</dd></div><div><dt>What an error costs</dt><dd>Finding an attack a day late means a full day of losses.</dd></div><div><dt>How it creates value</dt><dd>Each minute becomes a row with counts and fraud by pattern about 2 minutes later; a crashed job loses and duplicates nothing, an incompatible schema is refused, and a stalled stream raises an alert.</dd></div><div><dt>Risks and limits</dt><dd>One broker and local disk; the public dashboard shows a recorded sample of the stream.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>Card fraud happens in seconds, and its signal is in patterns over time. A nightly batch report sees it a day late.</p>
+    <h2>Solution</h2>
+    <p>Transactions flow from Redpanda through Spark Structured Streaming into Delta Lake tables and a live dashboard, with event-time windows and watermarks. The event schema lives in a schema registry that refuses breaking changes; anything that breaks the contract is quarantined with the reasons. A health check passes or fails the stream and can alert a webhook.</p>
+    <h2>How it works</h2>
+    <ul><li>Delta sinks with checkpoints: CI kills the job with SIGKILL, restarts it, and finds every Kafka offset in Bronze exactly once.</li>
+<li>Compaction and vacuum run while the stream writes (66 files became 16 with the same rows in CI).</li>
+<li>The registry rejects an incompatible schema in CI; a message sent without it lands in quarantine.</li>
+<li>Progress of every query is logged; the health check fails within two minutes of the job stopping.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">0</td><td>duplicate or missing offsets after a crash and restart</td></tr>
+<tr><td class="value">~2 min</td><td>from the end of a minute to its row in Gold</td></tr>
+<tr><td class="value">47</td><td>tests, including Spark with Delta on a local session</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>One broker and local disk; alerts go to a webhook, not a paging service. The public dashboard serves a recorded sample.</p>
+    <h2>Stack</h2>
+    <p>Redpanda, Schema Registry, Spark Structured Streaming, Delta Lake, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="realtime-fraud-detection-ml.html"><span>Previous</span>Real-time fraud detection</a>
+    <a href="supply-chain-risk-intelligence.html"><span>Next</span>Supply chain risk intelligence</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

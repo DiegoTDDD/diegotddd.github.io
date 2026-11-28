@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guardrails e red team para LLMs: Diego Alves</title>
+<meta name="description" content="Proteções em volta dos dois agentes e uma bateria de ataques que roda a cada pull request.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Guardrails e red team para LLMs: Diego Alves">
+<meta property="og:description" content="Proteções em volta dos dois agentes e uma bateria de ataques que roda a cada pull request.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/llm-guardrails-redteam.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guardrails e red team para LLMs: Diego Alves">
+<meta name="twitter:description" content="Proteções em volta dos dois agentes e uma bateria de ataques que roda a cada pull request.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/llm-guardrails-redteam.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/llm-guardrails-redteam.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/llm-guardrails-redteam.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/llm-guardrails-redteam.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/llm-guardrails-redteam.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/llm-guardrails-redteam.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">Todos os projetos</a></p>
+  <h1>Guardrails e red team para LLMs</h1>
+  <p class="lede">Proteções em volta dos dois agentes e uma bateria de ataques que roda a cada pull request.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/llm-guardrails-redteam">Código</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/llm-guardrails-redteam/actions/workflows/redteam.yml"><img src="https://github.com/DiegoTDDD/llm-guardrails-redteam/actions/workflows/redteam.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">26 de 27</span><span class="label">ataques bloqueados, cada um comprovado contra os agentes sem proteção; um relatado como lacuna</span></p>
+  
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Colocar ou não um agente em contato com documentos e usuários externos.</dd></div><div><dt>Quem usa</dt><dd>Times de segurança, compliance e quem aprova a ida de IA para produção.</dd></div><div><dt>Quanto custa errar</dt><dd>Um agente manipulado pode vazar dados pessoais, chamar ferramentas indevidas ou liberar uma fraude; dados pessoais em logs são risco de LGPD.</dd></div><div><dt>Como gera valor</dt><dd>Cada ataque conhecido é testado a cada mudança, e o build quebra se um passar ou se algo legítimo for bloqueado. CPF, cartão e e-mail são mascarados antes de chegar aos logs.</dd></div><div><dt>Riscos e limites</dt><dd>A detecção de injeção usa padrões; ataques novos podem passar, e por isso as outras camadas são testadas sozinhas.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Agentes leem documentos e chamam ferramentas, então quem consegue escrever num documento, no nome de uma loja ou numa pergunta pode tentar manipulá-los. As recusas do próprio modelo não são uma defesa, e os traces acumulam em silêncio os dados pessoais que os usuários digitam.</p>
+    <h2>Solução</h2>
+    <p>Seis camadas em volta dos agentes, sem alterar o código deles: checagem da entrada, quarentena de instruções encontradas nos dados, mascaramento de dados pessoais, política de ferramentas, checagem da saída e traces mascarados. A bateria usa os agentes reais com um modelo que obedece qualquer instrução que vê, então o bloqueio nunca depende de o modelo recusar.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Cada ataque precisa funcionar sem as proteções e falhar com elas.</li>
+<li>Alguns ataques são escritos para escapar da detecção, então as camadas seguintes são testadas sozinhas; injeções reescritas passam por um classificador treinado local, com limiar definido pela bateria de falsos positivos.</li>
+<li>Uma bateria de falsos positivos com dados reais gravados quebra o build se algo legítimo for afetado.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">26 de 27</td><td>ataques bloqueados: injeção, exfiltração, uso indevido de ferramentas, burla do crítico e logs</td></tr>
+<tr><td class="value">0 de 283</td><td>textos reais marcados; 0 de 22 perguntas e 0 de 3 investigações alteradas</td></tr>
+<tr><td class="value">79</td><td>testes; a bateria encontrou um bug nas próprias proteções</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Padrões e classificador ainda deixam passar algumas frases: uma instrução reescrita num documento passa e fica na bateria como lacuna conhecida, e por isso as camadas seguintes são testadas separadamente.</p>
+    <h2>Stack</h2>
+    <p>MCP, LangGraph, OpenTelemetry, pytest</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="olist-ai-analyst.html"><span>Anterior</span>Analista de dados com IA (Olist)</a>
+    <a href="llm-evals-observability.html"><span>Próximo</span>Avaliação e observabilidade de LLMs</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

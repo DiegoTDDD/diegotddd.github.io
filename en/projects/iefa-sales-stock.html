@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sales and stock system for a charity shop: Diego Alves</title>
+<meta name="description" content="A point-of-sale and stock system that the volunteers of IEFA&#x27;s shop use on every working day, built by a team of eight UNIVESP students.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Sales and stock system for a charity shop: Diego Alves">
+<meta property="og:description" content="A point-of-sale and stock system that the volunteers of IEFA&#x27;s shop use on every working day, built by a team of eight UNIVESP students.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/iefa-sales-stock.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sales and stock system for a charity shop: Diego Alves">
+<meta name="twitter:description" content="A point-of-sale and stock system that the volunteers of IEFA&#x27;s shop use on every working day, built by a team of eight UNIVESP students.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/iefa-sales-stock.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/iefa-sales-stock.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/iefa-sales-stock.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/iefa-sales-stock.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/iefa-sales-stock.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#team">All projects</a></p>
+  <h1>Sales and stock system for a charity shop</h1>
+  <p class="lede">A point-of-sale and stock system that the volunteers of IEFA&#x27;s shop use on every working day, built by a team of eight UNIVESP students.</p>
+  <p class="my-part"><strong>My part:</strong> I worked on every stage with the team: the stock count and product registration, the Django models and MySQL database, the point of sale, the reports and labels, the installation on the shop&#x27;s computer and the follow-up with the volunteers, including the stock-exit fix.</p>
+  <p class="links"><span class="no-code">Team code, not public</span></p>
+  
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">100%</span><span class="label">of the planned features delivered; in use on every working day of the shop since about July 2026</span></p>
+  <figure class="media"><img src="../../assets/media/iefa-sales.webp" alt="Point of sale with two items read by barcode and the sale total" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>How much was sold, by which payment method, and what is in stock.</dd></div><div><dt>Who uses it</dt><dd>Volunteers and coordinators of a charity shop.</dd></div><div><dt>What an error costs</dt><dd>Wrong prices at the counter and untracked stock become lost money and hard-to-close accounts.</dd></div><div><dt>How it creates value</dt><dd>A barcode sale updates stock by itself and the report by payment method closes the day; reports of wrong prices stopped.</dd></div><div><dt>Risks and limits</dt><dd>A shared login and manual tests; there is no cash-register opening and closing.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>The shop of the Instituto Educacional Francisco de Assis, in São José do Rio Preto, recorded sales on paper and in notebooks and had no structured stock control. Not every item carried its price, which led to wrong prices at the counter.</p>
+    <h2>Solution</h2>
+    <p>A Django and MySQL system with a barcode point of sale, products, stock movements, payment methods, users and sales reports, installed on the shop&#x27;s Windows computer as a service. Every sale writes its stock exit automatically, and new stock prints its barcode labels.</p>
+    <h2>How it works</h2>
+    <ul><li>The team counted the whole stock, registered every product and printed the labels before go-live.</li>
+<li>Watching the volunteers use it added features nobody had asked for: remove an item, cancel a sale, initial stock in the product form and search everywhere.</li>
+<li>A defect in the stock exits of sales was fixed in the code and the missing movements were repaired with a SQL script.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Results from the final report delivered to UNIVESP</caption>
+    <tbody><tr><td class="value">0</td><td>reports of wrong or missing prices since the barcode labels were adopted</td></tr>
+<tr><td class="value">9</td><td>modules in production: sales, point of sale, stock, products, categories, payments, users, reports, labels</td></tr>
+<tr><td class="value">2</td><td>reports the volunteers use in their routine: sales by payment method and label printing</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>Results are observed, not measured: there is no before-and-after count of errors. Tests are manual, and the volunteers share one login, so actions are not traceable to a person. The code belongs to the team and is not public.</p>
+    <h2>Stack</h2>
+    <p>Python, Django, MySQL, Waitress, WhiteNoise, NSSM</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="hospcall.html"><span>Previous</span>Hospcall: nurse-call system for an elder-care home</a>
+    <a href="fraud-investigation-agents.html"><span>Next</span>Fraud investigation agents</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

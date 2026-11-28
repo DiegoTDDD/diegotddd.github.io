@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fine-tune and serve: Diego Alves</title>
+<meta name="description" content="A 0.5B model fine-tuned on a free CPU runner to tag financial facts in 10-K sentences, served with llama.cpp.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Fine-tune and serve: Diego Alves">
+<meta property="og:description" content="A 0.5B model fine-tuned on a free CPU runner to tag financial facts in 10-K sentences, served with llama.cpp.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/finetune-and-serve.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fine-tune and serve: Diego Alves">
+<meta name="twitter:description" content="A 0.5B model fine-tuned on a free CPU runner to tag financial facts in 10-K sentences, served with llama.cpp.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/finetune-and-serve.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/finetune-and-serve.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/finetune-and-serve.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/finetune-and-serve.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/finetune-and-serve.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">All projects</a></p>
+  <h1>Fine-tune and serve</h1>
+  <p class="lede">A 0.5B model fine-tuned on a free CPU runner to tag financial facts in 10-K sentences, served with llama.cpp.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/finetune-and-serve">Code</a><a href="https://github.com/DiegoTDDD/finetune-and-serve/releases/tag/model-44606410559">Model release</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/finetune-and-serve/actions/workflows/ci.yml"><img src="https://github.com/DiegoTDDD/finetune-and-serve/actions/workflows/ci.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">0.82</span><span class="label">F1 on auditor-tagged facts, against 0.65 for a 3B model prompted with examples</span></p>
+  
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Train an in-house model or pay a commercial API for an extraction task.</dd></div><div><dt>Who uses it</dt><dd>Whoever owns AI budget and architecture: tech leads, product and finance.</dd></div><div><dt>What an error costs</dt><dd>Choosing an API at high volume pays a lot per request; choosing your own model at low volume pays for an idle machine.</dd></div><div><dt>How it creates value</dt><dd>The small fine-tuned model is more accurate (0.82 against 0.65) and costs $35 per million requests at full load. The numbers show the monthly volume from which your own machine beats each API.</dd></div><div><dt>Risks and limits</dt><dd>The APIs&#x27; accuracy on this task was not measured, only their price; the VM cost assumes full use.</dd></div></dl><form class="calc" data-calc="{&quot;kind&quot;: &quot;finetune&quot;, &quot;lang&quot;: &quot;en&quot;, &quot;data&quot;: {&quot;vm_month&quot;: 147.17, &quot;capacity&quot;: 4217940, &quot;apis&quot;: [[&quot;Claude Haiku 5.5, few-shot&quot;, 91.11], [&quot;Claude Haiku 5.5, zero-shot&quot;, 44.76], [&quot;GPT-5.4 mini, few-shot&quot;, 705.98], [&quot;GPT-5.4 mini, zero-shot&quot;, 343.88]]}, &quot;text&quot;: {&quot;own&quot;: &quot;Fine-tuned model, own VM&quot;, &quot;vm&quot;: &quot;VM&quot;, &quot;vms&quot;: &quot;VMs&quot;, &quot;cheapest&quot;: &quot;cheapest&quot;, &quot;month&quot;: &quot;per month&quot;}}" onsubmit="return false">
+  <h3>Run your own numbers: Own machine or API, at your volume</h3>
+  <div class="calc-in"><label><span>Requests per month</span><input type="number" name="req" value="3000000" min="0" step="100000" inputmode="decimal"></label></div>
+  <div aria-live="polite"><table class="calc-table"><tbody data-out="table"></tbody></table></div>
+  <p class="calc-note">VM cost ($147.17/month) and measured capacity (4.2 million requests a month per VM) come from the project&#x27;s benchmark; API prices are list prices. The APIs&#x27; accuracy on this task was not measured.</p>
+</form></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>Structured extraction is usually done by prompting a large model, and every request pays for a long prompt on an API or on hardware big enough for the model. Whether a small model trained for the one job does better and costs less is a question of measurement.</p>
+    <h2>Solution</h2>
+    <p>LoRA fine-tuning of Qwen2.5-0.5B on sentences from 10-K notes tagged by auditors with XBRL concepts (FiNER-139), export to GGUF with 8-bit and 4-bit quantization, and serving with llama.cpp. It is compared with prompting the same model and a 3B model on quality, latency, throughput and cost.</p>
+    <h2>How it works</h2>
+    <ul><li>Train, quantize, evaluate and benchmark in one GitHub Actions workflow on a 4-core CPU.</li>
+<li>Loss and output logits only at the answer tokens, so a 152k-token vocabulary fits in memory.</li>
+<li>Every model served by the same llama-server with the same JSON schema enforced by the grammar.</li>
+<li>Cost from a VM the runner&#x27;s size against API list prices with the measured prompt sizes.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">0.82</td><td>fact F1 at 4 bits (398 MB), against 0.65 for Qwen2.5-3B with six examples (gain +0.16, 95% paired-bootstrap interval +0.10 to +0.23) and 0.19 before fine-tuning</td></tr>
+<tr><td class="value">3.7×</td><td>the requests per second of the 3B model on the same CPU (1.60 against 0.43)</td></tr>
+<tr><td class="value">$35</td><td>per million requests self-hosted at full load; Claude Haiku 5.5 at list price would cost $45 to $91</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>One training run, stopped by its time budget at 79% of an epoch; the APIs&#x27; accuracy on the task was not measured, only their price.</p>
+    <h2>Stack</h2>
+    <p>PyTorch, PEFT, llama.cpp, GitHub Actions</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="llm-evals-observability.html"><span>Previous</span>LLM evals and observability</a>
+    <a href="llm-from-scratch.html"><span>Next</span>LLM from scratch</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

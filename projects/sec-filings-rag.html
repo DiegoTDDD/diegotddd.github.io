@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAG sobre relatórios da SEC: Diego Alves</title>
+<meta name="description" content="Perguntas e respostas sobre relatórios 10-K e 10-Q, com as fontes que cada resposta usou.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="RAG sobre relatórios da SEC: Diego Alves">
+<meta property="og:description" content="Perguntas e respostas sobre relatórios 10-K e 10-Q, com as fontes que cada resposta usou.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/sec-filings-rag.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RAG sobre relatórios da SEC: Diego Alves">
+<meta name="twitter:description" content="Perguntas e respostas sobre relatórios 10-K e 10-Q, com as fontes que cada resposta usou.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/sec-filings-rag.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/sec-filings-rag.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/sec-filings-rag.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/sec-filings-rag.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/sec-filings-rag.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/sec-filings-rag.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">Todos os projetos</a></p>
+  <h1>RAG sobre relatórios da SEC</h1>
+  <p class="lede">Perguntas e respostas sobre relatórios 10-K e 10-Q, com as fontes que cada resposta usou.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/sec-filings-rag">Código</a><a href="https://sec-filings-rag-demo.streamlit.app">Demo ao vivo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/sec-filings-rag/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/sec-filings-rag/actions/workflows/tests.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">0,78</span><span class="label">de hit@5 com busca híbrida e re-ranqueamento, contra 0,40 da busca densa (intervalo de 95% de 0,68 a 0,88)</span></p>
+  <figure class="media"><img src="../assets/media/sec-filings-rag.webp" alt="O painel respondendo uma pergunta sobre a Apple com as fontes" loading="lazy"></figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Encontrar a resposta num relatório de centenas de páginas, com a fonte.</dd></div><div><dt>Quem usa</dt><dd>Analistas de investimento, crédito e compliance.</dd></div><div><dt>Quanto custa errar</dt><dd>Uma resposta sem fonte não pode ser usada; uma fonte errada leva a uma conclusão errada.</dd></div><div><dt>Como gera valor</dt><dd>A busca certa aparece entre os 5 primeiros trechos em 80% das perguntas, contra 43% da busca comum, e cada resposta mostra de onde veio.</dd></div><div><dt>Riscos e limites</dt><dd>A demo pública mostra respostas gravadas, porque o host gratuito não roda o pipeline completo.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Analistas precisam de respostas de relatórios longos que possam conferir, não de um resumo sem rastro até o texto.</p>
+    <h2>Solução</h2>
+    <p>Geração aumentada por recuperação sobre os relatórios de Apple, NVIDIA e JPMorgan: busca híbrida densa e por palavra-chave, re-ranqueamento, um modelo local pelo Ollama e uma avaliação que roda no GitHub Actions com RAGAS.</p>
+    <h2>Como funciona</h2>
+    <ul><li>66 perguntas, cada uma gerada de um trecho conhecido, então a recuperação é medida com exatidão.</li>
+<li>Seis estratégias de recuperação comparadas pergunta a pergunta com intervalos de 95%; a rodada publica as próprias tabelas no README.</li>
+<li>Uma demo pública mostra respostas gravadas do pipeline real.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">+0,13</td><td>de hit@5 sobre o pipeline denso que ele substituiu, intervalo pareado de 95% de +0,03 a +0,23</td></tr>
+<tr><td class="value">0,95</td><td>de recall@20 do recuperador híbrido (0,73 na busca densa)</td></tr>
+<tr><td class="value">66</td><td>perguntas de avaliação, rodadas mensalmente no CI</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>A busca por palavra-chave com re-ranqueamento pontua mais (0,88) nessas perguntas, que reaproveitam as palavras do trecho de origem; o híbrido fica pelas perguntas parafraseadas, que o conjunto ainda não mede. A demo pública reproduz respostas gravadas, porque um host gratuito não roda Qdrant e Ollama.</p>
+    <h2>Stack</h2>
+    <p>Qdrant, Ollama, sentence-transformers, FastAPI, RAGAS</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="llm-from-scratch.html"><span>Anterior</span>LLM do zero</a>
+    <a href="freight-intelligence.html"><span>Próximo</span>LogiNexus: inteligência de fretes</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM guardrails and red team: Diego Alves</title>
+<meta name="description" content="Guardrails around both agents and a red-team suite that attacks them on every pull request.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="LLM guardrails and red team: Diego Alves">
+<meta property="og:description" content="Guardrails around both agents and a red-team suite that attacks them on every pull request.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/llm-guardrails-redteam.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LLM guardrails and red team: Diego Alves">
+<meta name="twitter:description" content="Guardrails around both agents and a red-team suite that attacks them on every pull request.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/llm-guardrails-redteam.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/llm-guardrails-redteam.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/llm-guardrails-redteam.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/llm-guardrails-redteam.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/llm-guardrails-redteam.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">All projects</a></p>
+  <h1>LLM guardrails and red team</h1>
+  <p class="lede">Guardrails around both agents and a red-team suite that attacks them on every pull request.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/llm-guardrails-redteam">Code</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/llm-guardrails-redteam/actions/workflows/redteam.yml"><img src="https://github.com/DiegoTDDD/llm-guardrails-redteam/actions/workflows/redteam.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">26 of 27</span><span class="label">attacks blocked, each proven to work without the guardrails; one reported as a gap</span></p>
+  
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Whether an agent can be exposed to external documents and users.</dd></div><div><dt>Who uses it</dt><dd>Security and compliance teams, and whoever signs off AI going to production.</dd></div><div><dt>What an error costs</dt><dd>A manipulated agent can leak personal data, call the wrong tools or clear a fraud; personal data in logs is a privacy-law risk.</dd></div><div><dt>How it creates value</dt><dd>Every known attack is tested on every change, and the build fails if one gets through or if anything legitimate is blocked. Card numbers, CPF and e-mail are masked before they reach the logs.</dd></div><div><dt>Risks and limits</dt><dd>Injection detection uses patterns; new attacks can get through, which is why the other layers are tested on their own.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>Agents read documents and call tools, so anyone who can write into a document, a merchant name or a question can try to steer them. A model&#x27;s own refusals are not a defence, and traces quietly collect the personal data users type.</p>
+    <h2>Solution</h2>
+    <p>Six layers wrapped around the agents without changing their code: input checks, quarantine of instructions found in data, personal-data redaction, a tool policy, output checks and redacted traces. The suite drives the real agents with a model that obeys any instruction it can see, so blocking never depends on a model refusing.</p>
+    <h2>How it works</h2>
+    <ul><li>Each attack must succeed without the guardrails and fail with them.</li>
+<li>Some attacks are worded to evade detection, so the later layers are tested on their own; reworded injections go to a local trained classifier whose threshold the false-positive suite sets.</li>
+<li>A false-positive suite on real recorded data fails the build if anything legitimate is touched.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">26 of 27</td><td>attacks blocked across injection, exfiltration, tool misuse, critic bypass and logs</td></tr>
+<tr><td class="value">0 of 283</td><td>real texts flagged; 0 of 22 questions and 0 of 3 investigations changed</td></tr>
+<tr><td class="value">79</td><td>tests; the suite found a bug in the guardrails themselves</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>Patterns and a classifier still miss some phrasings: one reworded document instruction gets through and is kept in the suite as a known gap, which is why the later layers are tested separately.</p>
+    <h2>Stack</h2>
+    <p>MCP, LangGraph, OpenTelemetry, pytest</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="olist-ai-analyst.html"><span>Previous</span>Olist AI analyst</a>
+    <a href="llm-evals-observability.html"><span>Next</span>LLM evals and observability</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

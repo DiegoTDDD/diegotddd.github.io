@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NYC tip MLOps: Diego Alves</title>
+<meta name="description" content="A monthly retrain on new real data, promotion by a statistical test, a model registry, an API and drift monitoring.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="NYC tip MLOps: Diego Alves">
+<meta property="og:description" content="A monthly retrain on new real data, promotion by a statistical test, a model registry, an API and drift monitoring.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/nyc-tip-mlops.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NYC tip MLOps: Diego Alves">
+<meta name="twitter:description" content="A monthly retrain on new real data, promotion by a statistical test, a model registry, an API and drift monitoring.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/nyc-tip-mlops.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/nyc-tip-mlops.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/nyc-tip-mlops.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/nyc-tip-mlops.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/nyc-tip-mlops.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">All projects</a></p>
+  <h1>NYC tip MLOps</h1>
+  <p class="lede">A monthly retrain on new real data, promotion by a statistical test, a model registry, an API and drift monitoring.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/nyc-tip-mlops">Code</a><a href="https://nyc-tip-mlops.streamlit.app">Live demo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/nyc-tip-mlops/actions/workflows/ci.yml"><img src="https://github.com/DiegoTDDD/nyc-tip-mlops/actions/workflows/ci.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">+0.010</span><span class="label">AUC for the model trained on August 2026 over the old champion on the same September trips; promoted because the 95% interval is above zero</span></p>
+  <figure class="media"><img src="../../assets/media/nyc-tip-mlops.webp" alt="Operations dashboard with the live model" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Whether to trust the model in production, and when to replace it.</dd></div><div><dt>Who uses it</dt><dd>Data teams that run models in production.</dd></div><div><dt>What an error costs</dt><dd>A model that went stale keeps deciding without anyone knowing.</dd></div><div><dt>How it creates value</dt><dd>Every month a challenger trained on the newest month goes live only if it is shown to be better (95% interval above zero), the API computes features exactly as training does, and data drift is detected (unknown payments from 4% to 13%).</dd></div><div><dt>Risks and limits</dt><dd>The model itself is weak (AUC 0.625); the value is in the engineering around it.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>A model is only useful in production if every step around it can be trusted: repeatable training, a rule for which version is live, features computed the same way in serving, and a signal when the data changes.</p>
+    <h2>Solution</h2>
+    <p>An MLOps system around a classifier that predicts, when a NYC taxi ride ends and before payment, whether the tip will be more than 20%: MLflow tracking and registry, a FastAPI service, Evidently drift reports, a Streamlit operations dashboard, and CI that runs the whole loop including Docker.</p>
+    <h2>How it works</h2>
+    <ul><li>No label leakage: no payment field is used, only what is known when the ride ends, which caps the score honestly.</li>
+<li>Every month CI finds the newest TLC month, trains a challenger and compares it with the champion on the same out-of-time month; it is promoted only if the paired-bootstrap interval of the gain is above zero.</li>
+<li>A test checks that the API computes features exactly as training does.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">0.625 vs 0.615</td><td>AUC of the new and old champion on 500,000 September 2026 trips</td></tr>
+<tr><td class="value">4% → 13%</td><td>drift in the share of unknown payment type, caught from 2024 to 2025</td></tr>
+<tr><td class="value">42</td><td>tests, plus the monthly retrain on real data in CI</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>Tipping is hard to predict from trip data; the project&#x27;s value is the engineering around the model.</p>
+    <h2>Stack</h2>
+    <p>MLflow, FastAPI, Evidently, Docker, Streamlit</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="supply-chain-risk-intelligence.html"><span>Previous</span>Supply chain risk intelligence</a>
+    <a href="nyc-taxi-lakehouse.html"><span>Next</span>NYC taxi lakehouse</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

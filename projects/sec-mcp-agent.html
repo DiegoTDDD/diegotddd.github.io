@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agente MCP sobre a SEC: Diego Alves</title>
+<meta name="description" content="Servidores MCP sobre relatórios da SEC e um modelo de fraude, e um agente cujas citações são conferidas na fonte.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Agente MCP sobre a SEC: Diego Alves">
+<meta property="og:description" content="Servidores MCP sobre relatórios da SEC e um modelo de fraude, e um agente cujas citações são conferidas na fonte.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/sec-mcp-agent.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agente MCP sobre a SEC: Diego Alves">
+<meta name="twitter:description" content="Servidores MCP sobre relatórios da SEC e um modelo de fraude, e um agente cujas citações são conferidas na fonte.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/sec-mcp-agent.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/sec-mcp-agent.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/sec-mcp-agent.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/sec-mcp-agent.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/sec-mcp-agent.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/sec-mcp-agent.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">Todos os projetos</a></p>
+  <h1>Agente MCP sobre a SEC</h1>
+  <p class="lede">Servidores MCP sobre relatórios da SEC e um modelo de fraude, e um agente cujas citações são conferidas na fonte.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/sec-mcp-agent">Código</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/sec-mcp-agent/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/sec-mcp-agent/actions/workflows/tests.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">17 de 22</span><span class="label">perguntas de avaliação aprovadas na oitava rodada medida (7 na primeira); o código confere se cada resposta diz só o que as ferramentas devolveram</span></p>
+  <figure class="media">
+  <video controls muted loop playsinline preload="metadata" data-autoplay
+         poster="../assets/media/sec-mcp-agent-poster.webp" aria-label="Duas respostas gravadas na sexta rodada de avaliação: as chamadas de ferramenta, a resposta e as citações verificadas.">
+    <source src="../assets/media/sec-mcp-agent.mp4" type="video/mp4">
+  </video>
+  <figcaption>Duas respostas gravadas na sexta rodada de avaliação: as chamadas de ferramenta, a resposta e as citações verificadas.</figcaption>
+</figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Responder perguntas sobre relatórios financeiros com fontes que alguém pode conferir.</dd></div><div><dt>Quem usa</dt><dd>Analistas financeiros e de risco que leem relatórios 10-K.</dd></div><div><dt>Quanto custa errar</dt><dd>Uma citação inventada leva a uma decisão baseada num fato que não existe no documento.</dd></div><div><dt>Como gera valor</dt><dd>Cada citação é conferida contra o trecho original antes de a resposta sair. As ferramentas ficam em servidores MCP reutilizáveis, que qualquer agente ou o Claude Desktop pode usar.</dd></div><div><dt>Riscos e limites</dt><dd>18 de 22 perguntas certas na sétima rodada: um modelo pequeno ainda erra perguntas de várias etapas.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Respostas sobre relatórios financeiros só têm valor se cada afirmação puder ser rastreada até a fonte, e modelos pequenos inventam fontes que parecem reais. Além disso, ferramentas costumam ficar presas a um único agente, e nada mais consegue usá-las.</p>
+    <h2>Solução</h2>
+    <p>Dois servidores MCP, um sobre relatórios 10-K com busca BM25 e outro sobre o modelo de fraude, e um agente que responde usando os dois. Cada citação é conferida contra o trecho que diz citar antes de a resposta ser devolvida. Os mesmos servidores funcionam no Claude Desktop.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Uma citação só passa se o trecho citado estiver no documento recuperado, e todo número da resposta precisa aparecer num trecho citado ou no score de fraude, sem veredito contrário ao do modelo.</li>
+<li>Oito rodadas de avaliação num runner de CPU, com cada falha rastreada e corrigida no agente ou nas ferramentas; a avaliação roda de novo toda semana.</li>
+<li>A ferramenta de fraude reaproveita o modelo XGBoost do projeto de fraude em tempo real, num commit fixado.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">17 de 22</td><td>perguntas de avaliação aprovadas na oitava rodada (7 na primeira; 18 na sétima, diferença que é variação entre rodadas)</td></tr>
+<tr><td class="value">21 de 22</td><td>respostas cujos números e veredito de fraude batem com o que as ferramentas devolveram; a sinalizada cita o trecho errado para um número verdadeiro</td></tr>
+<tr><td class="value">71</td><td>testes, incluindo os servidores acessados pelo cliente MCP</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Um modelo de 3B ainda erra algumas perguntas de várias etapas; o conjunto de avaliação é pequeno; a checagem da resposta é léxica, então um número certo ainda pode ficar ao lado do assunto errado.</p>
+    <h2>Stack</h2>
+    <p>MCP Python SDK, Pydantic, Ollama, XGBoost</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="fraud-investigation-agents.html"><span>Anterior</span>Agentes de investigação de fraude</a>
+    <a href="olist-ai-analyst.html"><span>Próximo</span>Analista de dados com IA (Olist)</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

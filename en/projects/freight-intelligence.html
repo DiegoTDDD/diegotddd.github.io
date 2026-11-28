@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LogiNexus freight intelligence: Diego Alves</title>
+<meta name="description" content="Freight analytics for the US and Brazil: a 97.6-million-row pipeline, forecasting, optimization and routing.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="LogiNexus freight intelligence: Diego Alves">
+<meta property="og:description" content="Freight analytics for the US and Brazil: a 97.6-million-row pipeline, forecasting, optimization and routing.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/freight-intelligence.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LogiNexus freight intelligence: Diego Alves">
+<meta name="twitter:description" content="Freight analytics for the US and Brazil: a 97.6-million-row pipeline, forecasting, optimization and routing.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/freight-intelligence.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/freight-intelligence.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/freight-intelligence.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/freight-intelligence.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/freight-intelligence.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">All projects</a></p>
+  <h1>LogiNexus freight intelligence</h1>
+  <p class="lede">Freight analytics for the US and Brazil: a 97.6-million-row pipeline, forecasting, optimization and routing.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/freight-intelligence">Code</a><a href="https://loginexus-dashboard-preview.onrender.com/">Live demo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/freight-intelligence/actions/workflows/ci_pipeline.yml"><img src="https://github.com/DiegoTDDD/freight-intelligence/actions/workflows/ci_pipeline.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">97.6M</span><span class="label">rows through the medallion pipeline</span></p>
+  <figure class="media"><img src="../../assets/media/freight-intelligence.webp" alt="Freight analytics overview in the dashboard" loading="lazy"></figure>
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Where, by which mode and on which route to ship, and what volume to expect.</dd></div><div><dt>Who uses it</dt><dd>Logistics planning, freight sales and transport operations.</dd></div><div><dt>What an error costs</dt><dd>A wrong forecast means idle capacity or shortage; a route that ignores truck limits means fines and delays.</dd></div><div><dt>How it creates value</dt><dd>Brings US and Brazilian sources into a trusted 97.6-million-row history, with forecasts tested on held-out years, allocation optimization and truck-aware routing.</dd></div><div><dt>Risks and limits</dt><dd>The free demo takes time to wake up; forecasts are evaluated baselines, not volume promises.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>Freight planning needs volumes by corridor and mode, forecasts that hold up on years they were not trained on, and allocations that respect capacity, from sources with different units and gaps.</p>
+    <h2>Solution</h2>
+    <p>A medallion pipeline over the US Freight Analysis Framework and Brazilian rail, road, water, air and pipeline sources, evaluated forecasting baselines, a transport optimizer, truck-aware routing and a documented read-only API.</p>
+    <h2>How it works</h2>
+    <ul><li>Bronze, Silver and Gold layers with staged file replacement and source hashes.</li>
+<li>Forecasts evaluated with expanding windows and reserved test years.</li>
+<li>Routing with separate car and truck engines that respect dimensions and weight.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">97.6M</td><td>rows processed from source CSV to Gold</td></tr>
+<tr><td class="value">5</td><td>Brazilian transport modes with observed histories</td></tr>
+<tr><td class="value">510</td><td>observed cabotage port pairs, all 98 reviewed origins</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>The free demo host sleeps after 15 minutes; the first visit can take about a minute.</p>
+    <h2>Stack</h2>
+    <p>Python, Polars, DuckDB, FastAPI, Docker</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="sec-filings-rag.html"><span>Previous</span>SEC filings RAG</a>
+    <a href="realtime-fraud-detection-ml.html"><span>Next</span>Real-time fraud detection</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

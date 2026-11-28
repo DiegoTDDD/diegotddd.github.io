@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Olist cloud warehouse: Diego Alves</title>
+<meta name="description" content="A BigQuery warehouse fed by a daily change feed, with incremental dbt models, freshness alerts, Terraform and keyless CI.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Olist cloud warehouse: Diego Alves">
+<meta property="og:description" content="A BigQuery warehouse fed by a daily change feed, with incremental dbt models, freshness alerts, Terraform and keyless CI.">
+<meta property="og:url" content="https://diegoalves.vercel.app/en/projects/olist-cloud-warehouse.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Olist cloud warehouse: Diego Alves">
+<meta name="twitter:description" content="A BigQuery warehouse fed by a daily change feed, with incremental dbt models, freshness alerts, Terraform and keyless CI.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/en/projects/olist-cloud-warehouse.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/olist-cloud-warehouse.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/olist-cloud-warehouse.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/olist-cloud-warehouse.html">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projects</a>
+    <a href="../books.html">Books</a>
+    <a href="../index.html#skills">Skills</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="lang" data-lang="pt" href="../../projects/olist-cloud-warehouse.html" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">Português</a>
+    <button class="theme" type="button" aria-label="Switch light and dark theme" title="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">All projects</a></p>
+  <h1>Olist cloud warehouse</h1>
+  <p class="lede">A BigQuery warehouse fed by a daily change feed, with incremental dbt models, freshness alerts, Terraform and keyless CI.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/olist-cloud-warehouse">Code</a><a href="https://diegotddd.github.io/olist-cloud-warehouse/">Project page</a><a href="https://diegotddd.github.io/olist-cloud-warehouse/dbt/">dbt docs</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/olist-cloud-warehouse/actions/workflows/deploy.yml"><img src="https://github.com/DiegoTDDD/olist-cloud-warehouse/actions/workflows/deploy.yml/badge.svg" alt="CI status" height="20"></a>
+  <div class="view" role="group" aria-label="View"><button type="button" data-view="tech" aria-pressed="true">Technical</button><button type="button" data-view="manager" aria-pressed="false">Manager</button></div>
+  <p class="measure measure-lg"><span class="value">0</span><span class="label">rows of difference between the daily incremental build and a full rebuild, checked on every pull request</span></p>
+  
+  <section class="biz" aria-label="Manager"><dl class="biz-list"><div><dt>Decision it supports</dt><dd>Where to invest in logistics, with numbers from a warehouse the team can trust and whose cost is known.</dd></div><div><dt>Who uses it</dt><dd>Analysts and managers who query the marts; the data team that runs the platform.</dd></div><div><dt>What an error costs</dt><dd>A table that changes shape or a wrong number reaches the dashboard; a leaked cloud key opens everything.</dd></div><div><dt>How it creates value</dt><dd>Data arrives every day and only what changed is reprocessed; every change is tested in BigQuery before it ships, with no key stored anywhere. The decision report shows the rating falls with each day of delay for about six days (4.03 to 1.81) and then flattens: money should go to avoiding short delays, not shortening long ones.</dd></div><div><dt>Risks and limits</dt><dd>The daily feed replays real events rather than a live system; correlation in observational data.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problem</h2>
+    <p>A warehouse is trusted only if its tables keep their shape, every change is tested before it reaches analysts, nobody holds a long-lived cloud key, and someone knows what each query costs.</p>
+    <h2>Solution</h2>
+    <p>The Olist marketplace data in BigQuery (Sao Paulo region), arriving the way production data does: a daily change feed in which orders are bought, shipped, delivered and reviewed on different days. The fact tables update incrementally, freshness is monitored and failures open an alert. Infrastructure in Terraform, dbt contracts on every table, and GitHub Actions that authenticate through Workload Identity Federation as two least-privilege service accounts.</p>
+    <h2>How it works</h2>
+    <ul><li>The 2016-2018 history is replayed one day per real day; each batch replaces its own raw partition, so reruns and catch-ups after an outage are idempotent.</li>
+<li>The fact tables rebuild only the purchase months with a changed order and swap them in with copy jobs, since the sandbox has no MERGE.</li>
+<li>Every pull request replays 31 days in throwaway datasets, builds incrementally and from scratch, and fails unless both hold the same rows.</li>
+<li>Freshness is checked after every deploy and every six hours; a failure opens a GitHub issue, and a runbook says what to do.</li>
+<li>Terraform creates the datasets, two service accounts, the federation trust and a one-permission custom role.</li></ul>
+    <h2>Results</h2>
+    <table class="results"><caption>Measured results, from the repository</caption>
+    <tbody><tr><td class="value">1 day</td><td>of new data per real day, loaded idempotently, with catch-up after an outage</td></tr>
+<tr><td class="value">80%+</td><td>fewer bytes read by a one-month question on the partitioned fact table, measured every deploy</td></tr>
+<tr><td class="value">0</td><td>service account keys: CI uses one-hour tokens from GitHub&#x27;s OIDC identity</td></tr></tbody></table>
+    <h2>Limits</h2>
+<p>The change feed replays real events rather than a live system, and the data is about 100,000 orders. The BigQuery sandbox has no Cloud Storage, so Terraform state stays in Cloud Shell and is applied by hand.</p>
+    <h2>Stack</h2>
+    <p>BigQuery, Terraform, dbt, Workload Identity Federation, GitHub Actions</p>
+  </div>
+  <nav class="pager" aria-label="Projects">
+    <a href="nyc-taxi-lakehouse.html"><span>Previous</span>NYC taxi lakehouse</a>
+    <a href="olist-analytics.html"><span>Next</span>Olist e-commerce analytics</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>The numbers on this site come from each project's repository, where the code that produced them runs in CI, and, for the team projects, from the final report delivered to UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Source of this site</a>.</p>
+</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LogiNexus: inteligência de fretes: Diego Alves</title>
+<meta name="description" content="Análise de fretes para EUA e Brasil: pipeline de 97,6 milhões de linhas, previsão, otimização e roteirização.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="LogiNexus: inteligência de fretes: Diego Alves">
+<meta property="og:description" content="Análise de fretes para EUA e Brasil: pipeline de 97,6 milhões de linhas, previsão, otimização e roteirização.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/freight-intelligence.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LogiNexus: inteligência de fretes: Diego Alves">
+<meta name="twitter:description" content="Análise de fretes para EUA e Brasil: pipeline de 97,6 milhões de linhas, previsão, otimização e roteirização.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/freight-intelligence.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/freight-intelligence.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/freight-intelligence.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/freight-intelligence.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/freight-intelligence.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/freight-intelligence.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#data">Todos os projetos</a></p>
+  <h1>LogiNexus: inteligência de fretes</h1>
+  <p class="lede">Análise de fretes para EUA e Brasil: pipeline de 97,6 milhões de linhas, previsão, otimização e roteirização.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/freight-intelligence">Código</a><a href="https://loginexus-dashboard-preview.onrender.com/">Demo ao vivo</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/freight-intelligence/actions/workflows/ci_pipeline.yml"><img src="https://github.com/DiegoTDDD/freight-intelligence/actions/workflows/ci_pipeline.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">97,6M</span><span class="label">de linhas processadas pelo pipeline medallion</span></p>
+  <figure class="media"><img src="../assets/media/freight-intelligence.webp" alt="Visão geral da análise de fretes no painel" loading="lazy"></figure>
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Onde, por qual modal e por qual rota mandar carga, e quanto volume esperar.</dd></div><div><dt>Quem usa</dt><dd>Planejamento logístico, comercial de fretes e operação de transporte.</dd></div><div><dt>Quanto custa errar</dt><dd>Previsão errada gera capacidade ociosa ou falta; rota sem restrição de caminhão gera multa e atraso.</dd></div><div><dt>Como gera valor</dt><dd>Junta fontes dos EUA e do Brasil num histórico confiável de 97,6 milhões de linhas, com previsão testada em anos reservados, otimização de alocação e roteirização para caminhões.</dd></div><div><dt>Riscos e limites</dt><dd>A demo gratuita demora para acordar; previsões são linhas de base avaliadas, não promessas de volume.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Planejar fretes exige volumes por corredor e modal, previsões que se sustentam em anos fora do treino e alocações que respeitam capacidade, a partir de fontes com unidades diferentes e lacunas.</p>
+    <h2>Solução</h2>
+    <p>Um pipeline medallion sobre o Freight Analysis Framework dos EUA e fontes brasileiras de ferrovia, rodovia, hidrovia, aéreo e dutos, linhas de base de previsão avaliadas, um otimizador de transporte, roteirização para caminhões e uma API somente leitura documentada.</p>
+    <h2>Como funciona</h2>
+    <ul><li>Camadas Bronze, Silver e Gold com troca de arquivos em etapas e hashes das fontes.</li>
+<li>Previsões avaliadas com janelas expansivas e anos de teste reservados.</li>
+<li>Roteirização com motores separados para carro e caminhão, respeitando dimensões e peso.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">97,6M</td><td>de linhas processadas do CSV de origem até a camada Gold</td></tr>
+<tr><td class="value">5</td><td>modais de transporte brasileiros com histórico observado</td></tr>
+<tr><td class="value">510</td><td>pares de portos de cabotagem observados, todas as 98 origens revisadas</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>O host gratuito da demo dorme após 15 minutos; o primeiro acesso pode levar cerca de um minuto.</p>
+    <h2>Stack</h2>
+    <p>Python, Polars, DuckDB, FastAPI, Docker</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="sec-filings-rag.html"><span>Anterior</span>RAG sobre relatórios da SEC</a>
+    <a href="realtime-fraud-detection-ml.html"><span>Próximo</span>Detecção de fraude em tempo real</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

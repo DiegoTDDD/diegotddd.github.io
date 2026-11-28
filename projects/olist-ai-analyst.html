@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analista de dados com IA (Olist): Diego Alves</title>
+<meta name="description" content="Um analista com modelo local que transforma uma pergunta de negócio num memo de decisão, com código conferindo o SQL e cada número.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Analista de dados com IA (Olist): Diego Alves">
+<meta property="og:description" content="Um analista com modelo local que transforma uma pergunta de negócio num memo de decisão, com código conferindo o SQL e cada número.">
+<meta property="og:url" content="https://diegoalves.vercel.app/projects/olist-ai-analyst.html">
+<meta property="og:image" content="https://diegoalves.vercel.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Analista de dados com IA (Olist): Diego Alves">
+<meta name="twitter:description" content="Um analista com modelo local que transforma uma pergunta de negócio num memo de decisão, com código conferindo o SQL e cada número.">
+<meta name="twitter:image" content="https://diegoalves.vercel.app/assets/og.png">
+<link rel="canonical" href="https://diegoalves.vercel.app/projects/olist-ai-analyst.html">
+<link rel="alternate" hreflang="pt-BR" href="https://diegoalves.vercel.app/projects/olist-ai-analyst.html">
+<link rel="alternate" hreflang="en" href="https://diegoalves.vercel.app/en/projects/olist-ai-analyst.html">
+<link rel="alternate" hreflang="x-default" href="https://diegoalves.vercel.app/projects/olist-ai-analyst.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var c=localStorage.getItem('lang');if(c!=='pt'&&(c==='en'||!/^pt/i.test(navigator.language||'pt'))&&!/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent))location.replace('../en/projects/olist-ai-analyst.html'+location.hash)}catch(e){}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top">
+  <a class="wordmark" href="../index.html">Diego Alves</a>
+  <nav aria-label="Site">
+    <a href="../index.html#projects">Projetos</a>
+    <a href="../books.html">Livros</a>
+    <a href="../index.html#skills">Habilidades</a>
+    <a href="../index.html#contact">Contato</a>
+    <a class="lang" data-lang="en" href="../en/projects/olist-ai-analyst.html" hreflang="en" lang="en" aria-label="Read in English">English</a>
+    <button class="theme" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+  </nav>
+</header>
+<main id="main">
+<article class="case" data-view="tech">
+  <p class="back"><a href="../index.html#ai">Todos os projetos</a></p>
+  <h1>Analista de dados com IA (Olist)</h1>
+  <p class="lede">Um analista com modelo local que transforma uma pergunta de negócio num memo de decisão, com código conferindo o SQL e cada número.</p>
+  
+  <p class="links"><a href="https://github.com/DiegoTDDD/olist-ai-analyst">Código</a><a href="https://github.com/DiegoTDDD/olist-ai-analyst/blob/main/eval/results.md">Resultados da avaliação</a></p>
+  <a class="ci" href="https://github.com/DiegoTDDD/olist-ai-analyst/actions/workflows/tests.yml"><img src="https://github.com/DiegoTDDD/olist-ai-analyst/actions/workflows/tests.yml/badge.svg" alt="Status do CI" height="20"></a>
+  <div class="view" role="group" aria-label="Visão"><button type="button" data-view="tech" aria-pressed="true">Técnica</button><button type="button" data-view="manager" aria-pressed="false">Gestor</button></div>
+  <p class="measure measure-lg"><span class="value">72%</span><span class="label">de 25 perguntas de negócio respondidas com o mesmo resultado do SQL de referência escrito à mão</span></p>
+  
+  <section class="biz" aria-label="Gestor"><dl class="biz-list"><div><dt>Decisão que apoia</dt><dd>Qualquer decisão que dependa de um número da operação: onde investir, o que cortar, o que priorizar.</dd></div><div><dt>Quem usa</dt><dd>Gestores e áreas de negócio que hoje esperam o time de dados para cada pergunta.</dd></div><div><dt>Quanto custa errar</dt><dd>Um número errado num memo bem escrito leva a uma decisão errada com cara de certa.</dd></div><div><dt>Como gera valor</dt><dd>A pergunta vira memo em cerca de meio minuto, com o SQL e as linhas que sustentam a resposta. Quando o modelo escreve um número que não está no resultado, o memo sai marcado como não verificado em vez de parecer confiável.</dd></div><div><dt>Riscos e limites</dt><dd>Acerta 68% das perguntas da avaliação; serve como primeiro rascunho para um analista revisar, não como resposta final.</dd></div></dl></section>
+  <div class="prose">
+    <h2>Problema</h2>
+    <p>Um modelo escrevendo SQL erra de jeitos que parecem certos: uma consulta que roda mas filtra as linhas erradas, ou um memo que cita um número que a consulta nunca produziu. A resposta de um analista só vale se quem decide puder confiar nela.</p>
+    <h2>Solução</h2>
+    <p>Um analista sobre os dados reais do marketplace Olist (99.441 pedidos) que segue os cinco passos dos livros Data-Driven Decisions: nomear a decisão, confiar no dado, mostrar o trabalho, ler a tendência e fazer durar. O modelo escreve o SQL e o memo; o código confere o SQL, roda em modo só leitura, lê a tendência e exige que cada número do memo exista no resultado.</p>
+    <h2>Como funciona</h2>
+    <ul><li>O próprio parser do DuckDB só aceita um SELECT sobre três tabelas de análise, numa conexão só leitura, sem acesso a arquivos ou rede.</li>
+<li>Erros voltam para o modelo, até três tentativas; um memo com número fora do resultado ganha uma reescrita e depois é marcado como não verificado.</li>
+<li>A tendência é lida pelo código, numa reta ajustada sobre meses completos, nunca descrita pelo modelo.</li>
+<li>Uma avaliação com SQL de referência roda toda semana com Ollama num runner de CPU gratuito e publica os resultados.</li></ul>
+    <h2>Resultados</h2>
+    <table class="results"><caption>Resultados medidos, do repositório</caption>
+    <tbody><tr><td class="value">72%</td><td>de acerto na execução em 25 perguntas com qwen2.5-coder 7B na quarta rodada medida (68% na terceira; o ganho é um empate de arredondamento)</td></tr>
+<tr><td class="value">100%</td><td>dos memos com todos os números encontrados no resultado, ao lado da própria linha quando o memo a nomeia</td></tr>
+<tr><td class="value">100%</td><td>de SQL válido depois das novas tentativas com a mensagem de erro (88% na primeira)</td></tr></tbody></table>
+    <h2>Limites</h2>
+<p>Um número ligado a uma linha nomeada precisa ser o valor dessa linha, mas frases mais soltas não são julgadas; as perguntas são poucas e foram escritas pela mesma pessoa que fez o pipeline.</p>
+    <h2>Stack</h2>
+    <p>DuckDB, Ollama, Qwen2.5-Coder, GitHub Actions</p>
+  </div>
+  <nav class="pager" aria-label="Projetos">
+    <a href="sec-mcp-agent.html"><span>Anterior</span>Agente MCP sobre a SEC</a>
+    <a href="llm-guardrails-redteam.html"><span>Próximo</span>Guardrails e red team para LLMs</a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p>Os números deste site vêm do repositório de cada projeto, onde o código que os produziu roda no CI, e, nos projetos em equipe, do relatório final entregue à UNIVESP. <a href="https://github.com/DiegoTDDD/diegotddd.github.io">Código deste site</a>.</p>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
