@@ -8,7 +8,7 @@ PT = {
     "fraud-investigation-agents": {
         "name": "Agentes de investigação de fraude",
         "line": "Uma equipe de agentes que investiga alertas de fraude em cartão e tem os relatórios conferidos contra as evidências.",
-        "headline": ("77%", "dos padrões de fraude identificados corretamente, contra 47% com uma única chamada ao modelo"),
+        "headline": ("83%", "dos padrões de fraude identificados corretamente, contra 40% com uma única chamada ao modelo"),
         "problem": "Agentes que investigam alertas de fraude são fáceis de demonstrar e difíceis de confiar: podem apontar "
         "um padrão que os dados não mostram, pular uma checagem ou liberar uma compra fraudulenta com um texto convincente.",
         "solution": "Uma equipe em LangGraph. Um planejador escolhe as checagens, um pesquisador as executa por dois "
@@ -21,19 +21,19 @@ PT = {
             "Medido em 30 alertas com resposta conhecida, contra o modelo de fraude sozinho, regras simples e uma única chamada ao LLM.",
         ],
         "results": [
-            ("77%", "de acerto no padrão de fraude, contra 47% com uma única chamada ao LLM"),
-            ("6 de 7", "compras legítimas liberadas, contra 2 de 7 na primeira rodada de avaliação"),
-            ("83%", "de acerto no veredito (fraude ou legítima) nos 30 alertas"),
+            ("83%", "de acerto no padrão de fraude, contra 40% com uma única chamada ao LLM"),
+            ("27 de 30", "resumos finais que dizem só o que as evidências mostram, contra 50% com uma única chamada"),
+            ("7 de 7", "compras legítimas liberadas, contra 2 de 7 na primeira rodada de avaliação"),
         ],
-        "limits": "Os dados são sintéticos. O crítico confere veredito, tipo de fraude e evidências citadas, mas não o "
-        "resumo em texto livre, que ainda pode descrever mal as evidências.",
-        "video_caption": "Uma investigação real gravada na avaliação: o crítico rejeita o primeiro relatório citando a "
+        "limits": "Os dados são sintéticos. As checagens do crítico sobre o resumo são léxicas, e três relatórios "
+        "continuaram rejeitados porque o relator de 3B não conseguiu escrever um resumo aceito.",
+        "video_caption": "Uma investigação real gravada na rodada 2 da avaliação: o crítico rejeita o primeiro relatório citando a "
         "regra quebrada, a segunda rodada acerta, e o resultado nos 30 alertas.",
     },
     "sec-mcp-agent": {
         "name": "Agente MCP sobre a SEC",
         "line": "Servidores MCP sobre relatórios da SEC e um modelo de fraude, e um agente cujas citações são conferidas na fonte.",
-        "headline": ("18 de 22", "perguntas de avaliação aprovadas na sétima rodada medida, partindo de 7 na primeira"),
+        "headline": ("17 de 22", "perguntas de avaliação aprovadas na oitava rodada medida (7 na primeira); o código confere se cada resposta diz só o que as ferramentas devolveram"),
         "problem": "Respostas sobre relatórios financeiros só têm valor se cada afirmação puder ser rastreada até a fonte, "
         "e modelos pequenos inventam fontes que parecem reais. Além disso, ferramentas costumam ficar presas a um único "
         "agente, e nada mais consegue usá-las.",
@@ -41,22 +41,22 @@ PT = {
         "agente que responde usando os dois. Cada citação é conferida contra o trecho que diz citar antes de a resposta "
         "ser devolvida. Os mesmos servidores funcionam no Claude Desktop.",
         "how": [
-            "Uma citação só passa se o trecho citado estiver no documento recuperado.",
-            "Sete rodadas de avaliação num runner de CPU, com cada falha rastreada e corrigida no agente ou nas ferramentas; a avaliação roda de novo toda semana.",
+            "Uma citação só passa se o trecho citado estiver no documento recuperado, e todo número da resposta precisa aparecer num trecho citado ou no score de fraude, sem veredito contrário ao do modelo.",
+            "Oito rodadas de avaliação num runner de CPU, com cada falha rastreada e corrigida no agente ou nas ferramentas; a avaliação roda de novo toda semana.",
             "A ferramenta de fraude reaproveita o modelo XGBoost do projeto de fraude em tempo real, num commit fixado.",
         ],
         "results": [
-            ("18 de 22", "perguntas de avaliação aprovadas na sétima rodada (7 na primeira)"),
-            ("64", "testes, incluindo os servidores acessados pelo cliente MCP"),
-            ("7", "rodadas de avaliação medidas, com cada falha rastreada e corrigida"),
+            ("17 de 22", "perguntas de avaliação aprovadas na oitava rodada (7 na primeira; 18 na sétima, diferença que é variação entre rodadas)"),
+            ("21 de 22", "respostas cujos números e veredito de fraude batem com o que as ferramentas devolveram; a sinalizada cita o trecho errado para um número verdadeiro"),
+            ("71", "testes, incluindo os servidores acessados pelo cliente MCP"),
         ],
-        "limits": "Um modelo de 3B ainda erra algumas perguntas de várias etapas; o conjunto de avaliação é pequeno.",
+        "limits": "Um modelo de 3B ainda erra algumas perguntas de várias etapas; o conjunto de avaliação é pequeno; a checagem da resposta é léxica, então um número certo ainda pode ficar ao lado do assunto errado.",
         "video_caption": "Duas respostas gravadas na sexta rodada de avaliação: as chamadas de ferramenta, a resposta e as citações verificadas.",
     },
     "olist-ai-analyst": {
         "name": "Analista de dados com IA (Olist)",
         "line": "Um analista com modelo local que transforma uma pergunta de negócio num memo de decisão, com código conferindo o SQL e cada número.",
-        "headline": ("68%", "de 25 perguntas de negócio respondidas com o mesmo resultado do SQL de referência escrito à mão"),
+        "headline": ("72%", "de 25 perguntas de negócio respondidas com o mesmo resultado do SQL de referência escrito à mão"),
         "problem": "Um modelo escrevendo SQL erra de jeitos que parecem certos: uma consulta que roda mas filtra as "
         "linhas erradas, ou um memo que cita um número que a consulta nunca produziu. A resposta de um analista só "
         "vale se quem decide puder confiar nela.",
@@ -71,12 +71,12 @@ PT = {
             "Uma avaliação com SQL de referência roda toda semana com Ollama num runner de CPU gratuito e publica os resultados.",
         ],
         "results": [
-            ("68%", "de acerto na execução em 25 perguntas com qwen2.5-coder 7B, na terceira de três rodadas medidas"),
-            ("92%", "dos memos com todos os números encontrados no resultado; os outros saem marcados como não verificados"),
+            ("72%", "de acerto na execução em 25 perguntas com qwen2.5-coder 7B na quarta rodada medida (68% na terceira; o ganho é um empate de arredondamento)"),
+            ("100%", "dos memos com todos os números encontrados no resultado, ao lado da própria linha quando o memo a nomeia"),
             ("100%", "de SQL válido depois das novas tentativas com a mensagem de erro (88% na primeira)"),
         ],
-        "limits": "A checagem prova que o número existe no resultado, não que a frase o liga à linha certa; as "
-        "perguntas são poucas e foram escritas pela mesma pessoa que fez o pipeline.",
+        "limits": "Um número ligado a uma linha nomeada precisa ser o valor dessa linha, mas frases mais soltas não são "
+        "julgadas; as perguntas são poucas e foram escritas pela mesma pessoa que fez o pipeline.",
         "extra_links": [("Resultados da avaliação", "https://github.com/DiegoTDDD/olist-ai-analyst/blob/main/eval/results.md")],
     },
     "llm-guardrails-redteam": {
@@ -143,7 +143,7 @@ PT = {
             "Custo de uma VM do tamanho do runner contra o preço de tabela das APIs, com o tamanho de prompt medido.",
         ],
         "results": [
-            ("0,82", "de F1 em 4 bits (398 MB), contra 0,65 do Qwen2.5-3B com seis exemplos e 0,19 antes do ajuste"),
+            ("0,82", "de F1 em 4 bits (398 MB), contra 0,65 do Qwen2.5-3B com seis exemplos (ganho de +0,16, intervalo de 95% por bootstrap pareado de +0,10 a +0,23) e 0,19 antes do ajuste"),
             ("3,7×", "as requisições por segundo do modelo de 3B na mesma CPU (1,60 contra 0,43)"),
             ("US$ 35", "por milhão de requisições auto-hospedado em carga total; o Claude Haiku 5.5 a preço de tabela custaria de US$ 45 a US$ 91"),
         ],

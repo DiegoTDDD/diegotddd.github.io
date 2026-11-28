@@ -19,7 +19,7 @@ PROJECTS = [
         "group": AI,
         "name": "Fraud investigation agents",
         "line": "A team of agents that investigates card-fraud alerts and has its reports checked against the evidence.",
-        "headline": ("77%", "fraud patterns named correctly, up from 47% for a single model call"),
+        "headline": ("83%", "fraud patterns named correctly, against 40% for a single model call"),
         "problem": "Agents that investigate fraud alerts are easy to demo and hard to trust: they can name a "
         "pattern the data does not show, skip a check, or clear a fraudulent purchase in confident prose.",
         "solution": "A LangGraph team. A planner chooses which checks to run, a researcher runs them through "
@@ -32,15 +32,15 @@ PROJECTS = [
             "Measured on 30 alerts with known answers against the fraud model alone, plain rules and a single LLM call.",
         ],
         "results": [
-            ("77%", "fraud pattern right, against 47% for a single LLM call"),
-            ("6 of 7", "legitimate purchases cleared, against 2 of 7 in the first evaluation run"),
-            ("83%", "verdict right (fraud or legitimate) on all 30 alerts"),
+            ("83%", "fraud pattern right, against 40% for a single LLM call"),
+            ("27 of 30", "final summaries that state only what the evidence shows, against 50% for a single call"),
+            ("7 of 7", "legitimate purchases cleared, against 2 of 7 in the first evaluation run"),
         ],
-        "limits": "The data is synthetic. The critic checks the verdict, fraud type and cited evidence, not "
-        "the free-text summary, which can still misstate the evidence.",
+        "limits": "The data is synthetic. The critic's checks on the summary are lexical, and three reports "
+        "stayed rejected because the 3B reporter could not write a summary it accepts.",
         "stack": ["LangGraph", "MCP", "Ollama", "XGBoost", "pytest"],
         "video": "fraud-investigation-agents",
-        "video_caption": "A real investigation recorded in the evaluation: the critic rejects the first report "
+        "video_caption": "A real investigation recorded in evaluation run 2: the critic rejects the first report "
         "with the rule it breaks, the second round gets it right, and the result across all 30 alerts.",
     },
     {
@@ -48,7 +48,7 @@ PROJECTS = [
         "group": AI,
         "name": "SEC MCP agent",
         "line": "MCP servers over SEC filings and a fraud model, and an agent whose citations are checked against the source.",
-        "headline": ("18 of 22", "evaluation questions passed in the seventh measured run, up from 7 in the first"),
+        "headline": ("17 of 22", "evaluation questions passed in the eighth measured run (7 in the first); code checks each answer says only what the tools returned"),
         "problem": "Answers about filings are only useful if every claim can be traced to the source, and small "
         "models invent sources that look real. Tools are also usually wired into one agent, so nothing else "
         "can use them.",
@@ -56,16 +56,16 @@ PROJECTS = [
         "a tool-calling agent that answers from them. Every citation is checked against the passage it "
         "claims to quote before the answer is returned. The same servers plug into Claude Desktop.",
         "how": [
-            "A citation passes only if its quote is found in the retrieved passage.",
-            "Seven evaluation runs on a CPU runner, each failure traced and fixed in the agent or the tools; the evaluation reruns every week.",
+            "A citation passes only if its quote is found in the retrieved passage, and every number in the answer must appear in a cited passage or the fraud score, with no verdict stated against the model's.",
+            "Eight evaluation runs on a CPU runner, each failure traced and fixed in the agent or the tools; the evaluation reruns every week.",
             "The fraud tool reuses the XGBoost model from the real-time fraud project at a pinned commit.",
         ],
         "results": [
-            ("18 of 22", "evaluation questions passed in the seventh run (7 in the first)"),
-            ("64", "tests, including the servers through the MCP client"),
-            ("7", "measured evaluation runs, each failure traced to the agent or the tools and fixed"),
+            ("17 of 22", "evaluation questions passed in the eighth run (7 in the first; 18 in the seventh, the difference is run-to-run variance)"),
+            ("21 of 22", "answers whose numbers and fraud verdict match what the tools returned; the one flagged cites the wrong passage for a true number"),
+            ("71", "tests, including the servers through the MCP client"),
         ],
-        "limits": "A 3B model still misses some multi-step questions; the evaluation set is small.",
+        "limits": "A 3B model still misses some multi-step questions; the evaluation set is small; the answer check is lexical, so a right number can still sit next to the wrong subject.",
         "stack": ["MCP Python SDK", "Pydantic", "Ollama", "XGBoost"],
         "video": "sec-mcp-agent",
         "video_caption": "Two answers recorded in the sixth evaluation run: the tool calls, the answer and its verified citations.",
@@ -75,7 +75,7 @@ PROJECTS = [
         "group": AI,
         "name": "Olist AI analyst",
         "line": "A local-model analyst that turns a business question into a decision memo, with code checking the SQL and every number.",
-        "headline": ("68%", "of 25 business questions answered with the same result as hand-written reference SQL"),
+        "headline": ("72%", "of 25 business questions answered with the same result as hand-written reference SQL"),
         "problem": "A model writing SQL fails in ways that look right: a query that runs but filters the wrong "
         "rows, or a memo that quotes a number the query never produced. An analyst's answer is only worth "
         "something if the decision maker can trust it.",
@@ -90,12 +90,12 @@ PROJECTS = [
             "An evaluation with reference SQL runs weekly with Ollama on a free CPU runner and commits its results.",
         ],
         "results": [
-            ("68%", "execution accuracy on 25 questions with qwen2.5-coder 7B, in the third of three measured runs"),
-            ("92%", "of memos with every number found in the query result; the others are marked unverified"),
+            ("72%", "execution accuracy on 25 questions with qwen2.5-coder 7B in the fourth measured run (68% in the third; the gain is one rounding tie)"),
+            ("100%", "of memos with every number found in the query result, next to its own row where the memo names one"),
             ("100%", "valid SQL after retries with the error message (88% on the first try)"),
         ],
-        "limits": "The number check proves a number exists in the result, not that the sentence attaches it to "
-        "the right row; the questions are few and were written by the same person as the pipeline.",
+        "limits": "A number tied to a named row must be that row's value, but looser wording is not judged; the "
+        "questions are few and were written by the same person as the pipeline.",
         "stack": ["DuckDB", "Ollama", "Qwen2.5-Coder", "GitHub Actions"],
         "extra_links": [("Evaluation results", "https://github.com/DiegoTDDD/olist-ai-analyst/blob/main/eval/results.md")],
     },
@@ -171,7 +171,7 @@ PROJECTS = [
             "Cost from a VM the runner's size against API list prices with the measured prompt sizes.",
         ],
         "results": [
-            ("0.82", "fact F1 at 4 bits (398 MB), against 0.65 for Qwen2.5-3B with six examples and 0.19 before fine-tuning"),
+            ("0.82", "fact F1 at 4 bits (398 MB), against 0.65 for Qwen2.5-3B with six examples (gain +0.16, 95% paired-bootstrap interval +0.10 to +0.23) and 0.19 before fine-tuning"),
             ("3.7×", "the requests per second of the 3B model on the same CPU (1.60 against 0.43)"),
             ("$35", "per million requests self-hosted at full load; Claude Haiku 5.5 at list price would cost $45 to $91"),
         ],
