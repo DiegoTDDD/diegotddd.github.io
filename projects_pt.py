@@ -168,7 +168,7 @@ PT = {
         ],
         "results": [
             ("32,0", "de perplexidade de validação (837 na linha de base unigrama)"),
-            ("5,0×", "mais rápido na geração com KV cache em 224 tokens novos, conferido token a token"),
+            ("5–9×", "mais rápido na geração com KV cache em 224 tokens novos (de 4,97× a 9,19× nas rodadas do benchmark, conforme a CPU do runner), conferido token a token"),
             ("13M", "de caracteres de texto de 10-K no conjunto de treino"),
         ],
         "limits": "Um modelo pequeno treinado numa CPU: aprende o estilo dos relatórios, não fatos.",

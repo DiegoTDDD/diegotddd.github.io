@@ -199,7 +199,7 @@ PROJECTS = [
         ],
         "results": [
             ("32.0", "validation perplexity (837 for a unigram baseline)"),
-            ("5.0×", "faster generation with the KV cache at 224 new tokens, checked token for token"),
+            ("5–9×", "faster generation with the KV cache at 224 new tokens (4.97× to 9.19× across benchmark runs, depending on the runner's CPU), checked token for token"),
             ("13M", "characters of 10-K text in the training set"),
         ],
         "limits": "A small model trained on one CPU: it learns the style of filings, not facts.",
